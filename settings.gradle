@@ -1,1 +1,6 @@
-rootProject.name = 'esc_server'
+rootProject.name = 'esc_tool'
+
+include 'server', 'client'
+
+project(":client").name = 'esc_client'
+project(":server").name = 'esc_server'
