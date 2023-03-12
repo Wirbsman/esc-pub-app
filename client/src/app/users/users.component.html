@@ -1,5 +1,5 @@
-<h2>Usermanagement</h2>
-<ul class="country">
+<h2>Benutzerverwaltung</h2>
+<!--ul class="country">
   <li *ngFor="let user of users1">
     <div>
       <span class="name">{{user.icon}}</span>
@@ -8,4 +8,18 @@
     </div>
   </li>
 </ul>
-<button>Speichern</button>
+<button>Speichern</button-->
+
+<mat-list class="heroes">
+  <mat-list-item *ngFor="let user of users">
+    <p matListItemLine>
+      <img src="{{imagePath + user.icon}}" alt="Icon">
+      <span>Name: {{user.name}} </span>
+      <label>Admin:</label>
+      <input type="checkbox" id="admin" [(ngModel)]="user.admin" disabled>
+    </p>
+  </mat-list-item>
+  <button mat-list-item (click)="save()">Save</button>
+</mat-list>
+
+
