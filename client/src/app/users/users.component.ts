@@ -14,6 +14,8 @@ export class UsersComponent {
 
   users1 = TEST_USERS;
 
+  imagePath = "assets/images/flags20/";
+
   constructor(private escService: EscService) {}
 
   getUsers(): void {
@@ -22,5 +24,14 @@ export class UsersComponent {
 
   ngOnInit(): void {
     this.getUsers();
+  }
+
+
+  save() {
+
+  }
+
+  undo() {
+
   }
 }
