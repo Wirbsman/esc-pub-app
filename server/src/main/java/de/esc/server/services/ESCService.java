@@ -28,7 +28,7 @@ public class ESCService {
         return userRepository.findAll();
     }
 
-    public Long saveMember(User user) {
+    public Long saveUser(User user) {
 
         return userRepository.save(user).getId();
     }
@@ -40,5 +40,19 @@ public class ESCService {
     public Long saveCountry(Country country) {
 
         return countryRepository.save(country).getId();
+    }
+
+    public List<Rating> getAllRatings(){
+        return ratingRepository.findAll();
+    }
+
+    public List<Rating> getAllRatingsForUser(Long id) {
+
+        return ratingRepository.findRatingsByUserId(id);
+    }
+
+    public List<Rating> getAllRatingsForCountry(Long id) {
+
+        return ratingRepository.findRatingsByCountryId(id);
     }
 }
