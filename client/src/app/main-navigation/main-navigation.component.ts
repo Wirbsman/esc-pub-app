@@ -1,14 +1,15 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+import {AuthenticationService} from "../authentication.service";
 
 @Component({
   selector: 'app-main-navigation',
   templateUrl: './main-navigation.component.html',
   styleUrls: ['./main-navigation.component.css']
 })
-export class MainNavigationComponent {
+export class MainNavigationComponent implements OnInit{
 
   title = "ESC Rating App";
 
@@ -18,6 +19,9 @@ export class MainNavigationComponent {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(private breakpointObserver: BreakpointObserver, public authService: AuthenticationService) {}
+
+  ngOnInit() {
+  }
 
 }
