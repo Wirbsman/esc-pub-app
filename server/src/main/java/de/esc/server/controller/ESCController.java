@@ -6,9 +6,10 @@ import de.esc.server.data.User;
 import de.esc.server.services.ESCService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import java.util.*;
 
-import java.util.List;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @RestController
 public class ESCController {
@@ -25,7 +26,7 @@ public class ESCController {
     @GetMapping("/member")
     public List<User> getAllMembers() {
 
-        return escService.getAllUsers().stream().map(user -> new User(user.getId(), user.getName(), "******", user.getIcon(), user.isAdmin())).collect(Collectors.toList());
+        return escService.getAllUsers().stream().map(user -> new User(user.getId(), user.getName(), "******", user.getIcon(), user.isAdmin())).collect(toList());
     }
 
     @PostMapping("/member")
@@ -56,15 +57,28 @@ public class ESCController {
         return escService.getAllRatings();
     }
     @GetMapping("/user/{id}/ratings")
-    public List<Rating> getUserRatings(@PathVariable("id") final Long id) {
+    public List<Map<String, Object>> getUserRatings(@PathVariable("id") final Long id) {
 
-        return escService.getAllRatingsForUser(id);
+        final List<Rating> userRatings = escService.getAllRatingsForUser(id);
+
+        return userRatings.stream().map(this::ratingToJson).collect(toList());
     }
 
     @GetMapping("/country/{id}/ratings")
     public List<Rating> getCountryRatings(@PathVariable("id") final Long id) {
 
         return escService.getAllRatingsForCountry(id);
+    }
+
+    private Map<String, Object> ratingToJson(final Rating rating) {
+        final Map<String, Object> result = new HashMap<>();
+        result.put("id", rating.getId());
+        result.put("value", rating.getRating());
+        result.put("countryName", rating.getCountry().getName());
+        result.put("user", rating.getUser().getName());
+
+        return result;
+
     }
 
 
