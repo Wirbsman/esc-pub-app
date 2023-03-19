@@ -22,6 +22,7 @@ import { LogInComponent } from './log-in/log-in.component';
 import {MatInputModule} from "@angular/material/input";
 import {MatCardModule} from "@angular/material/card";
 import { LogoutComponent } from './logout/logout.component';
+import { UserRatingsComponent } from './user-ratings/user-ratings.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { LogoutComponent } from './logout/logout.component';
     MainNavigationComponent,
     UserTableComponent,
     LogInComponent,
-    LogoutComponent
+    LogoutComponent,
+    UserRatingsComponent,
   ],
   imports: [
     BrowserModule,

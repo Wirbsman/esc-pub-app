@@ -8,6 +8,7 @@
       <a mat-list-item *ngIf="authService.isUserLoggedIn" routerLink="/menu/users1">Users Table</a>
       <a mat-list-item *ngIf="authService.isUserLoggedIn" routerLink="/menu/users2">Mat Table</a>
       <a mat-list-item (click)="authService.logOut()" routerLink="">Ausloggen</a>
+      <a mat-list-item routerLink="/vote">Abstimmen</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

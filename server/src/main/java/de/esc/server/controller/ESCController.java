@@ -51,17 +51,17 @@ public class ESCController {
 
     // Methods for Ratings
 
-    @GetMapping("/ratings")
+    @GetMapping("/allRatings")
     public List<Rating> getAllRatings() {
 
         return escService.getAllRatings();
     }
-    @GetMapping("/user/{id}/ratings")
+    @GetMapping("/ratings/{id}")
     public List<Map<String, Object>> getUserRatings(@PathVariable("id") final Long id) {
 
         final List<Rating> userRatings = escService.getAllRatingsForUser(id);
 
-        return userRatings.stream().map(this::ratingToJson).collect(toList());
+        return userRatings.stream().map(this::userRatingsToJson).collect(toList());
     }
 
     @GetMapping("/country/{id}/ratings")
@@ -70,11 +70,16 @@ public class ESCController {
         return escService.getAllRatingsForCountry(id);
     }
 
-    private Map<String, Object> ratingToJson(final Rating rating) {
+    private Map<String, Object> userRatingsToJson(final Rating rating) {
         final Map<String, Object> result = new HashMap<>();
-        result.put("id", rating.getId());
-        result.put("value", rating.getRating());
+        result.put("ratingId", rating.getId());
+        result.put("countryId", rating.getCountry().getId());
+        result.put("id", rating.getUser().getId());
+        result.put("ratingValue", rating.getRating());
         result.put("countryName", rating.getCountry().getName());
+        result.put("countryFlag", rating.getCountry().getFlag());
+        result.put("countryInterpret", rating.getCountry().getInterpret());
+        result.put("countrySong", rating.getCountry().getSongname());
         result.put("user", rating.getUser().getName());
 
         return result;
