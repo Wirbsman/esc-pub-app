@@ -9,8 +9,8 @@ import {AuthenticationService} from "../authentication.service";
 })
 export class LogInComponent implements OnInit{
 
-  public username = "username";
-  public password = "password";
+  public username = "";
+  public password = "";
   public invalidLogin = false;
 
   ngOnInit(){
@@ -20,11 +20,11 @@ export class LogInComponent implements OnInit{
   }
 
   checkLogin() {
-    if(this.authService.authenticate(this.username, this.password))
+/*    if(this.authService.authenticate(this.username, this.password))
     {
       this.route.navigateByUrl('/menu');
       this.invalidLogin = false
     } else
-      this.invalidLogin = true
+      this.invalidLogin = true*/
   }
 }

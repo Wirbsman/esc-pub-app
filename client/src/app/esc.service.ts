@@ -21,7 +21,7 @@ export class EscService {
   constructor(private http: HttpClient) { }
 
   private usersUrl = '/member';  // URL to user call
-  private countriesUrl = '/countries';  // URL to country call
+  private countriesUrl = '/country';  // URL to country call
   private userRatingUrl = '/ratings';  // URL to country call
 
 
@@ -31,11 +31,13 @@ export class EscService {
     ); }
 
 
-  getRatingsForUser(id: any): Observable<Ratings[]>{
+  getRatingsForUser(id: any): Observable<any[]>{
     const url = `${this.userRatingUrl}/${id}`;
-    return this.http.get<Ratings[]>(url);
-
+    return this.http.get<any[]>(url).pipe(catchError(this.handleError<any>('getRatingsForUser', []))
+  );
   }
+
+
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
@@ -55,4 +57,8 @@ getRatings(id: any): Observable<Ratings[]> {
   return this.http.get<Ratings[]>(url).pipe(catchError(this.handleError<Ratings[]>(`getRatings userId=${id}`))
   );
 }*/
+updateUserRatings(ratings: any[], id: any) {
+  const url = `${this.userRatingUrl}/${id}`;
+  return this.http.put(url, ratings);
+}
 }

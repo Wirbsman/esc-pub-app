@@ -5,7 +5,9 @@ import de.esc.server.data.Rating;
 import de.esc.server.data.User;
 import de.esc.server.services.ESCService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.*;
 
 
@@ -35,6 +37,13 @@ public class ESCController {
         return escService.saveUser(user);
     }
 
+    @GetMapping("/authenticate")
+    public User getUser(Authentication authentication) {
+
+        User user = escService.getUserByName(authentication.getName());
+        return new User(user.getId(), user.getName(), "******", user.getIcon(), user.isAdmin());
+    }
+
     //Methods for Countries
 
     @GetMapping("/country")
@@ -49,13 +58,33 @@ public class ESCController {
         return escService.saveCountry(country);
     }
 
+    // TODO : Adjust as this below will not work
+    @GetMapping("/country/{id}/ratings")
+    public List<Rating> getCountryRatings(@PathVariable("id") final Long id) {
+
+        return escService.getAllRatingsForCountry(id);
+    }
+
     // Methods for Ratings
 
-    @GetMapping("/allRatings")
+    @PostMapping("/rating")
+    public Long createRating(@RequestBody final Rating rating) {
+
+        return escService.saveRating(rating);
+    }
+
+    @PutMapping("/rating")
+    public Long updateRating(@RequestBody final Rating rating) {
+
+        return escService.updateRating(rating);
+    }
+
+    @GetMapping("/rating")
     public List<Rating> getAllRatings() {
 
         return escService.getAllRatings();
     }
+
     @GetMapping("/ratings/{id}")
     public List<Map<String, Object>> getUserRatings(@PathVariable("id") final Long id) {
 
@@ -64,17 +93,12 @@ public class ESCController {
         return userRatings.stream().map(this::userRatingsToJson).collect(toList());
     }
 
-    @GetMapping("/country/{id}/ratings")
-    public List<Rating> getCountryRatings(@PathVariable("id") final Long id) {
-
-        return escService.getAllRatingsForCountry(id);
-    }
 
     private Map<String, Object> userRatingsToJson(final Rating rating) {
         final Map<String, Object> result = new HashMap<>();
         result.put("ratingId", rating.getId());
         result.put("countryId", rating.getCountry().getId());
-        result.put("id", rating.getUser().getId());
+        result.put("userId", rating.getUser().getId());
         result.put("ratingValue", rating.getRating());
         result.put("countryName", rating.getCountry().getName());
         result.put("countryFlag", rating.getCountry().getFlag());
@@ -85,7 +109,6 @@ public class ESCController {
         return result;
 
     }
-
 
 }
 

@@ -9,11 +9,11 @@ import {UserRatingsComponent} from "./user-ratings/user-ratings.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'menu', pathMatch: "full"},
-  {path: 'login', component: LogInComponent},
+  {path: 'login1', component: LogInComponent},
   {path: 'menu', component: MainNavigationComponent},
-  {path: 'vote/:id', component: UserRatingsComponent},
-  {path: 'menu/users1', component: UsersComponent, canActivate:[AuthGuardService]},
-  {path: 'menu/users2', component: UserTableComponent, canActivate:[AuthGuardService]},
+  {path: 'vote', component: UserRatingsComponent},
+  {path: 'menu/users1', component: UsersComponent},
+  {path: 'menu/users2', component: UserTableComponent},
 ];
 
 @NgModule({

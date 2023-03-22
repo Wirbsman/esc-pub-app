@@ -8,21 +8,31 @@ import {ActivatedRoute} from "@angular/router";
   templateUrl: './user-ratings.component.html',
   styleUrls: ['./user-ratings.component.css']
 })
-export class UserRatingsComponent{
+export class UserRatingsComponent implements OnInit{
 
-  ratings: Ratings[] = [];
+  ratings = new Array<any>();
 
   imagePath = "assets/images/flags20/";
 
   constructor(private escService: EscService, private route: ActivatedRoute) {}
 
   getRatingsForUser(id: any) {
-    this.escService.getRatingsForUser(id).subscribe(values => this.ratings = values);
+    this.escService.getRatingsForUser(id).subscribe(values =>
+      {this.ratings = values }
+
+    );
   }
+/*
+  ngOnInit(): void {
+    this.getRatingsForUser(this.route.snapshot.paramMap.get('id'));
+  }
+*/
 
   ngOnInit(): void {
-    this.getRatingsForUser(this.route.snapshot.params["id"]);
+    this.getRatingsForUser(1);
   }
 
 
+  save() {
+  }
 }

@@ -1,6 +1,6 @@
 package de.esc.server.data;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 
 @Entity

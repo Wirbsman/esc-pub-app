@@ -2,14 +2,16 @@
   <mat-list-item *ngFor="let rating of ratings">
     <p matListItemLine>
       <img src="{{imagePath + rating.countryFlag}}" alt="Icon">
-      <span>Name: {{rating.countryName}} </span>
+      <span>Land: {{rating.countryName}} </span>
+      <span>Song: {{rating.countrySong}} </span>
+      <span>Künstler: {{rating.countryInterpret}} </span>
       <span>
       <label>Note:</label>
       <input id="value" [(ngModel)]="rating.ratingValue">
       </span>
     </p>
   </mat-list-item>
-  <button mat-button color="primary">Speichern</button>
+  <button mat-button color="primary" (click)="save()" >Speichern</button>
 </mat-list>
 <!--
 <mat-list>
