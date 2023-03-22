@@ -1,12 +1,12 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.0.4'
-    id 'io.spring.dependency-management' version '1.1.0'
+    id 'org.springframework.boot' version '2.7.9'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 }
 
 group = 'de.esc'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
+sourceCompatibility = '8'
 
 repositories {
     mavenCentral()
@@ -15,9 +15,11 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
     runtimeOnly 'com.h2database:h2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
 }
 
 def webappDir = "../client"
@@ -37,7 +39,7 @@ processResources {
 
 task buildAngular(type:Exec) {
     // installAngular should be run prior to this task
-    dependsOn "installAngular"
+   // dependsOn "installAngular"
     workingDir "$webappDir"
     inputs.dir "$webappDir"
     // Add task to the standard build group
@@ -50,7 +52,7 @@ task buildAngular(type:Exec) {
     }
 }
 
-task installAngular(type:Exec) {
+/*task installAngular(type:Exec) {
     workingDir "$webappDir"
     inputs.dir "$webappDir"
     group = BasePlugin.BUILD_GROUP
@@ -59,4 +61,4 @@ task installAngular(type:Exec) {
     } else {
         commandLine "npm", "install"
     }
-}
+}*/

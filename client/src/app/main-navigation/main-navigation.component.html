@@ -1,13 +1,14 @@
-<mat-sidenav-container class="sidenav-container">
+<mat-sidenav-container class="sidenav-container" *ngIf="authService.isUserLoggedIn">
   <mat-sidenav #drawer class="sidenav" fixedInViewport
                [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
                [mode]="(isHandset$ | async) ? 'over' : 'side'"
                [opened]="(isHandset$ | async) === false">
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item routerLink="/users1">Users Table</a>
-      <a mat-list-item routerLink="/users2">Mat Table</a>
-      <a mat-list-item href="#">Länderverwaltung</a>
+      <a mat-list-item *ngIf="authService.isUserLoggedIn" routerLink="/menu/users1">Users Table</a>
+      <a mat-list-item *ngIf="authService.isUserLoggedIn" routerLink="/menu/users2">Mat Table</a>
+      <a mat-list-item (click)="authService.logOut()" routerLink="">Ausloggen</a>
+      <a mat-list-item routerLink="/vote">Abstimmen</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

@@ -18,6 +18,11 @@ import { UserTableComponent } from './user-table/user-table.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { LogInComponent } from './log-in/log-in.component';
+import {MatInputModule} from "@angular/material/input";
+import {MatCardModule} from "@angular/material/card";
+import { LogoutComponent } from './logout/logout.component';
+import { UserRatingsComponent } from './user-ratings/user-ratings.component';
 
 
 @NgModule({
@@ -26,7 +31,10 @@ import { MatSortModule } from '@angular/material/sort';
     CountryComponent,
     UsersComponent,
     MainNavigationComponent,
-    UserTableComponent
+    UserTableComponent,
+    LogInComponent,
+    LogoutComponent,
+    UserRatingsComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,7 +50,9 @@ import { MatSortModule } from '@angular/material/sort';
     AppRoutingModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatInputModule,
+    MatCardModule
 
   ],
   providers: [],
