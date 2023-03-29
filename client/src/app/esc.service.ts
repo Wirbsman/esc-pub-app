@@ -1,12 +1,14 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
-import { User} from "./user";
-import {Ratings} from "./user-ratings/ratings";
+import {Observable, of} from 'rxjs';
+import {catchError} from 'rxjs/operators';
+import {User} from "./user";
+import {CurrentUser} from "./current-user";
 
 
-const baseUrl = 'http://localhost:8090/ratings';
+const AUTHORIZATION_HEADER = 'Authorization'
+const CONTENT_TYPE_HEADER = 'Content-Type'
+const CONTENT_TYPE = 'application/json'
 
 @Injectable({
   providedIn: 'root'
@@ -18,28 +20,41 @@ export class EscService {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private currentUser: CurrentUser) {
+  }
 
-  private usersUrl = '/member';  // URL to user call
-  private countriesUrl = '/country';  // URL to country call
-  private userRatingUrl = '/ratings';  // URL to country call
-
+  private usersUrl = '/rest/user';  // URL to user call
+  private countriesUrl = '/rest/country';  // URL to country call
+  private userRatingUrl = '/rest/user/ratings';
 
 
   getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.usersUrl).pipe(catchError(this.handleError<User[]>('getUsers', []))
-    ); }
-
-
-  getRatingsForUser(id: any): Observable<any[]>{
-    const url = `${this.userRatingUrl}/${id}`;
-    return this.http.get<any[]>(url).pipe(catchError(this.handleError<any>('getRatingsForUser', []))
-  );
+    return this.http.get<User[]>(this.usersUrl, {
+        headers: new HttpHeaders({
+          CONTENT_TYPE_HEADER: CONTENT_TYPE,
+          AUTHORIZATION: `Basic ${this.currentUser.getCredentials()}`
+        })
+      }
+      ).pipe(catchError(this.handleError<User[]>('getUsers', []))
+    );
   }
 
 
+  getRatingsForUser(): Observable<any[]> {
 
-  private handleError<T>(operation = 'operation', result?: T) {
+    return this.http.get<any[]>(this.userRatingUrl, {
+        headers: new HttpHeaders({
+          CONTENT_TYPE_HEADER: CONTENT_TYPE,
+          AUTHORIZATION: `Basic ${this.currentUser.getCredentials()}`
+        })
+      }
+
+    ).pipe(catchError(this.handleError<any>('getRatingsForUser', []))
+    );
+  }
+
+
+  public handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
 
       // TODO: send the error to remote logging infrastructure
@@ -50,15 +65,8 @@ export class EscService {
     };
   }
 
-
-/** Get Ratings by UserID
-getRatings(id: any): Observable<Ratings[]> {
-  const url = `${this.userRatingUrl}/${id}`;
-  return this.http.get<Ratings[]>(url).pipe(catchError(this.handleError<Ratings[]>(`getRatings userId=${id}`))
-  );
-}*/
-updateUserRatings(ratings: any[], id: any) {
-  const url = `${this.userRatingUrl}/${id}`;
-  return this.http.put(url, ratings);
-}
+  updateUserRatings(ratings: any[], id: any) {
+    const url = `${this.userRatingUrl}/${id}`;
+    return this.http.put(url, ratings);
+  }
 }

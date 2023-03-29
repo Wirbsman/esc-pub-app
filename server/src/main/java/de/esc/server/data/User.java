@@ -1,7 +1,6 @@
 package de.esc.server.data;
 
-import javax.persistence.*;
-
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "Member")
