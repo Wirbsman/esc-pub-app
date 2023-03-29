@@ -1,10 +1,11 @@
 import {Injectable} from '@angular/core';
 import {CurrentUser} from "./current-user";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {EscService} from "./esc.service";
 
 const AUTHORIZATION_HEADER = 'Authorization'
 const CONTENT_TYPE_HEADER = 'Content-Type'
-const CONTENT_TYPE = 'application/json; charset=UTF-8'
+const CONTENT_TYPE = 'application/json'
 
 @Injectable({
   providedIn: 'root'
@@ -15,22 +16,32 @@ export class AuthenticationService {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private currentUser: CurrentUser, private escService: EscService) {
   }
-
+  // ToDo Content Type Header austauschen / Error Handlung für HTTP Requests
   authenticate(username: string, password: string) {
 
-    /* const credentials = AuthenticationService.b64EncodeUnicode(username + ':' + password)
+    const credentials = CurrentUser.b64EncodeUnicode(username + ':' + password)
 
-     this.http.get("/authenticate", {
-       headers: new HttpHeaders({
-         CONTENT_TYPE_HEADER: CONTENT_TYPE,
-         AUTHORIZATION_HEADER: `Basic ${credentials}`
+    console.log(credentials);
 
-       })
-     }).subscribe();value => sessionStorage.setItem('user', value));
+    if(credentials != null) {
 
-     return true;*/
+      this.http.get<any>("/rest/authenticate", {
+        headers: new HttpHeaders({
+          CONTENT_TYPE_HEADER: CONTENT_TYPE,
+          AUTHORIZATION: `Basic ${credentials}`
+
+        })
+
+      }).subscribe(value => this.currentUser.setUser(username, password, value.admin));
+
+
+      return true
+    }
+     else {
+       return false
+    }
   }
 
   isUserLoggedIn() {
@@ -43,10 +54,5 @@ export class AuthenticationService {
     sessionStorage.removeItem('username')
   }
 
-  private static b64EncodeUnicode(str: string): string {
-    // generating constant prevents 'Expression form not supported.' error
-    const rawString = encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (match, p1) => String.fromCharCode(('0x' + p1) as any))
-    return btoa(rawString)
-  }
 
 }

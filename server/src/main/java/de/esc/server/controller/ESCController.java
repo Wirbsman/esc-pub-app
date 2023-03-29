@@ -4,10 +4,12 @@ import de.esc.server.data.Country;
 import de.esc.server.data.Rating;
 import de.esc.server.data.User;
 import de.esc.server.services.ESCService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.*;
 
 
@@ -23,43 +25,46 @@ public class ESCController {
         this.escService = escService;
     }
 
+    //  ToDo Alle Rest Calls mit PreAuthorize versehen
     //Methods for Users
 
-    @GetMapping("/member")
+    @PreAuthorize("hasAuthority('USER')")
+    @GetMapping("/rest/user")
     public List<User> getAllMembers() {
 
         return escService.getAllUsers().stream().map(user -> new User(user.getId(), user.getName(), "******", user.getIcon(), user.isAdmin())).collect(toList());
     }
 
-    @PostMapping("/member")
+    @PostMapping("/rest/user")
     public Long createUser(@RequestBody final User user) {
 
         return escService.saveUser(user);
     }
+    // Rest Call to get logged User
+    @GetMapping("/rest/authenticate")
+    @ResponseBody
+    public User getUser(HttpServletRequest request) {
 
-    @GetMapping("/authenticate")
-    public User getUser(Authentication authentication) {
-
-        User user = escService.getUserByName(authentication.getName());
+        User user = escService.getUserByName(request.getUserPrincipal().getName());
         return new User(user.getId(), user.getName(), "******", user.getIcon(), user.isAdmin());
     }
 
     //Methods for Countries
-
-    @GetMapping("/country")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/rest/country")
     public List<Country> getAllCountries() {
 
         return escService.getAllCountries();
     }
 
-    @PostMapping("/country")
+    @PostMapping("/rest/country")
     public Long createCountry(@RequestBody final Country country) {
 
         return escService.saveCountry(country);
     }
 
     // TODO : Adjust as this below will not work
-    @GetMapping("/country/{id}/ratings")
+    @GetMapping("/rest/country/{id}/ratings")
     public List<Rating> getCountryRatings(@PathVariable("id") final Long id) {
 
         return escService.getAllRatingsForCountry(id);
@@ -67,29 +72,29 @@ public class ESCController {
 
     // Methods for Ratings
 
-    @PostMapping("/rating")
+    @PostMapping("/rest/rating")
     public Long createRating(@RequestBody final Rating rating) {
 
         return escService.saveRating(rating);
     }
 
-    @PutMapping("/rating")
+    @PutMapping("/rest/rating")
     public Long updateRating(@RequestBody final Rating rating) {
 
         return escService.updateRating(rating);
     }
 
-    @GetMapping("/rating")
+    @GetMapping("/rest/rating")
     public List<Rating> getAllRatings() {
 
         return escService.getAllRatings();
     }
 
-    @GetMapping("/ratings/{id}")
-    public List<Map<String, Object>> getUserRatings(@PathVariable("id") final Long id) {
+    @GetMapping("/rest/user/ratings")
+    public List<Map<String, Object>> getUserRatings(Principal principal) {
 
-        final List<Rating> userRatings = escService.getAllRatingsForUser(id);
-
+        User user = escService.getUserByName(principal.getName());
+        final List<Rating> userRatings = escService.getAllRatingsForUser(user.getId());
         return userRatings.stream().map(this::userRatingsToJson).collect(toList());
     }
 

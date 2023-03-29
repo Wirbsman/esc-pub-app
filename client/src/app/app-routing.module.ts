@@ -9,9 +9,9 @@ import {UserRatingsComponent} from "./user-ratings/user-ratings.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'menu', pathMatch: "full"},
-  {path: 'login1', component: LogInComponent},
-  {path: 'menu', component: MainNavigationComponent},
-  {path: 'vote', component: UserRatingsComponent},
+  {path: 'login', component: LogInComponent},
+  {path: 'menu', component: MainNavigationComponent, canActivate: [AuthGuardService]},
+  {path: 'vote', component: UserRatingsComponent, canActivate: [AuthGuardService]},
   {path: 'menu/users1', component: UsersComponent},
   {path: 'menu/users2', component: UserTableComponent},
 ];
