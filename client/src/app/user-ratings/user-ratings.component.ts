@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {Ratings} from "./ratings";
 import {EscService} from "../esc.service";
 import {ActivatedRoute} from "@angular/router";
+import {Rating} from "./ratings";
 
 @Component({
   selector: 'app-user-ratings',
@@ -10,7 +10,7 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class UserRatingsComponent implements OnInit {
 
-  ratings = new Array<any>();
+  ratings : any[] =  [];
 
   imagePath = "assets/images/flags20/";
 
@@ -22,13 +22,22 @@ export class UserRatingsComponent implements OnInit {
 
   }
 
-  getRatingsForUser() {
+  private getRatingsForUser() {
     this.escService.getRatingsForUser().subscribe(values => {
         this.ratings = values
       }
     );
   }
 
-  save() {
+  public save() : void {
+
+    this.escService.updateUserRatings(this.toRatings(this.ratings)).subscribe(() => this.getRatingsForUser());
+
+  }
+
+  private toRatings(ratings: any[]): Rating[] {
+
+    return ratings.map(value => new Rating(value.countryId, value.ratingValue))
+
   }
 }

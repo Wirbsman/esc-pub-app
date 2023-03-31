@@ -18,6 +18,20 @@ public class Rating {
     @JoinColumn(name="countryId")
     private Country country;
 
+    private Double rating;
+
+    public Rating(User user, Country country, Double ratingValue) {
+
+        this.user = user;
+        this.country = country;
+        this.rating = ratingValue;
+    }
+
+    public Rating(){
+
+    }
+
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -25,8 +39,6 @@ public class Rating {
     public Long getId() {
         return id;
     }
-
-    private Double rating;
 
     public User getUser() {
         return user;

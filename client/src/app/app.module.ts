@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
 import { AppComponent } from './app.component';
 import { HttpClientModule} from "@angular/common/http";
 import { CountryComponent } from './country/country.component';
-import { UsersComponent } from './users/users.component';
 import {MatListModule} from "@angular/material/list";
 import { MainNavigationComponent } from './main-navigation/main-navigation.component';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -21,40 +20,39 @@ import { MatSortModule } from '@angular/material/sort';
 import { LogInComponent } from './log-in/log-in.component';
 import {MatInputModule} from "@angular/material/input";
 import {MatCardModule} from "@angular/material/card";
-import { LogoutComponent } from './logout/logout.component';
 import { UserRatingsComponent } from './user-ratings/user-ratings.component';
+import {MatSelectModule} from "@angular/material/select";
 
 
 @NgModule({
   declarations: [
     AppComponent,
     CountryComponent,
-    UsersComponent,
     MainNavigationComponent,
     UserTableComponent,
     LogInComponent,
-    LogoutComponent,
     UserRatingsComponent,
   ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpClientModule,
-    MatListModule,
-    LayoutModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatInputModule,
-    MatCardModule
+    imports: [
+        BrowserModule,
+        FormsModule,
+        HttpClientModule,
+        MatListModule,
+        LayoutModule,
+        MatToolbarModule,
+        MatButtonModule,
+        MatSidenavModule,
+        MatIconModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatInputModule,
+        MatCardModule,
+        MatSelectModule
 
-  ],
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

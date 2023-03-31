@@ -1,15 +1,12 @@
 
 
-export interface Ratings {
+export class Rating {
+  private countryId: number;
+  private ratingValue: number;
 
-  id: any,
-  countryId: any,
-  userId: any,
-  countryFlag: string,
-  countryName: string,
-  ratingValue: string,
-  song: string;
-  interpret: string,
-
+  constructor(countryId: number, ratingValue: number) {
+    this.countryId = countryId;
+    this.ratingValue = ratingValue;
+  }
 }
 

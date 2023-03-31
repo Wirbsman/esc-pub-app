@@ -13,6 +13,7 @@ export class LogInComponent implements OnInit {
   public username: string | null = null;
   public password: string | null = null;
   public invalidLogin = false;
+  public hide = true;
 
   ngOnInit() {
 
@@ -25,7 +26,7 @@ export class LogInComponent implements OnInit {
     if (this.username != null && this.password != null) {
 
       if (this.authService.authenticate(this.username, this.password)) {
-        this.route.navigateByUrl('/menu');
+        this.route.navigateByUrl('/vote');
         this.invalidLogin = false
 
       } else {

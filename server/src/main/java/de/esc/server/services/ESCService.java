@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -42,7 +43,7 @@ public class ESCService {
         return countryRepository.save(country).getId();
     }
 
-    public List<Rating> getAllRatings(){
+    public List<Rating> getAllRatings() {
         return ratingRepository.findAll();
     }
 
@@ -70,13 +71,25 @@ public class ESCService {
         return ratingRepository.save(rating).getId();
     }
 
-    public Long updateRating(Rating rating) {
+    public void updateRating(List<Map<String, Object>> ratings, long userId) {
 
-        Rating updateRating = ratingRepository.findByUserIdAndCountryId(rating.getUser().getId(), rating.getCountry().getId());
+        ratings.forEach(value -> {
+            long countryId = ((Number) value.get("countryId")).longValue();
+            Number ratingValue = (Number) value.get("ratingValue");
+            Double newRating = ratingValue != null ? ratingValue.doubleValue() : null;
 
-        updateRating.setRating(rating.getRating());
+            Rating rating = ratingRepository.findByUserIdAndCountryId(userId, countryId);
 
-        return ratingRepository.save(updateRating).getId();
+                 if(rating != null){
+
+                     rating.setRating(newRating);
+                     ratingRepository.save(rating);
+
+                 } else {
+                     ratingRepository.save(new Rating(userRepository.findById(userId), countryRepository.findById(countryId),newRating));
+                 }
+        });
+
     }
 
     public User getUserByName(String name) {

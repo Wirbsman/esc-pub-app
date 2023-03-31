@@ -3,6 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import {AuthenticationService} from "../authentication.service";
+import {CurrentUser} from "../current-user";
 
 @Component({
   selector: 'app-main-navigation',
@@ -19,7 +20,7 @@ export class MainNavigationComponent implements OnInit{
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver, public authService: AuthenticationService) {}
+  constructor(private breakpointObserver: BreakpointObserver, public authService: AuthenticationService, public currentUser: CurrentUser) {}
 
   ngOnInit() {
   }

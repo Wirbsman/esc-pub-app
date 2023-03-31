@@ -1,0 +1,13 @@
+.full-width-list {
+  width: 100%;
+}
+
+.country {
+  display: flex;
+  flex-direction: row;
+}
+
+.names {
+  display: flex;
+  flex-direction: column;
+}

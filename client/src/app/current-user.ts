@@ -7,7 +7,7 @@ export class CurrentUser {
 
   private username: string | null = null;
   private password: string | null = null;
-  private isAdmin: boolean | null = null;
+  private _isAdmin: boolean | null = null;
 
 
 
@@ -29,10 +29,21 @@ export class CurrentUser {
   public setUser(username: string, password: string, isAdmin: any): void {
     this.username = username;
     this.password = password;
-    this.isAdmin = isAdmin;
+    this._isAdmin = isAdmin;
   }
 
   isLoggedIn() {
     return this.username != null;
+  }
+
+  clear() {
+    this.username = null;
+    this.password = null;
+    this._isAdmin = null;
+  }
+
+
+  get isAdmin(): boolean | null {
+    return this._isAdmin;
   }
 }

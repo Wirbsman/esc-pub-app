@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {CurrentUser} from "./current-user";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {EscService} from "./esc.service";
+import {Router} from "@angular/router";
 
 const AUTHORIZATION_HEADER = 'Authorization'
 const CONTENT_TYPE_HEADER = 'Content-Type'
@@ -16,14 +17,12 @@ export class AuthenticationService {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
 
-  constructor(private http: HttpClient, private currentUser: CurrentUser, private escService: EscService) {
+  constructor(private http: HttpClient, private currentUser: CurrentUser, private route: Router) {
   }
   // ToDo Content Type Header austauschen / Error Handlung für HTTP Requests
   authenticate(username: string, password: string) {
 
     const credentials = CurrentUser.b64EncodeUnicode(username + ':' + password)
-
-    console.log(credentials);
 
     if(credentials != null) {
 
@@ -36,6 +35,8 @@ export class AuthenticationService {
 
       }).subscribe(value => this.currentUser.setUser(username, password, value.admin));
 
+      console.log(this.currentUser)
+
 
       return true
     }
@@ -44,14 +45,18 @@ export class AuthenticationService {
     }
   }
 
-  isUserLoggedIn() {
-    let user = sessionStorage.getItem('username')
-    console.log(!(user === null))
-    return !(user === null)
+  isUserAdmin() : boolean {
+   if (this.currentUser.isAdmin){
+     return true
+   }
+   else {
+     return false
+   }
   }
 
   logOut() {
-    sessionStorage.removeItem('username')
+    this.currentUser.clear();
+    this.route.navigateByUrl("/login");
   }
 
 

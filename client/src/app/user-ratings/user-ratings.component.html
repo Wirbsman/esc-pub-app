@@ -1,25 +1,12 @@
 <mat-list>
-  <mat-list-item *ngFor="let rating of ratings">
-    <p matListItemLine>
-      <img src="{{imagePath + rating.countryFlag}}" alt="Icon">
-      <span>Land: {{rating.countryName}} </span>
-      <span>Song: {{rating.countrySong}} </span>
-      <span>Künstler: {{rating.countryInterpret}} </span>
-      <span>
-      <label>Note:</label>
-      <input id="value" [(ngModel)]="rating.ratingValue">
-      </span>
-    </p>
-  </mat-list-item>
-  <button mat-button color="primary" (click)="save()" >Speichern</button>
+  <div class="country" *ngFor="let rating of ratings">
+    <img matListItemAvatar src="{{imagePath + rating.countryFlag}}" alt="Icon">
+    <div class="names">
+      <h3 matListItemTitle>{{rating.countryName}}</h3>
+        <span>{{rating.countryInterpret}}</span><br>
+        <span>{{rating.countrySong}}</span>
+    </div>
+    <span><input type="number" [(ngModel)]="rating.ratingValue"></span>
+  </div>
+  <button mat-button color="primary" (click)="save()">Speichern</button>
 </mat-list>
-<!--
-<mat-list>
-  <mat-list-item *ngFor="let rating of ratings">
-    <p matListItemLine>
-      <span>Name: {{rating.id}} </span>
-    </p>
-  </mat-list-item>
-  <button mat-button color="primary">Speichern</button>
-</mat-list>
--->

@@ -25,16 +25,16 @@ public class ESCController {
         this.escService = escService;
     }
 
-    //  ToDo Alle Rest Calls mit PreAuthorize versehen
     //Methods for Users
 
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/rest/user")
     public List<User> getAllMembers() {
 
         return escService.getAllUsers().stream().map(user -> new User(user.getId(), user.getName(), "******", user.getIcon(), user.isAdmin())).collect(toList());
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/rest/user")
     public Long createUser(@RequestBody final User user) {
 
@@ -57,60 +57,70 @@ public class ESCController {
         return escService.getAllCountries();
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/rest/country")
     public Long createCountry(@RequestBody final Country country) {
 
         return escService.saveCountry(country);
     }
 
-    // TODO : Adjust as this below will not work
-    @GetMapping("/rest/country/{id}/ratings")
-    public List<Rating> getCountryRatings(@PathVariable("id") final Long id) {
+
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
+    @GetMapping("/rest/voting")
+    public List<Rating> getCountriesToRate(final Long id) {
 
         return escService.getAllRatingsForCountry(id);
     }
 
     // Methods for Ratings
 
-    @PostMapping("/rest/rating")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @PostMapping("/rest/ratings")
     public Long createRating(@RequestBody final Rating rating) {
 
         return escService.saveRating(rating);
     }
 
-    @PutMapping("/rest/rating")
-    public Long updateRating(@RequestBody final Rating rating) {
-
-        return escService.updateRating(rating);
-    }
-
-    @GetMapping("/rest/rating")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/rest/ratings")
     public List<Rating> getAllRatings() {
 
         return escService.getAllRatings();
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
     @GetMapping("/rest/user/ratings")
     public List<Map<String, Object>> getUserRatings(Principal principal) {
 
         User user = escService.getUserByName(principal.getName());
+        final List<Country> countries = escService.getAllCountries();
         final List<Rating> userRatings = escService.getAllRatingsForUser(user.getId());
-        return userRatings.stream().map(this::userRatingsToJson).collect(toList());
+        return countries.stream().map(country -> toJson(country,userRatings)).collect(toList());
+    }
+
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
+    @PutMapping("/rest/user/ratings")
+    public void updateRatings(Principal principal, @RequestBody List<Map<String, Object>> ratings) {
+
+        User user = escService.getUserByName(principal.getName());
+        escService.updateRating(ratings, user.getId());
     }
 
 
-    private Map<String, Object> userRatingsToJson(final Rating rating) {
+    private Map<String, Object> toJson(final Country country,List<Rating> ratings ) {
         final Map<String, Object> result = new HashMap<>();
-        result.put("ratingId", rating.getId());
-        result.put("countryId", rating.getCountry().getId());
-        result.put("userId", rating.getUser().getId());
-        result.put("ratingValue", rating.getRating());
-        result.put("countryName", rating.getCountry().getName());
-        result.put("countryFlag", rating.getCountry().getFlag());
-        result.put("countryInterpret", rating.getCountry().getInterpret());
-        result.put("countrySong", rating.getCountry().getSongname());
-        result.put("user", rating.getUser().getName());
+        result.put("countryId", country.getId());
+        result.put("countryName", country.getName());
+        result.put("countryFlag", country.getFlag());
+        result.put("countryInterpret", country.getInterpret());
+        result.put("countrySong", country.getSongname());
 
+        Rating rating = ratings.stream().filter(rating1 -> rating1.getCountry().equals(country)).findFirst().orElse(null);
+        if(rating != null) {
+            result.put("ratingValue", rating.getRating());
+        } else {
+            result.put("ratingValue", null);
+        }
         return result;
 
     }

@@ -4,6 +4,7 @@ import {Observable, of} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {User} from "./user";
 import {CurrentUser} from "./current-user";
+import {Rating} from "./user-ratings/ratings";
 
 
 const AUTHORIZATION_HEADER = 'Authorization'
@@ -35,7 +36,7 @@ export class EscService {
           AUTHORIZATION: `Basic ${this.currentUser.getCredentials()}`
         })
       }
-      ).pipe(catchError(this.handleError<User[]>('getUsers', []))
+    ).pipe(catchError(this.handleError<User[]>('getUsers', []))
     );
   }
 
@@ -48,13 +49,22 @@ export class EscService {
           AUTHORIZATION: `Basic ${this.currentUser.getCredentials()}`
         })
       }
-
     ).pipe(catchError(this.handleError<any>('getRatingsForUser', []))
     );
   }
 
+  updateUserRatings(ratings: Rating[]): Observable<void> {
 
-  public handleError<T>(operation = 'operation', result?: T) {
+    return this.http.put(this.userRatingUrl, ratings, {
+      headers: new HttpHeaders({
+        CONTENT_TYPE_HEADER: CONTENT_TYPE,
+        AUTHORIZATION: `Basic ${this.currentUser.getCredentials()}`
+      })
+    }).pipe(catchError(this.handleError<any>('getRatingsForUser', [])));
+  }
+
+
+  public handleError<T>(operation = 'operation', result ?: T) {
     return (error: any): Observable<T> => {
 
       // TODO: send the error to remote logging infrastructure
@@ -65,8 +75,5 @@ export class EscService {
     };
   }
 
-  updateUserRatings(ratings: any[], id: any) {
-    const url = `${this.userRatingUrl}/${id}`;
-    return this.http.put(url, ratings);
-  }
+
 }
