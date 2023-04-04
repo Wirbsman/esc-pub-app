@@ -1,12 +1,25 @@
-<mat-list>
+<div class="headerBar">
+  <img class="logo" src="assets/images/ESC.png" alt="Icon">
+<h1 class="headerTitle">{{currentUser.username}}</h1>
+  <button *ngIf="currentUser.isAdmin" class="dashButton" mat-button color="primary" (click)="toDashboard()">Dashboard</button>
+</div>
+<mat-list class="content">
   <div class="country" *ngFor="let rating of ratings">
-    <img matListItemAvatar src="{{imagePath + rating.countryFlag}}" alt="Icon">
+    <img class="icon" src="{{imagePath + rating.countryFlag}}" alt="Icon">
     <div class="names">
-      <h3 matListItemTitle>{{rating.countryName}}</h3>
-        <span>{{rating.countryInterpret}}</span><br>
-        <span>{{rating.countrySong}}</span>
+      <h3 class="h3">{{rating.countryName}}</h3>
+      <span matListItemLine>{{rating.countryInterpret}}</span>
+      <span matListItemLine>{{rating.countrySong}}</span>
     </div>
-    <span><input type="number" [(ngModel)]="rating.ratingValue"></span>
+    <div class="number">
+      <mat-select class="select" [(ngModel)]="rating.ratingValue" placeholder="Note">
+        <mat-option *ngFor="let selected of selectedRatings" [value]="selected.value">
+          <span>{{selected.displayName}}</span>
+        </mat-option>
+      </mat-select>
+    </div>
   </div>
-  <button mat-button color="primary" (click)="save()">Speichern</button>
+  <button class="saveButton" mat-button color="primary" (click)="save()">Speichern</button>
 </mat-list>
+
+

@@ -5,18 +5,17 @@ import {Injectable} from "@angular/core";
 })
 export class CurrentUser {
 
-  private username: string | null = null;
+  private _username: string | null = null;
   private password: string | null = null;
   private _isAdmin: boolean | null = null;
-
 
 
   constructor() {
   }
 
-  public getCredentials() : string {
+  public getCredentials(): string {
 
-    return  CurrentUser.b64EncodeUnicode(this.username + ':' + this.password)
+    return CurrentUser.b64EncodeUnicode(this._username + ':' + this.password)
 
   }
 
@@ -27,17 +26,17 @@ export class CurrentUser {
   }
 
   public setUser(username: string, password: string, isAdmin: any): void {
-    this.username = username;
+    this._username = username;
     this.password = password;
     this._isAdmin = isAdmin;
   }
 
   isLoggedIn() {
-    return this.username != null;
+    return this._username != null;
   }
 
   clear() {
-    this.username = null;
+    this._username = null;
     this.password = null;
     this._isAdmin = null;
   }
@@ -45,5 +44,9 @@ export class CurrentUser {
 
   get isAdmin(): boolean | null {
     return this._isAdmin;
+  }
+
+  get username(): string | null {
+    return this._username;
   }
 }

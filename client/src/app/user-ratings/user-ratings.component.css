@@ -2,12 +2,89 @@
   width: 100%;
 }
 
-.country {
+.headerBar {
+  background-color: whitesmoke;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 99;
   display: flex;
+  outline-style: double;
+  font-family: Comic Sans MS, Comic Sans, cursive;
+}
+
+.logo {
+  width: 35%;
+  height: auto;
+}
+
+.headerTitle {
+
+  padding: 10px;
+  flex-direction: row;
+  align-self: center;
+}
+
+.dashButton {
+
+  align-self: center;
+  background-color: whitesmoke;
+  outline: auto;
   flex-direction: row;
 }
 
-.names {
+.content {
+  padding: 10px;
+  background-color: whitesmoke;
+  font-family: Tahoma, Verdana, GungSeo, sans-serif;
+}
+
+.country {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  padding-block: inherit;
+  outline-style: double;
+}
+
+.h3 {
+  font-weight: bold;
+  font-size: larger;
+  margin-block-end: 0;
+}
+
+.names {
+  display: block;
+  width: 40%;
+}
+
+.number {
+  align-self: center;
+  margin-left: 20px;
+  flex: auto;
+}
+
+.icon {
+  border-radius: 50%;
+  background-color: transparent;
+  width: 50px;
+  height: 50px;
+  margin-left: 16px;
+  margin-right: 16px;
+  align-self: center;
+}
+
+.select {
+  display: inline-block;
+  text-align: center;
+  outline: auto;
+  width: 90%;
+  background-color: whitesmoke;
+}
+
+.saveButton {
+  background-color: whitesmoke;
+  outline: auto;
+  margin-left: 1em;
+  margin-top: 1em;
 }
