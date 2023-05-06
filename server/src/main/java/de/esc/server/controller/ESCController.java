@@ -43,9 +43,9 @@ public class ESCController {
     // Rest Call to get logged User
     @GetMapping("/rest/authenticate")
     @ResponseBody
-    public User getUser(HttpServletRequest request) {
+    public User getUser(Principal principal) {
 
-        User user = escService.getUserByName(request.getUserPrincipal().getName());
+        User user = escService.getUserByName(principal.getName());
         return new User(user.getId(), user.getName(), "******", user.getIcon(), user.isAdmin());
     }
 

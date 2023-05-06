@@ -22,6 +22,9 @@ import {MatInputModule} from "@angular/material/input";
 import {MatCardModule} from "@angular/material/card";
 import { UserRatingsComponent } from './user-ratings/user-ratings.component';
 import {MatSelectModule} from "@angular/material/select";
+import { EscDashboardComponent } from './esc-dashboard/esc-dashboard.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatMenuModule } from '@angular/material/menu';
 
 
 @NgModule({
@@ -32,6 +35,7 @@ import {MatSelectModule} from "@angular/material/select";
     UserTableComponent,
     LogInComponent,
     UserRatingsComponent,
+    EscDashboardComponent,
   ],
     imports: [
         BrowserModule,
@@ -50,7 +54,9 @@ import {MatSelectModule} from "@angular/material/select";
         MatSortModule,
         MatInputModule,
         MatCardModule,
-        MatSelectModule
+        MatSelectModule,
+        MatGridListModule,
+        MatMenuModule
 
     ],
   providers: [],

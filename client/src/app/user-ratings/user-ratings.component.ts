@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {EscService} from "../esc.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Rating} from "./ratings";
 import {CurrentUser} from "../current-user";
+import {AuthenticationService} from "../authentication.service";
 
 @Component({
   selector: 'app-user-ratings',
@@ -41,8 +42,11 @@ export class UserRatingsComponent implements OnInit {
 
 
 
-  constructor(private escService: EscService, private route: ActivatedRoute,
-              public currentUser: CurrentUser) {
+  constructor(private escService: EscService,
+              public currentUser: CurrentUser,
+
+              private authService: AuthenticationService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -70,6 +74,17 @@ export class UserRatingsComponent implements OnInit {
   }
 
   toDashboard() {
+    if(this.currentUser.isAdmin) {
 
+      this.router.navigateByUrl("/dashboard");
+    }
+
+
+
+  }
+
+  logout() {
+
+    this.authService.logOut();
   }
 }
