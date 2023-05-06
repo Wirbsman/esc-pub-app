@@ -1,6 +1,6 @@
 <mat-card xmlns="http://www.w3.org/1999/html">
   <mat-card-content>
-    <form #loginForm="ngForm" (ngSubmit)="checkLogin()">
+    <form #loginForm="ngForm">
       <h2>Log In</h2>
       <mat-error *ngIf="invalidLogin">
         Benutzer und Passwort sind unbekannt
@@ -16,7 +16,8 @@
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
       </mat-form-field>
-      <button mat-raised-button color="primary" [disabled]="!loginForm.form.valid">Login</button>
+      <button mat-raised-button color="primary" (click)="checkLogin(username, password)" [disabled]="!loginForm.form.valid">Login</button>
     </form>
   </mat-card-content>
 </mat-card>
+

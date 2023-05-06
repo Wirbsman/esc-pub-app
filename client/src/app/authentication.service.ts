@@ -4,7 +4,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {EscService} from "./esc.service";
 import {Router} from "@angular/router";
 import {catchError} from "rxjs/operators";
-import {pipe} from "rxjs";
+import {Observable, pipe} from "rxjs";
 
 const AUTHORIZATION_HEADER = 'Authorization'
 const CONTENT_TYPE_HEADER = 'Content-Type'
@@ -29,18 +29,14 @@ export class AuthenticationService {
 
     const credentials = CurrentUser.b64EncodeUnicode(username + ':' + password)
 
-    this.http.get<any>("/rest/authenticate", {
+   return this.http.get("/rest/authenticate", {
       headers: new HttpHeaders({
         'Content-Type': CONTENT_TYPE,
         'Authorization': `Basic ${credentials}`,
       })
 
     }).pipe(catchError(this.escService.handleError<any>('authenticate', [])))
-      .subscribe(value => this.currentUser.setUser(username, password, value.admin));
 
-    //   sessionStorage.setItem('user', JSON.stringify(credentials));
-
-    return !!this.currentUser;
   }
 
 
@@ -56,7 +52,7 @@ export class AuthenticationService {
 
   logOut() {
     this.currentUser.clear();
-    //sessionStorage.removeItem('user');
+    sessionStorage.removeItem('user');
     this.route.navigateByUrl("/login");
   }
 
