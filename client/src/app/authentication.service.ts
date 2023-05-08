@@ -24,35 +24,21 @@ export class AuthenticationService {
               private route: Router,
               private escService: EscService) {
   }
+
   // ToDo Content Type Header austauschen / Error Handlung für HTTP Requests
-  authenticate(username: string, password: string) {
+  authenticate(username: string, password: string): any {
 
     const credentials = CurrentUser.b64EncodeUnicode(username + ':' + password)
-
-   return this.http.get("/rest/authenticate", {
+    return this.http.get("/rest/authenticate", {
       headers: new HttpHeaders({
         'Content-Type': CONTENT_TYPE,
         'Authorization': `Basic ${credentials}`,
       })
-
-    }).pipe(catchError(this.escService.handleError<any>('authenticate', [])))
-
-  }
-
-
-  getLoginStatus() : boolean {
-    let user = sessionStorage.getItem('user');
-    return user != null;
-
-  }
-
-  isUserAdmin() : boolean {
-   return !!this.currentUser.isAdmin;
+    })
   }
 
   logOut() {
     this.currentUser.clear();
-    sessionStorage.removeItem('user');
     this.route.navigateByUrl("/login");
   }
 

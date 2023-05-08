@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 import static java.util.stream.Collectors.toList;
@@ -83,9 +85,15 @@ public class ESCController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/rest/ratings")
-    public List<Rating> getAllRatings() {
+    public  Map<String, Object> getAllRatings() {
 
-        return escService.getAllRatings();
+        List<SimpleRating> simpleRatingStream = escService.getAllRatings().stream()
+                .sorted(Comparator.comparing(o -> o.getUser().getId())).map(rating -> new SimpleRating(rating.getUser().getId(), rating.getCountry().getId(), rating.getRating())).collect(toList());
+
+        List<Country> countries = escService.getAllCountries();
+        List<User> users = getAllMembers();
+
+        return Map.of("users", users, "countries", countries, "ratings", simpleRatingStream);
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
@@ -125,5 +133,29 @@ public class ESCController {
 
     }
 
-}
+    private class SimpleRating {
+        Long userId;
+        Long countryId;
+        Double Rating;
 
+        public SimpleRating(Long userId, Long countryId, Double rating) {
+            this.userId = userId;
+            this.countryId = countryId;
+            Rating = rating;
+        }
+
+        public Long getUserId() {
+            return userId;
+        }
+
+        public Long getCountryId() {
+            return countryId;
+        }
+
+        public Double getRating() {
+            return Rating;
+        }
+    }
+
+
+}

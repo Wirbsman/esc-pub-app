@@ -1,6 +1,33 @@
 <div class="grid-container">
   <h1 class="mat-h1">Dashboard</h1>
-  <mat-grid-list cols="2" rowHeight="350px">
+  <table>
+    <tr>
+      <td></td>
+      <td *ngFor="let user of users">
+        {{user.name}}
+      </td>
+      <td>Durchschnitt</td>
+    </tr>
+    <tr *ngFor="let country of countries">
+      <td>
+        {{country.name}}
+      </td>
+      <td *ngFor="let user of users">
+        {{getRatingFor(country.id, user.id)}}
+      </td>
+      <td>
+        {{getCountryAverage(country.id)}}
+      </td>
+    </tr>
+    <tr>
+      <td>Durchschnitt</td>
+      <td *ngFor="let user of users">
+        {{getUserAverage(user.id)}}
+      </td>
+      <td></td>
+    </tr>
+  </table>
+  <!--<mat-grid-list cols="2" rowHeight="350px">
     <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
       <mat-card class="dashboard-card">
         <mat-card-header>
@@ -20,6 +47,6 @@
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
-  </mat-grid-list>
+  </mat-grid-list>-->
   <button class="voteButton" mat-button color="primary" (click)="toVote()">Abstimmung</button>
 </div>

@@ -25,16 +25,17 @@ export class LogInComponent implements OnInit {
   checkLogin(username: string, password: string) {
     if (this.username != null && this.password != null) {
 
-      this.authService.authenticate(this.username, this.password).subscribe(value => {
+      this.authService.authenticate(this.username, this.password).subscribe({
+        next: (value: any) => {
         this.currentUser.setUser(username, password, value.admin);
-      })
 
-
-      if(this.currentUser) {
-        this.route.navigateByUrl('/vote');
-        sessionStorage.setItem('user', this.currentUser.getCredentials())
-        this.invalidLogin = false
-      }
+        if (this.currentUser) {
+          this.route.navigateByUrl('/vote');
+          this.currentUser.save()
+          this.invalidLogin = false
+        }},
+          error: () => this.invalidLogin = true
+    })
 
     } else {
       this.invalidLogin = true

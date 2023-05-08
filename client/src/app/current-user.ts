@@ -32,6 +32,7 @@ export class CurrentUser {
   }
 
   isLoggedIn() {
+    console.log("isloggedin: ", this._username)
     return this._username != null;
   }
 
@@ -39,6 +40,9 @@ export class CurrentUser {
     this._username = null;
     this.password = null;
     this._isAdmin = null;
+    sessionStorage.removeItem('username');
+    sessionStorage.removeItem('password');
+    sessionStorage.removeItem('admin');
   }
 
 
@@ -48,5 +52,25 @@ export class CurrentUser {
 
   get username(): string | null {
     return this._username;
+  }
+
+  public save(): void {
+    console.log("save")
+    if (this._username && this.password && this._isAdmin !== null) {
+      sessionStorage.setItem('username', this._username)
+      sessionStorage.setItem('password', this.password)
+      sessionStorage.setItem('admin', this._isAdmin.toString())
+    }
+
+  }
+
+  load() {
+    console.log("load")
+    if(sessionStorage.getItem('username') !== null) {
+
+      this._username = sessionStorage.getItem('username')
+      this.password = sessionStorage.getItem('password')
+      this._isAdmin = sessionStorage.getItem('admin') === 'true'
+    }
   }
 }

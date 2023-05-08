@@ -42,14 +42,6 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public AuthenticationEntryPoint authenticationEntryPoint(){
-        BasicAuthenticationEntryPoint entryPoint =
-                new BasicAuthenticationEntryPoint();
-        entryPoint.setRealmName("new realm");
-        return entryPoint;
-    }
-
-    @Bean
     static PasswordEncoder passwordEncoder() {
         return new PasswordEncoder() {
             @Override
