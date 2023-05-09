@@ -30,7 +30,7 @@ export class EscDashboardComponent implements OnInit {
   );
 
   _users: any[] = []
-  public countries: any[] = []
+  private _countries: any[] = []
   private ratings: any[] = []
   imagePath = "assets/images/flags80/"
 
@@ -69,6 +69,12 @@ export class EscDashboardComponent implements OnInit {
     return this._users.length > 0 ? this._users.sort((one, two) => (one.name < two.name ? -1 : 1)) : []
   }
 
+
+  get countries(): any[] {
+
+    return this._countries.length > 0 ? this._countries.sort((n1,n2) => n1.index - n2.index) : []
+  }
+
   toVote(): void {
 
     this.router.navigateByUrl("/vote");
@@ -79,12 +85,12 @@ export class EscDashboardComponent implements OnInit {
     this.escService.getAllRatings().subscribe({
       next: value => {
         this._users = value.users
-        this.countries = value.countries
+        this._countries = value.countries
         this.ratings = value.ratings
 
       }, error: () => {
         this._users = []
-        this.countries = []
+        this._countries = []
         this.ratings = []
       }
 

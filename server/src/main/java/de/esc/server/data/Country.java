@@ -18,6 +18,8 @@ public class Country {
 
     private String interpret;
 
+    private Integer index;
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -48,6 +50,14 @@ public class Country {
 
     public void setSongname(String songname) {
         this.songname = songname;
+    }
+
+    public Integer getIndex() {
+        return index;
+    }
+
+    public void setIndex(Integer index) {
+        this.index = index;
     }
 
     public String getInterpret() {

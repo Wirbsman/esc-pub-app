@@ -121,6 +121,7 @@ public class ESCController {
         result.put("countryName", country.getName());
         result.put("countryFlag", country.getFlag());
         result.put("countryInterpret", country.getInterpret());
+        result.put("countryIndex", country.getIndex());
         result.put("countrySong", country.getSongname());
 
         Rating rating = ratings.stream().filter(rating1 -> rating1.getCountry().equals(country)).findFirst().orElse(null);
