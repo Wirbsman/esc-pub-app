@@ -32,6 +32,31 @@ export class EscDashboardComponent implements OnInit {
   _users: any[] = []
   public countries: any[] = []
   private ratings: any[] = []
+  imagePath = "assets/images/flags80/"
+
+  selectedRatings = [
+    {value: 1, displayName: '1' },
+    {value: 1.25, displayName: '1-' },
+    {value: 1.5, displayName: '1-2' },
+    {value: 1.75, displayName: '2+' },
+    {value: 2, displayName: '2' },
+    {value: 2.25, displayName: '2-' },
+    {value: 2.5, displayName: '2-3' },
+    {value: 2.75, displayName: '3+' },
+    {value: 3, displayName: '3' },
+    {value: 3.25, displayName: '3-' },
+    {value: 3.5, displayName: '3-4' },
+    {value: 3.75, displayName: '4+' },
+    {value: 4, displayName: '4' },
+    {value: 4.25, displayName: '4-' },
+    {value: 4.5, displayName: '4-5' },
+    {value: 4.75, displayName: '5+' },
+    {value: 5, displayName: '5' },
+    {value: 5.25, displayName: '5-' },
+    {value: 5.5, displayName: '5-6' },
+    {value: 5.75, displayName: '6+' },
+    {value: 6, displayName: '6' },
+  ]
 
 
   constructor(private breakpointObserver: BreakpointObserver,
@@ -41,7 +66,7 @@ export class EscDashboardComponent implements OnInit {
 
   get users(): any[] {
 
-    return this._users.length > 0 ? this._users.sort((one, two) => (one.name > two.name ? -1 : 1)) : []
+    return this._users.length > 0 ? this._users.sort((one, two) => (one.name < two.name ? -1 : 1)) : []
   }
 
   toVote(): void {
@@ -68,8 +93,9 @@ export class EscDashboardComponent implements OnInit {
 
   getRatingFor(countryId: number, userId: number): string {
 
-    let rating: any = this.ratings.find(value => value.userId === userId && value.countryId === countryId);
-    return rating ? rating.rating.toString() : "---"
+    let simpleRating: any = this.ratings.find(value => value.userId === userId && value.countryId === countryId)
+    console.log(simpleRating)
+    return this.formatRating(simpleRating?.rating)
 
   }
 
@@ -79,21 +105,26 @@ export class EscDashboardComponent implements OnInit {
 
   getCountryAverage(countryId: number): string {
 
-    let ratings: any[] = this.ratings.filter(value => value.countryId === countryId)
+    let ratings: any[] = this.ratings.filter(simpleRating => simpleRating.countryId === countryId && simpleRating.rating !== null)
     let ratingSum = 0;
-    ratings.forEach(value => ratingSum = ratingSum + value.rating)
-    console.log("SummeLand",ratings.length, ratingSum)
-    return (ratingSum / ratings.length).toString()
+    ratings.forEach(simpleRating => ratingSum = ratingSum + simpleRating.rating)
+    return ratings.length > 0 ? (ratingSum / ratings.length).toFixed(2).toString() : "-"
 
   }
 
   getUserAverage(userId: number): string {
 
-    let ratings: any[] = this.ratings.filter(simpleRating => simpleRating.userId === userId)
+    let ratings: any[] = this.ratings.filter(simpleRating => simpleRating.userId === userId && simpleRating.rating !== null)
     let ratingSum = 0;
     ratings.forEach(simpleRating => ratingSum = ratingSum + simpleRating.rating)
-    console.log("SummeUser",ratings.length, ratingSum)
-    return (ratingSum / ratings.length).toString()
+    return ratings.length > 0 ? (ratingSum / ratings.length).toFixed(2).toString() : "-"
+
+  }
+
+  formatRating(value: number) : string {
+
+    let foundRating = this.selectedRatings.find(value1 => value1.value === value);
+    return foundRating?foundRating.displayName : "-"
 
   }
 }

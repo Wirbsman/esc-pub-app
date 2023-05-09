@@ -32,7 +32,7 @@ export class CurrentUser {
   }
 
   isLoggedIn() {
-    console.log("isloggedin: ", this._username)
+    console.log("isloggedin", this._username)
     return this._username != null;
   }
 

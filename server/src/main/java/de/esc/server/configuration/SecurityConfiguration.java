@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
 
 import static org.springframework.security.config.Customizer.withDefaults;
@@ -36,9 +37,16 @@ public class SecurityConfiguration {
                         .anyRequest().authenticated()
                 )
                 .userDetailsService(myUserService)
-                //.headers(headers -> headers.frameOptions().sameOrigin())
-                .httpBasic(withDefaults())
-                .build();
+                .httpBasic().authenticationEntryPoint(loginUrlauthenticationEntryPoint())
+                .and().build();
+
+        //.headers(headers -> headers.frameOptions().sameOrigin())
+
+    }
+
+    @Bean
+    public AuthenticationEntryPoint loginUrlauthenticationEntryPoint(){
+        return new LoginUrlAuthenticationEntryPoint("/login");
     }
 
     @Bean
