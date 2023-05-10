@@ -63,7 +63,6 @@ export class CurrentUser {
     }
 
   }
-
   load() {
     console.log("load")
     if(sessionStorage.getItem('username') !== null) {

@@ -2,13 +2,10 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {catchError} from 'rxjs/operators';
-import {User} from "./user";
 import {CurrentUser} from "./current-user";
 import {Rating} from "./user-ratings/ratings";
 
 
-const AUTHORIZATION_HEADER = 'Authorization'
-const CONTENT_TYPE_HEADER = 'Content-Type'
 const CONTENT_TYPE = 'application/json'
 
 @Injectable({
@@ -24,22 +21,8 @@ export class EscService {
   constructor(private http: HttpClient, private currentUser: CurrentUser) {
   }
 
-  private usersUrl = '/rest/user';  // URL to user call
-  private countriesUrl = '/rest/country';  // URL to country call
   private userRatingUrl = '/rest/user/ratings';
   private allRatingsUrl = '/rest/ratings';
-
-
-  getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.usersUrl, {
-        headers: new HttpHeaders({
-          CONTENT_TYPE_HEADER: CONTENT_TYPE,
-          AUTHORIZATION: `Basic ${this.currentUser.getCredentials()}`
-        })
-      }
-    ).pipe(catchError(this.handleError<User[]>('getUsers', []))
-    );
-  }
 
 
   getRatingsForUser(): Observable<any[]> {
