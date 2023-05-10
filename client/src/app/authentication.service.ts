@@ -1,13 +1,9 @@
 import {Injectable} from '@angular/core';
 import {CurrentUser} from "./current-user";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {EscService} from "./esc.service";
 import {Router} from "@angular/router";
-import {catchError} from "rxjs/operators";
-import {Observable, pipe} from "rxjs";
 
-const AUTHORIZATION_HEADER = 'Authorization'
-const CONTENT_TYPE_HEADER = 'Content-Type'
+
 const CONTENT_TYPE = 'application/json'
 
 @Injectable({
@@ -21,8 +17,7 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient,
               private currentUser: CurrentUser,
-              private route: Router,
-              private escService: EscService) {
+              private route: Router ) {
   }
 
   // ToDo Content Type Header austauschen / Error Handlung für HTTP Requests
@@ -41,6 +36,4 @@ export class AuthenticationService {
     this.currentUser.clear();
     this.route.navigateByUrl("/login");
   }
-
-
 }

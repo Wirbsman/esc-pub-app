@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {UserTableComponent} from "./user-table/user-table.component";
 import {LogInComponent} from "./log-in/log-in.component";
-import {MainNavigationComponent} from "./main-navigation/main-navigation.component";
 import {AuthGuardService} from "./auth-guard.service";
 import {UserRatingsComponent} from "./user-ratings/user-ratings.component";
 import {EscDashboardComponent} from "./esc-dashboard/esc-dashboard.component";
