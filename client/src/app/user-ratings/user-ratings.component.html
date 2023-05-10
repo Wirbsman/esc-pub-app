@@ -1,7 +1,6 @@
 <div class="headerBar">
   <img class="logo" src="assets/images/ESC.png" alt="Icon">
-<h1 class="headerTitle">{{currentUser.username}}</h1>
-  <button *ngIf="currentUser.isAdmin" class="dashButton" mat-button color="primary" (click)="toDashboard()">Dashboard</button>
+  <h1 class="headerTitle">{{currentUser.username}}</h1>
 </div>
 <mat-list class="content">
   <div class="country" *ngFor="let rating of ratings">
@@ -19,8 +18,11 @@
       </mat-select>
     </div>
   </div>
-  <button class="saveButton" mat-button color="primary" (click)="save()">Speichern</button>
-  <button class="saveButton" mat-button color="primary" (click)="logout()">Ausloggen</button>
+  <div class="footerBar">
+    <button class="button" mat-button color="primary" (click)="save()">Speichern</button>
+    <button *ngIf="currentUser.isAdmin" class="button" mat-button color="primary" (click)="toDashboard()">Dashboard</button>
+    <button class="button" mat-button color="primary" (click)="logout()">Ausloggen</button>
+  </div>
 </mat-list>
 
 

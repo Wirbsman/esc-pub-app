@@ -3,35 +3,25 @@
 }
 
 .headerBar {
-  background-color: whitesmoke;
-  text-align: center;
-  position: sticky;
-  top: 0;
-  width: 100%;
-  z-index: 99;
+  background-color: #f5f5f5;
   display: flex;
   outline-style: double;
-  font-family: Comic Sans MS, Comic Sans, cursive;
+  font-family: Comic Sans MS,Comic Sans,cursive;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
 }
+
 
 .logo {
-  width: 35%;
-  height: auto;
-}
+    width: 35%;
+  }
+
+
+
 
 .headerTitle {
-
-  padding: 10px;
-  flex-direction: row;
-  align-self: center;
-}
-
-.dashButton {
-
-  align-self: center;
-  background-color: whitesmoke;
-  outline: auto;
-  flex-direction: row;
+  margin-left: 3em;
 }
 
 .content {
@@ -82,9 +72,19 @@
   background-color: whitesmoke;
 }
 
-.saveButton {
-  background-color: whitesmoke;
+.button {
+  background-color: ghostwhite;
   outline: auto;
-  margin-left: 1em;
-  margin-top: 1em;
+  outline-color: black;
+  color: black;
 }
+
+.footerBar {
+
+  padding: 1em;
+  flex-direction: row;
+  display: flex;
+  justify-content: space-between;
+  background-color: whitesmoke;
+}
+
