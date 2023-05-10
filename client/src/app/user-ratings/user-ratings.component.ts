@@ -12,7 +12,7 @@ import {AuthenticationService} from "../authentication.service";
 })
 export class UserRatingsComponent implements OnInit {
 
-  ratings : any[] =  [];
+  private _ratings : any[] =  [];
 
   imagePath = "assets/images/flags80/";
 
@@ -49,6 +49,13 @@ export class UserRatingsComponent implements OnInit {
               private router: Router) {
   }
 
+
+  get ratings(): any[] {
+
+    return this._ratings.length > 0 ? this._ratings.sort((n1,n2) => n1.countryIndex - n2.countryIndex) : []
+
+  }
+
   ngOnInit(): void {
     this.getRatingsForUser();
 
@@ -56,14 +63,14 @@ export class UserRatingsComponent implements OnInit {
 
   private getRatingsForUser() {
     this.escService.getRatingsForUser().subscribe(values => {
-        this.ratings = values
+        this._ratings = values
       }
     );
   }
 
   public save() : void {
 
-    this.escService.updateUserRatings(this.toRatings(this.ratings)).subscribe(() => this.getRatingsForUser());
+    this.escService.updateUserRatings(this.toRatings(this._ratings)).subscribe(() => this.getRatingsForUser());
 
   }
 

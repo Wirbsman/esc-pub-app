@@ -10,8 +10,8 @@ import {CurrentUser} from "../current-user";
 })
 export class LogInComponent implements OnInit {
 
-  public username: string | null = null;
-  public password: string | null = null;
+  public username = "";
+  public password = "";
   public invalidLogin = false;
   public hide = true;
 
@@ -22,19 +22,25 @@ export class LogInComponent implements OnInit {
   constructor(private route: Router, private authService: AuthenticationService, private currentUser: CurrentUser) {
   }
 
-  checkLogin() {
+  checkLogin(username: string, password: string) {
     if (this.username != null && this.password != null) {
 
-      if (this.authService.authenticate(this.username, this.password)) {
-        this.route.navigateByUrl('/vote');
-        this.invalidLogin = false
+      this.authService.authenticate(this.username, this.password).subscribe({
+        next: (value: any) => {
+        this.currentUser.setUser(username, password, value.admin);
 
-      } else {
-        this.invalidLogin = true
-      }
+        if (this.currentUser) {
+          this.route.navigateByUrl('/vote');
+          this.currentUser.save()
+          this.invalidLogin = false
+        }},
+          error: () => this.invalidLogin = true
+    })
+
     } else {
       this.invalidLogin = true
     }
+
   }
 
 }

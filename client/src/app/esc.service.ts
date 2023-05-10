@@ -27,6 +27,7 @@ export class EscService {
   private usersUrl = '/rest/user';  // URL to user call
   private countriesUrl = '/rest/country';  // URL to country call
   private userRatingUrl = '/rest/user/ratings';
+  private allRatingsUrl = '/rest/ratings';
 
 
   getUsers(): Observable<User[]> {
@@ -73,6 +74,18 @@ export class EscService {
       // Let the app keep running by returning an empty result.
       return of(result as T);
     };
+  }
+
+  getAllRatings(): Observable<any> {
+
+    return this.http.get<any>(this.allRatingsUrl, {
+        headers: new HttpHeaders({
+          CONTENT_TYPE_HEADER: CONTENT_TYPE,
+          AUTHORIZATION: `Basic ${this.currentUser.getCredentials()}`
+        })
+      }
+    ).pipe(catchError(this.handleError<any>('getAllRatings', {}))
+    );
   }
 
 

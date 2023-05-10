@@ -1,21 +1,49 @@
-.grid-container {
-  margin: 20px;
+.header {
+  font-family: Comic Sans MS,Comic Sans,cursive;
+  padding: 6px;
+  margin: 0;
 }
 
-.dashboard-card {
-  position: absolute;
-  top: 15px;
-  left: 15px;
-  right: 15px;
-  bottom: 15px;
+.button {
+  background-color: ghostwhite;
+  outline: auto;
+  outline-color: black;
+  color: black;
+  margin-left: 2em;
 }
 
-.more-button {
-  position: absolute;
-  top: 5px;
-  right: 10px;
+.icon {
+  border-radius: 50%;
+  background-color: transparent;
+  width: 50px;
+  height: 50px;
+  margin-left: 16px;
+  margin-right: 16px;
+  align-self: center;
 }
 
-.dashboard-card-content {
+.table, th, td {
+  background: whitesmoke;
+  border: solid;
   text-align: center;
 }
+
+.user {
+  width: 4em;
+}
+
+.country {
+  width: 8em;
+}
+
+.footerBar {
+
+  padding: 1em;
+  flex-direction: row;
+  display: flex;
+  justify-content: flex-start;
+
+}
+
+
+

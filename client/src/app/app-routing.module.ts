@@ -8,13 +8,12 @@ import {UserRatingsComponent} from "./user-ratings/user-ratings.component";
 import {EscDashboardComponent} from "./esc-dashboard/esc-dashboard.component";
 
 const routes: Routes = [
-  {path: '', redirectTo: 'vote', pathMatch: "full"},
+  {path: '', redirectTo: 'vote', pathMatch: 'full'},
   {path: 'login', component: LogInComponent},
   {path: 'vote', component: UserRatingsComponent, canActivate: [AuthGuardService]},
   {path: 'dashboard', component: EscDashboardComponent, canActivate: [AuthGuardService]},
-  // Not in Use at the moment
-  {path: 'menu', component: MainNavigationComponent, canActivate: [AuthGuardService]},
-  {path: 'menu/users2', component: UserTableComponent, canActivate: [AuthGuardService]},
+  {path: '**', redirectTo: 'vote'},
+
 ];
 
 @NgModule({
