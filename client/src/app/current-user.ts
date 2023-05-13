@@ -8,6 +8,7 @@ export class CurrentUser {
   private _username: string | null = null;
   private password: string | null = null;
   private _isAdmin: boolean | null = null;
+  private _avatar: string | null = null;
 
 
   constructor() {
@@ -25,10 +26,11 @@ export class CurrentUser {
     return btoa(rawString)
   }
 
-  public setUser(username: string, password: string, isAdmin: any): void {
+  public setUser(username: string, password: string, isAdmin: any, avatar: string): void {
     this._username = username;
     this.password = password;
     this._isAdmin = isAdmin;
+    this._avatar = avatar;
   }
 
   isLoggedIn() {
@@ -40,6 +42,7 @@ export class CurrentUser {
     this._username = null;
     this.password = null;
     this._isAdmin = null;
+    this._avatar = null;
     sessionStorage.removeItem('username');
     sessionStorage.removeItem('password');
     sessionStorage.removeItem('admin');
@@ -52,6 +55,10 @@ export class CurrentUser {
 
   get username(): string | null {
     return this._username;
+  }
+
+  get avatar(): string | null {
+    return this._avatar;
   }
 
   public save(): void {

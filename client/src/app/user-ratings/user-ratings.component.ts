@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {EscService} from "../esc.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {Router} from "@angular/router";
 import {Rating} from "./ratings";
 import {CurrentUser} from "../current-user";
 import {AuthenticationService} from "../authentication.service";
@@ -15,6 +15,7 @@ export class UserRatingsComponent implements OnInit {
   private _ratings : any[] =  [];
 
   imagePath = "assets/images/flags80/";
+  avatarPath = "assets/avatar/";
 
   selectedRatings = [
     {value: 1, displayName: '1' },

@@ -27,7 +27,7 @@ export class LogInComponent implements OnInit {
 
       this.authService.authenticate(this.username, this.password).subscribe({
         next: (value: any) => {
-        this.currentUser.setUser(username, password, value.admin);
+        this.currentUser.setUser(username, password, value.admin, value.icon);
 
         if (this.currentUser) {
           this.route.navigateByUrl('/vote');
