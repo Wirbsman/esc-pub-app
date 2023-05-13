@@ -46,6 +46,7 @@ export class CurrentUser {
     sessionStorage.removeItem('username');
     sessionStorage.removeItem('password');
     sessionStorage.removeItem('admin');
+    sessionStorage.removeItem('avatar');
   }
 
 
@@ -63,10 +64,11 @@ export class CurrentUser {
 
   public save(): void {
     console.log("save")
-    if (this._username && this.password && this._isAdmin !== null) {
+    if (this._username && this.password && this._isAdmin !== null && this._avatar !== null) {
       sessionStorage.setItem('username', this._username)
       sessionStorage.setItem('password', this.password)
       sessionStorage.setItem('admin', this._isAdmin.toString())
+      sessionStorage.setItem('avatar', this._avatar)
     }
 
   }
@@ -77,6 +79,7 @@ export class CurrentUser {
       this._username = sessionStorage.getItem('username')
       this.password = sessionStorage.getItem('password')
       this._isAdmin = sessionStorage.getItem('admin') === 'true'
+      this._avatar = sessionStorage.getItem('avatar')
     }
   }
 }
