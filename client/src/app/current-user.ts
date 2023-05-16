@@ -34,7 +34,7 @@ export class CurrentUser {
   }
 
   isLoggedIn() {
-    console.log("isloggedin", this._username)
+
     return this._username != null;
   }
 
@@ -63,7 +63,7 @@ export class CurrentUser {
   }
 
   public save(): void {
-    console.log("save")
+
     if (this._username && this.password && this._isAdmin !== null && this._avatar !== null) {
       sessionStorage.setItem('username', this._username)
       sessionStorage.setItem('password', this.password)
@@ -73,7 +73,7 @@ export class CurrentUser {
 
   }
   load() {
-    console.log("load")
+
     if(sessionStorage.getItem('username') !== null) {
 
       this._username = sessionStorage.getItem('username')
