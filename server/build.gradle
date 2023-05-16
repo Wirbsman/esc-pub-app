@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'de.esc'
-version = '0.2'
+version = '2023.1.0'
 sourceCompatibility = '17'
 
 repositories {

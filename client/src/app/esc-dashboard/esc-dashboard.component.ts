@@ -100,7 +100,7 @@ export class EscDashboardComponent implements OnInit {
   getRatingFor(countryId: number, userId: number): string {
 
     let simpleRating: any = this.ratings.find(value => value.userId === userId && value.countryId === countryId)
-    console.log(simpleRating)
+
     return this.formatRating(simpleRating?.rating)
 
   }

@@ -1,6 +1,7 @@
 <div class="headerBar">
   <img class="logo" src="assets/images/ESC.png" alt="Icon">
   <h1 class="headerTitle">{{currentUser.username}}</h1>
+  <img class="avatar" src="{{avatarPath + currentUser.avatar}}" alt="Icon">
 </div>
 <mat-list class="content">
   <div class="country" *ngFor="let rating of ratings">
