@@ -22,6 +22,7 @@
   <div class="footerBar">
     <button class="button" mat-button color="primary" (click)="save()">Speichern</button>
     <button *ngIf="currentUser.isAdmin" class="button" mat-button color="primary" (click)="toDashboard()">Dashboard</button>
+    <button class="button" *ngIf="currentUser.isAdmin" (click)="toUserManagement()">Userverwaltung</button>
     <button class="button" mat-button color="primary" (click)="logout()">Ausloggen</button>
   </div>
 </mat-list>
