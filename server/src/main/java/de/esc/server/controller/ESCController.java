@@ -30,18 +30,41 @@ public class ESCController {
     //Methods for Users
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/rest/user")
+    @GetMapping("/rest/user/all")
     public List<User> getAllMembers() {
 
         return escService.getAllUsers().stream().map(user -> new User(user.getId(), user.getName(), "******", user.getIcon(), user.isAdmin())).collect(toList());
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @PostMapping("/rest/user")
-    public Long createUser(@RequestBody final User user) {
+    @GetMapping("/rest/user/{id}")
+    public Optional<User> getMember(@RequestBody final long id) {
 
-        return escService.saveUser(user);
+        return escService.getUser(id);
     }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @PostMapping("/rest/user")
+    public long createUser(@RequestBody final User user) {
+
+      return escService.saveUser(user);
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @PutMapping("/rest/user/{id}")
+    public void updateUser(@PathVariable long id, @RequestBody User user) {
+
+        escService.updateUser(id, user);
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @DeleteMapping("/rest/user/{id}")
+    public void deleteUser(@PathVariable long id) {
+        escService.deleteUser(id);
+    }
+
+
+
     // Rest Call to get logged User
     @GetMapping("/rest/authenticate")
     @ResponseBody
