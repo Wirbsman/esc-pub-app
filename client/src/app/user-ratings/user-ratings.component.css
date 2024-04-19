@@ -1,93 +1,157 @@
-.full-width-list {
-  width: 100%;
+.user-ratings-container {
+  background-color: #FBF7F4; /* Hintergrundfarbe */
+  padding: 20px; /* Innenabstand */
 }
 
-.headerBar {
-  background-color: #f5f5f5;
+.header {
   display: flex;
-  outline-style: double;
-  font-family: Comic Sans MS,Comic Sans,cursive;
-  flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 20px;
 }
 
-
-.logo {
-    width: 35%;
-  }
-
-.avatar {
-  width: 25%;
+.header img {
+  max-width: 50px; /* Maximale Breite der Bilder */
 }
 
-
-
-.headerTitle {
-
+/* Ändern Sie die Größe der Icons im Header */
+.header img.left-icon,
+.header img.right-icon {
+  max-width: 100px; /* Neue maximale Breite */
 }
 
-.content {
-  padding: 10px;
-  background-color: whitesmoke;
-  font-family: Tahoma, Verdana, GungSeo, sans-serif;
+.user-ratings-table {
+  width: 100%;
+  border-collapse: collapse;
 }
 
-.country {
-  display: flex;
-  flex-direction: row;
-  padding-block: inherit;
-  outline-style: double;
+.user-ratings-table th,
+.user-ratings-table td {
+  border: 1px solid #000; /* Schwarze Linien zwischen den Zellen */
+  padding: 8px; /* Innenabstand */
 }
 
-.h3 {
-  font-weight: bold;
-  font-size: larger;
-  margin-block-end: 0;
+.user-ratings-table th.index-column,
+.user-ratings-table td.index-column {
+  width: 55px; /* Breite für die Icon-Spalte */
 }
 
-.names {
-  display: block;
-  width: 40%;
+.user-ratings-table th.icon-column,
+.user-ratings-table td.icon-column {
+  width: 55px; /* Breite für die Icon-Spalte */
 }
 
-.number {
-  align-self: center;
-  margin-left: 20px;
-  flex: auto;
+.user-ratings-table th.country-column,
+.user-ratings-table td.country-column {
+  width: 50%; /* Breite für die Länder-Informationen-Spalte */
 }
 
-.icon {
-  border-radius: 50%;
+.user-ratings-table th.rating-column,
+.user-ratings-table td.rating-column {
+  width: 45px; /* Breite für die Bewertungsspalte */
+  text-align: center; /* Zentrierung des Inhalts */
+  background-color: #f0f0f0; /* Hintergrundfarbe für die Auswahlbox */
+}
+
+.user-ratings-table th {
+  background-color: #FFD600; /* Hintergrundfarbe für Tabellenkopf */
+}
+
+.user-ratings-table tr:nth-child(even) {
+  background-color: #EFE9E6; /* Hintergrundfarbe für gerade Zeilen */
+}
+
+.user-ratings-table tr:hover {
+  background-color: #D4CFCB; /* Hintergrundfarbe bei Hover */
+}
+
+/* Machen Sie das Bild des Landes in der zweiten Reihe rund */
+.user-ratings-table img.country-image {
+  border-radius: 50%; /* Runde Ecken */
   background-color: transparent;
   width: 50px;
   height: 50px;
-  margin-left: 16px;
-  margin-right: 16px;
-  align-self: center;
 }
 
-.select {
-  display: inline-block;
-  text-align: center;
-  outline: auto;
-  width: 90%;
-  background-color: whitesmoke;
+.country-name {
+  font-weight: bold;
+  font-size: 16px;
 }
 
-.button {
-  background-color: ghostwhite;
-  outline: auto;
-  outline-color: black;
-  color: black;
+.artist-song {
+  font-size: 14px;
 }
 
-.footerBar {
-
-  padding: 1em;
-  flex-direction: row;
-  display: flex;
-  justify-content: space-between;
-  background-color: whitesmoke;
+.footer {
+  margin-top: 20px;
 }
 
+.mat-select {
+  font-family: inherit;
+  font-size: inherit;
+  color: #000; /* Textfarbe */
+  border: 1px solid #000; /* Rahmen */
+  border-radius: 5px; /* Abgerundete Ecken */
+  background-color: #fff; /* Hintergrundfarbe */
+  padding: 8px 10px; /* Innenabstand anpassen */
+}
+
+.mat-select-arrow-wrapper {
+  display: none; /* Pfeil ausblenden */
+}
+
+.mat-option {
+  font-family: inherit;
+  font-size: inherit;
+  color: #000; /* Textfarbe */
+}
+
+.mat-option:hover {
+  background-color: #D4CFCB; /* Hintergrundfarbe bei Hover */
+}
+
+.btn-save,
+.btn-cancel {
+  background-color: #FFD600; /* Hintergrundfarbe für Buttons */
+  color: #000; /* Textfarbe für Buttons */
+  padding: 10px 20px; /* Innenabstand anpassen */
+  border: none; /* Kein Rand */
+  border-radius: 5px; /* Abgerundete Ecken */
+  cursor: pointer;
+  margin-right: 10px; /* Rechten Abstand anpassen */
+}
+
+.btn-save:hover,
+.btn-cancel:hover {
+  background-color: #FFB500; /* Hintergrundfarbe bei Hover */
+}
+
+/* Responsives Design */
+@media screen and (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .header img {
+    margin-bottom: 10px;
+  }
+
+  .table-container {
+    overflow-x: auto;
+  }
+
+  .user-ratings-table {
+    min-width: 400px; /* Mindestbreite für die Tabelle */
+  }
+
+  .footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer button {
+    margin-bottom: 10px;
+  }
+}

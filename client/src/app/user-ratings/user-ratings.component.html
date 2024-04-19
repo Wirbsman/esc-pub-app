@@ -1,30 +1,41 @@
-<div class="headerBar">
-  <img class="logo" src="assets/images/ESC.png" alt="Icon">
-  <h1 class="headerTitle">{{currentUser.username}}</h1>
-  <img class="avatar" src="{{avatarPath + currentUser.avatar}}" alt="Icon">
+<div class="user-ratings-container">
+  <div class="header">
+    <img class="left-icon" src="assets/images/ESC.png" alt="Icon">
+    <h2>{{currentUser.username}}</h2>
+    <img class="right-icon" src="{{avatarPath + currentUser.avatar}}" alt="Icon">
+  </div>
+
+  <div class="table-container">
+    <table class="user-ratings-table">
+      <tbody>
+      <tr *ngFor="let rating of ratings">
+        <td class="index-column">{{rating.countryIndex}}</td>
+        <td class="icon-column"><img class="country-image" src="{{imagePath + rating.countryFlag}}" alt="Icon"></td>
+        <td class="country-column">
+          <div class="country-info">
+            <div class="country-name">{{ rating.countryName}}</div>
+            <div class="artist-song">
+              <div>{{ rating.countryInterpret }}</div>
+              <div>{{ rating.countrySong }}</div>
+            </div>
+          </div>
+        </td>
+        <td class="rating-column">
+          <mat-select [(ngModel)]="rating.ratingValue" placeholder="Note">
+            <mat-option *ngFor="let selected of selectedRatings" [value]="selected.value">
+              <span>{{selected.displayName}}</span>
+            </mat-option>
+          </mat-select>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="footer">
+    <button class="btn-save">Speichern</button>
+    <button class="btn-save" *ngIf="currentUser.isAdmin" (click)="toDashboard()">Dashboard</button>
+    <button class="btn-save" *ngIf="currentUser.isAdmin" (click)="toUserManagement()">Userverwaltung</button>
+    <button class="btn-save" (click)="logout()">Ausloggen</button>
+  </div>
 </div>
-<mat-list class="content">
-  <div class="country" *ngFor="let rating of ratings">
-    <img class="icon" src="{{imagePath + rating.countryFlag}}" alt="Icon">
-    <div class="names">
-      <h3 class="h3">{{rating.countryName}}</h3>
-      <span matListItemLine>{{rating.countryInterpret}}</span>
-      <span matListItemLine>{{rating.countrySong}}</span>
-    </div>
-    <div class="number">
-      <mat-select class="select" [(ngModel)]="rating.ratingValue" placeholder="Note">
-        <mat-option *ngFor="let selected of selectedRatings" [value]="selected.value">
-          <span>{{selected.displayName}}</span>
-        </mat-option>
-      </mat-select>
-    </div>
-  </div>
-  <div class="footerBar">
-    <button class="button" mat-button color="primary" (click)="save()">Speichern</button>
-    <button *ngIf="currentUser.isAdmin" class="button" mat-button color="primary" (click)="toDashboard()">Dashboard</button>
-    <button class="button" *ngIf="currentUser.isAdmin" (click)="toUserManagement()">Userverwaltung</button>
-    <button class="button" mat-button color="primary" (click)="logout()">Ausloggen</button>
-  </div>
-</mat-list>
-
-
