@@ -1,49 +1,52 @@
 .header {
-  font-family: Comic Sans MS,Comic Sans,cursive;
-  padding: 6px;
-  margin: 0;
+  background-color: #FFD600; /* Hintergrundfarbe für die Überschrift */
+  font-family: inherit; /* Verwende die Standard-Schriftart */
+  padding: 20px; /* Innenabstand anpassen */
+  margin: 0; /* Außenabstand entfernen */
+  text-align: center; /* Zentriere den Text */
 }
 
 .button {
-  background-color: ghostwhite;
-  outline: auto;
-  outline-color: black;
-  color: black;
-  margin-left: 2em;
+  background-color: #FFD600; /* Hintergrundfarbe für die Buttons */
+  color: #000; /* Textfarbe für die Buttons */
+  padding: 10px 20px; /* Innenabstand anpassen */
+  border: none; /* Kein Rahmen */
+  border-radius: 5px; /* Abgerundete Ecken */
+  margin-left: 20px; /* Linken Abstand anpassen */
+  cursor: pointer; /* Zeiger beim Überfahren des Buttons */
 }
 
 .icon {
-  border-radius: 50%;
-  background-color: transparent;
-  width: 50px;
-  height: 50px;
-  margin-left: 16px;
-  margin-right: 16px;
-  align-self: center;
+  border-radius: 50%; /* Runde Ecken für das Bild */
+  background-color: transparent; /* Transparenter Hintergrund */
+  width: 50px; /* Breite des Bildes */
+  height: 50px; /* Höhe des Bildes */
+  margin-left: 16px; /* Linken Abstand anpassen */
+  margin-right: 16px; /* Rechten Abstand anpassen */
+  align-self: center; /* Zentriere das Bild vertikal */
 }
 
 .table, th, td {
-  background: whitesmoke;
-  border: solid;
-  text-align: center;
+  background: #EFE9E6; /* Hintergrundfarbe für die Tabelle, Kopfzeile und Zellen */
+  border: 1px solid #000; /* Schwarzer Rahmen für die Tabelle und Zellen */
+  text-align: center; /* Zentriere den Text */
+  padding: 8px; /* Innenabstand anpassen */
 }
 
 .user {
-  width: 4em;
+  width: 4em; /* Breite der Benutzerzellen */
 }
 
 .country {
-  width: 8em;
+  width: 8em; /* Breite der Länderzellen */
 }
 
 .footerBar {
-
-  padding: 1em;
-  flex-direction: row;
-  display: flex;
-  justify-content: flex-start;
-
+  padding: 20px; /* Innenabstand anpassen */
+  display: flex; /* Flexbox verwenden */
+  justify-content: flex-start; /* Inhalt links ausrichten */
 }
 
-
-
+.footerBar .button:first-child {
+  margin-left: 0; /* Linken Abstand des ersten Buttons entfernen */
+}
