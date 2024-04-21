@@ -91,6 +91,13 @@ export class UserRatingsComponent implements OnInit {
 
   }
 
+  toUserManagement() {
+    if (this.currentUser.isAdmin) {
+
+      this.router.navigateByUrl("/user-management");
+    }
+  }
+
   logout() {
 
     this.authService.logOut();

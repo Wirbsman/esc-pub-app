@@ -96,4 +96,23 @@ public class ESCService {
 
         return userRepository.findByName(name);
     }
+
+
+    public void updateUser(long id, User user) {
+
+        User updateUser = userRepository.findById(id);
+        if (updateUser != null) {
+
+            updateUser.setName(user.getName());
+            updateUser.setIcon(user.getIcon());
+            updateUser.setAdmin(user.isAdmin());
+
+            userRepository.save(updateUser);
+
+        } /*TODO ThrowException */
+    }
+
+    public void deleteUser(long id) {
+        userRepository.deleteById(id);
+    }
 }
