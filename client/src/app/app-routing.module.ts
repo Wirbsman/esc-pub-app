@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LogInComponent } from './log-in/log-in.component';
+import { EscDashboardComponent } from './pages/esc-dashboard/esc-dashboard.component';
+import { LogInComponent } from './pages/log-in/log-in.component';
+import { UserManagementComponent } from './pages/user-management/user-management.component';
+import { UserRatingsComponent } from './pages/user-ratings/user-ratings.component';
 import { AuthGuardService } from './services/auth-guard.service';
-import { UserRatingsComponent } from './user-ratings/user-ratings.component';
-import { EscDashboardComponent } from './esc-dashboard/esc-dashboard.component';
-import { UserManagementComponent } from './user-management/user-management.component';
 
 
 const routes: Routes = [
