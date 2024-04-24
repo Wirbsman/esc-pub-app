@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {CurrentUser} from "../current-user";
-import {Rating} from "../user-ratings/ratings";
+import {Rating} from "../model/ratings";
 
 
 const CONTENT_TYPE = 'application/json'

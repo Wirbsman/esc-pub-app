@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {CurrentUser} from "../current-user";
-import {User} from "../user-management/user";
+import {User} from "../model/user";
 import {Observable, of} from "rxjs";
 import {catchError} from "rxjs/operators";
 

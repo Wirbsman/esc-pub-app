@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {EscService} from "../services/esc.service";
 import {Router} from "@angular/router";
-import {Rating} from "./ratings";
+import {Rating} from "../model/ratings";
 import {CurrentUser} from "../current-user";
 import {AuthenticationService} from "../services/authentication.service";
 
