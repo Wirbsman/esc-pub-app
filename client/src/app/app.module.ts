@@ -19,7 +19,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { UserManagementComponent } from './pages/user-management/user-management.component';
 import { UserRatingsComponent } from './pages/user-ratings/user-ratings.component';
 
 
@@ -27,7 +26,6 @@ import { UserRatingsComponent } from './pages/user-ratings/user-ratings.componen
     declarations: [
         AppComponent,
         UserRatingsComponent,
-        UserManagementComponent,
     ],
     imports: [
         BrowserModule,
