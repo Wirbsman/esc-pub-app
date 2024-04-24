@@ -19,14 +19,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { UserRatingsComponent } from './pages/user-ratings/user-ratings.component';
 
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        UserRatingsComponent,
-    ],
+    declarations: [AppComponent],
     imports: [
         BrowserModule,
         FormsModule,

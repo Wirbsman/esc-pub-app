@@ -1,12 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { UserRatingsComponent } from './pages/user-ratings/user-ratings.component';
 import { AuthGuardService } from './services/auth-guard.service';
 
 
 const routes: Routes = [
     { path: 'login', loadChildren: () => import('./pages/log-in/log-in.module').then(m => m.LogInModule) },
-    { path: 'vote', component: UserRatingsComponent, canActivate: [AuthGuardService] },
+    {
+        path: 'vote',
+        loadChildren: () => import('./pages/user-ratings/user-ratings.module').then(m => m.UserRatingsModule),
+        canActivate: [AuthGuardService]
+    },
     {
         path: 'dashboard',
         loadChildren: () => import('./pages/esc-dashboard/esc-dashboard.module').then(m => m.EscDashboardModule),
