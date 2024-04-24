@@ -1,23 +1,28 @@
 <mat-card xmlns="http://www.w3.org/1999/html">
-  <mat-card-content>
-    <form #loginForm="ngForm">
-      <h2>Anmeldung</h2>
-      <mat-error *ngIf="invalidLogin">
-        Benutzer und Passwort sind unbekannt
-      </mat-error>
-      <mat-form-field>
-        <mat-label>Gib deinen Benutzernamen ein</mat-label>
-        <input matInput placeholder="Benutzername" [(ngModel)]="username" name="username" required>
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Gib dein Passwort ein</mat-label>
-        <input matInput placeholder="Passwort" [type]="hide ? 'password' : 'text'" [(ngModel)]="password" required>
-        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-        </button>
-      </mat-form-field>
-      <button mat-raised-button color="primary" (click)="checkLogin(username, password)" [disabled]="!loginForm.form.valid">Login</button>
-    </form>
-  </mat-card-content>
+    <mat-card-content>
+        <form #loginForm="ngForm">
+            <h2>Anmeldung</h2>
+            <mat-error *ngIf="invalidLogin">
+                Benutzer und Passwort sind unbekannt
+            </mat-error>
+            <mat-form-field>
+                <mat-label>Gib deinen Benutzernamen ein</mat-label>
+                <input matInput placeholder="Benutzername" [(ngModel)]="username" name="username" required>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Gib dein Passwort ein</mat-label>
+                <input matInput placeholder="Passwort" [type]="hide ? 'password' : 'text'" [(ngModel)]="password"
+                       name="password" required>
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hide">
+                    <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+                </button>
+            </mat-form-field>
+            <button mat-raised-button color="primary" (click)="checkLogin(username, password)"
+                    [disabled]="!loginForm.form.valid">
+                Login
+            </button>
+        </form>
+    </mat-card-content>
 </mat-card>
 
