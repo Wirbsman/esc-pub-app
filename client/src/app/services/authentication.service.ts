@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {CurrentUser} from "./current-user";
+import {CurrentUser} from "../current-user";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Router} from "@angular/router";
 

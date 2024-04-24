@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {EscService} from "../esc.service";
+import {EscService} from "../services/esc.service";
 import {Router} from "@angular/router";
 import {Rating} from "./ratings";
 import {CurrentUser} from "../current-user";
-import {AuthenticationService} from "../authentication.service";
+import {AuthenticationService} from "../services/authentication.service";
 
 @Component({
   selector: 'app-user-ratings',

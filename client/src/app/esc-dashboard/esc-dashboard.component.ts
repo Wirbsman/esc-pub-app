@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {map} from 'rxjs/operators';
 import {Breakpoints, BreakpointObserver} from '@angular/cdk/layout';
 import {Router} from "@angular/router";
-import {EscService} from "../esc.service";
+import {EscService} from "../services/esc.service";
 
 @Component({
   selector: 'app-esc-dashboard',
