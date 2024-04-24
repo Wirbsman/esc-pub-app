@@ -20,7 +20,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { EscDashboardComponent } from './pages/esc-dashboard/esc-dashboard.component';
-import { LogInComponent } from './pages/log-in/log-in.component';
 import { UserManagementComponent } from './pages/user-management/user-management.component';
 import { UserRatingsComponent } from './pages/user-ratings/user-ratings.component';
 
@@ -28,7 +27,6 @@ import { UserRatingsComponent } from './pages/user-ratings/user-ratings.componen
 @NgModule({
     declarations: [
         AppComponent,
-        LogInComponent,
         UserRatingsComponent,
         EscDashboardComponent,
         UserManagementComponent,
