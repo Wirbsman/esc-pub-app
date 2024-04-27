@@ -5,6 +5,7 @@ import { AuthGuardService } from './services/auth-guard.service';
 
 const routes: Routes = [
     { path: 'login', loadChildren: () => import('./pages/log-in/log-in.module').then(m => m.LogInModule) },
+    { path: 'sign-up/simple', loadChildren: () => import('./pages/simple-signup/simple-signup.module').then(m => m.SimpleSignupModule) },
     {
         path: 'vote',
         loadChildren: () => import('./pages/user-ratings/user-ratings.module').then(m => m.UserRatingsModule),
