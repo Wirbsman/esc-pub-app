@@ -1,47 +1,53 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CurrentUser } from '../../current-user';
-import { AuthenticationService } from '../../services/authentication.service';
+import { lastValueFrom } from 'rxjs';
+import { AuthService, LoginRequestBody } from '../../services/auth/auth.service';
+import { FormData } from '../../shared/types/form.types';
 
 @Component({
     selector: 'app-log-in',
     templateUrl: './log-in.component.html',
     styleUrls: ['./log-in.component.css']
 })
-export class LogInComponent implements OnInit {
+export class LogInComponent {
 
-    public username = '';
-    public password = '';
+    readonly loginForm = new FormGroup<FormData<LoginRequestBody>>({
+        username: new FormControl<string>('', {
+            validators: [Validators.required, Validators.minLength(3)],
+            nonNullable: true
+        }),
+        password: new FormControl<string>('', {
+            validators: [Validators.required],
+            nonNullable: true
+        })
+    });
+
     public invalidLogin = false;
     public hide = true;
 
-    ngOnInit() {
-
+    constructor(private readonly router: Router, private readonly authService: AuthService) {
     }
 
-    constructor(private route: Router, private authService: AuthenticationService, private currentUser: CurrentUser) {
-    }
-
-    checkLogin(username: string, password: string) {
-        if (this.username != null && this.password != null) {
-
-            this.authService.authenticate(this.username, this.password).subscribe({
-                next: (value: any) => {
-                    this.currentUser.setUser(username, password, value.admin, value.icon);
-
-                    if (this.currentUser) {
-                        this.route.navigateByUrl('/vote');
-                        this.currentUser.save();
-                        this.invalidLogin = false;
-                    }
-                },
-                error: () => this.invalidLogin = true
-            });
-
-        } else {
-            this.invalidLogin = true;
+    login() {
+        if (!this.loginForm.valid || !this.loginForm.value.username || !this.loginForm.value.password) {
+            return;
         }
 
+        try {
+            lastValueFrom(this.authService.login$({
+                username: this.loginForm.value.username,
+                password: this.loginForm.value.password
+            })).then(() => {
+                this.invalidLogin = false;
+                void this.router.navigateByUrl('/vote');
+            }).catch((e) => {
+                console.error(e);
+                this.invalidLogin = true;
+            });
+        } catch (e) {
+            console.error(e);
+            this.invalidLogin = true;
+        }
     }
-
 }
