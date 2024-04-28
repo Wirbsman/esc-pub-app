@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { lastValueFrom } from 'rxjs';
+import { lastValueFrom, Subject } from 'rxjs';
+import { AppService } from '../../services/app.service';
 import { AuthService, LoginRequestBody } from '../../services/auth/auth.service';
 import { FormData } from '../../shared/types/form.types';
 
@@ -10,7 +11,7 @@ import { FormData } from '../../shared/types/form.types';
     templateUrl: './log-in.component.html',
     styleUrls: ['./log-in.component.css']
 })
-export class LogInComponent {
+export class LogInComponent implements OnDestroy {
 
     readonly loginForm = new FormGroup<FormData<LoginRequestBody>>({
         username: new FormControl<string>('', {
@@ -26,7 +27,12 @@ export class LogInComponent {
     public invalidLogin = false;
     public hide = true;
 
-    constructor(private readonly router: Router, private readonly authService: AuthService) {
+    private readonly destroyed$ = new Subject<void>();
+
+    constructor(private readonly appService: AppService, private readonly router: Router, private readonly authService: AuthService) {
+        if (this.appService.isLoggedIn) {
+            this.navigateToVote();
+        }
     }
 
     login() {
@@ -40,14 +46,25 @@ export class LogInComponent {
                 password: this.loginForm.value.password
             })).then(() => {
                 this.invalidLogin = false;
-                void this.router.navigateByUrl('/vote');
+                this.appService.isLoggedIn = true;
+                this.navigateToVote();
             }).catch((e) => {
                 console.error(e);
+                this.appService.isLoggedIn = false;
                 this.invalidLogin = true;
             });
         } catch (e) {
             console.error(e);
+            this.appService.isLoggedIn = false;
             this.invalidLogin = true;
         }
+    }
+
+    private navigateToVote() {
+        void this.router.navigateByUrl('/vote');
+    }
+
+    ngOnDestroy() {
+        this.destroyed$.next();
     }
 }

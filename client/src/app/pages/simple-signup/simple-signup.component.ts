@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
+import { AppService } from '../../services/app.service';
 import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
@@ -17,7 +18,7 @@ export class SimpleSignupComponent {
 
     public invalidLogin = false;
 
-    constructor(private readonly authService: AuthService, private readonly router: Router) {
+    constructor(private readonly appService: AppService, private readonly authService: AuthService, private readonly router: Router) {
     }
 
     signUp() {
@@ -28,15 +29,18 @@ export class SimpleSignupComponent {
         try {
             lastValueFrom(this.authService.simpleSignUp$({
                 username: this.usernameFC.value,
-            })).then((res) => {
+            })).then(() => {
                 this.invalidLogin = false;
+                this.appService.isLoggedIn = true;
                 void this.router.navigateByUrl('/vote');
             }).catch((e) => {
                 console.error(e);
+                this.appService.isLoggedIn = false;
                 this.invalidLogin = true;
             });
         } catch (e) {
             console.error(e);
+            this.appService.isLoggedIn = false;
             this.invalidLogin = true;
         }
     }

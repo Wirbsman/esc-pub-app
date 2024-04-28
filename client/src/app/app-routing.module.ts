@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuardService } from './services/auth-guard.service';
+import { AuthGuard } from './services/auth/auth.guard';
 
 
 const routes: Routes = [
@@ -9,17 +9,17 @@ const routes: Routes = [
     {
         path: 'vote',
         loadChildren: () => import('./pages/user-ratings/user-ratings.module').then(m => m.UserRatingsModule),
-        canActivate: [AuthGuardService]
+        canActivate: [AuthGuard]
     },
     {
         path: 'dashboard',
         loadChildren: () => import('./pages/esc-dashboard/esc-dashboard.module').then(m => m.EscDashboardModule),
-        canActivate: [AuthGuardService]
+        canActivate: [AuthGuard]
     },
     {
         path: 'user-management',
         loadChildren: () => import('./pages/user-management/user-management.module').then(m => m.UserManagementModule),
-        canActivate: [AuthGuardService]
+        canActivate: [AuthGuard]
     },
     { path: '', redirectTo: 'vote', pathMatch: 'full' },
     { path: '**', redirectTo: 'vote' },
