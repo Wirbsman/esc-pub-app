@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CurrentUser } from './current-user';
+import { AppService } from './services/app.service';
 
 @Component({
     selector: 'app-root',
@@ -8,8 +9,10 @@ import { CurrentUser } from './current-user';
     `,
 })
 export class AppComponent {
-    constructor(private currentUser: CurrentUser) {
+    constructor(private currentUser: CurrentUser,
+                private readonly appService: AppService) {
         this.currentUser.load();
+        this.appService.init();
     }
 }
 
