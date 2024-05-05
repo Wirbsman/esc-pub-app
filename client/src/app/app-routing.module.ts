@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AdminGuard } from './services/auth/admin.guard';
 import { AuthGuard } from './services/auth/auth.guard';
 
 
@@ -19,7 +20,7 @@ const routes: Routes = [
     {
         path: 'user-management',
         loadChildren: () => import('./pages/user-management/user-management.module').then(m => m.UserManagementModule),
-        canActivate: [AuthGuard]
+        canActivate: [AdminGuard]
     },
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: '**', redirectTo: 'vote' },
