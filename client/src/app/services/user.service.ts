@@ -1,88 +1,67 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {CurrentUser} from "../current-user";
-import {User} from "../model/user";
-import {Observable, of} from "rxjs";
-import {catchError} from "rxjs/operators";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { lastValueFrom, Observable, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
-const CONTENT_TYPE = 'application/json'
+import { API_HOST, httpOptions } from '../shared/constants/api';
+import { EmptyResponseBody, SuccessResponseBody } from '../shared/types/common-response.types';
+import { AddUserBody, UpdateUserBodyWithId, User } from '../shared/types/user.types';
 
-@Injectable({
-  providedIn: 'root'
-})
+type AllUsersResponse = SuccessResponseBody<ReadonlyArray<User>>;
+type AddUserResponse = SuccessResponseBody<User>;
+type UpdateUserResponse = SuccessResponseBody<User>;
+type DeleteUserResponse = EmptyResponseBody;
+
+const API_BASE = 'api/v1/users';
+
+@Injectable({ providedIn: 'root' })
 export class UserService {
 
-  httpOptions = {
-    headers: new HttpHeaders({'Content-Type': 'application/json'})
-  };
+    private readonly endpointBase = [API_HOST, API_BASE].join('/');
 
-  constructor(private http: HttpClient, private currentUser: CurrentUser) {
-  }
+    constructor(private readonly httpClient: HttpClient) {
+    }
 
-  private allUsersUrl = '/rest/user/all';
-  private userUrl: string = '/rest/user';
+    allUsers$(): Observable<ReadonlyArray<User>> {
+        return this.httpClient.get<AllUsersResponse>(this.endpointBase, httpOptions).pipe(
+            map(res => res.data ?? []),
+            catchError(this.handleError('allUsers', []))
+        );
+    }
 
-  getUsers(): Observable<User[]> {
+    async addUser(newUser: AddUserBody): Promise<User | null> {
+        return lastValueFrom(
+            this.httpClient.post<AddUserResponse>(this.endpointBase, newUser, httpOptions).pipe(
+                map(res => res.data ?? null),
+                catchError(this.handleError('addUser', null))
+            )
+        );
+    }
 
-    return this.http.get<User[]>(this.allUsersUrl, {
-        headers: new HttpHeaders({
-          CONTENT_TYPE_HEADER: CONTENT_TYPE,
-          AUTHORIZATION: `Basic ${this.currentUser.getCredentials()}`
-        })
-      }
-    ).pipe(catchError(this.handleError<any>('getUsers', {}))
-    );
-  }
+    async updateUser(user: UpdateUserBodyWithId): Promise<User | null> {
+        const { id, ...updateBody } = user;
+        return lastValueFrom(
+            this.httpClient.put<UpdateUserResponse>(`${this.endpointBase}/${id}`, updateBody, httpOptions).pipe(
+                map(res => res.data ?? null),
+                catchError(this.handleError('deleteUser', null))
+            )
+        );
+    }
 
-  deleteUser(userId: number): Observable<any> {
+    async deleteUser(userId: number): Promise<boolean> {
+        return lastValueFrom(
+            this.httpClient.delete<DeleteUserResponse>(`${this.endpointBase}/${userId}`, httpOptions).pipe(
+                map(res => !!res),
+                catchError(this.handleError('deleteUser', false))
+            )
+        );
+    }
 
-    const deleteUrl = `${this.userUrl}/${userId}`;
-
-    return this.http.delete<User>(deleteUrl, {
-        headers: new HttpHeaders({
-          CONTENT_TYPE_HEADER: CONTENT_TYPE,
-          AUTHORIZATION: `Basic ${this.currentUser.getCredentials()}`
-        })
-      }
-    ).pipe(catchError(this.handleError<any>('deleteUser'))
-    );
-  }
-
-  addUser(user: User): Observable<any> {
-
-    return this.http.post<User>(this.userUrl, user, {
-        headers: new HttpHeaders({
-          CONTENT_TYPE_HEADER: CONTENT_TYPE,
-          AUTHORIZATION: `Basic ${this.currentUser.getCredentials()}`
-        })
-      }
-    ).pipe(catchError(this.handleError<any>('addUser', {}))
-    );
-
-  }
-
-  updateUser(userId: number, user: User): Observable<any> {
-
-    const updateUrl = `${this.userUrl}/${userId}`;
-
-    return this.http.put(updateUrl, user, {
-        headers: new HttpHeaders({
-          CONTENT_TYPE_HEADER: CONTENT_TYPE,
-          AUTHORIZATION: `Basic ${this.currentUser.getCredentials()}`
-        })
-      }
-    ).pipe(catchError(this.handleError<any>('updateUser', {}))
-    );
-  }
-
-  public handleError<T>(operation = 'operation', result ?: T) {
-    return (error: any): Observable<T> => {
-
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
-  }
+    public handleError<T>(operation = 'operation', result ?: T) {
+        return (error: any): Observable<T> => {
+            console.error(error); // log to console instead
+            // Let the app keep running by returning an empty result.
+            return of(result as T);
+        };
+    }
 }
