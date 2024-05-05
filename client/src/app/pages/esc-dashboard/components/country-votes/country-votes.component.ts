@@ -4,12 +4,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { filter, Subject, takeUntil, tap } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { CountryRoutingParam } from '../../../../app.routing';
 import { CountryRatingTileComponent, CountryUserRating } from '../../../../components/country-rating-tile/country-rating-tile.component';
 import { Country } from '../../../../shared/types/country.types';
 import { isDefined } from '../../../../shared/utils/is-defined.utils';
-import { CountryRoutingParam } from '../../esc-dashboard.module';
 import { EscDashboardService } from '../../esc-dashboard.service';
-
 
 @Component({
     selector: 'app-country-votes',
