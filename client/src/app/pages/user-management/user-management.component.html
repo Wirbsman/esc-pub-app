@@ -1,54 +1,59 @@
 <div class="user-management-container">
-  <h1 class="heading">Userverwaltung</h1>
+    <h1 class="heading">Userverwaltung</h1>
 
-  <div class="current-user-section">
-    <h2 class="sub-heading">Aktueller User</h2>
-    <div class="current-user-details">
-      <div class="input-group">
-        <label for="currentUserName">Name:</label>
-        <input type="text" id="currentUserName" [(ngModel)]="selectedUser.name">
-      </div>
-      <div class="input-group">
-        <label for="currentUserIcon">Icon:</label>
-        <input type="text" id="currentUserIcon" [(ngModel)]="selectedUser.icon">
-      </div>
-      <div class="input-group">
-        <label for="currentUserAdmin">Admin:</label>
-        <input type="checkbox" id="currentUserAdmin" [(ngModel)]="selectedUser.admin">
-      </div>
-      <div class="button-group">
-        <button (click)="addUser()">Neu</button>
-        <button (click)="updateUser()" [disabled]="!selectedUser">Editieren</button>
-        <button (click)="removeUser()" [disabled]="!selectedUser">Löschen</button>
-      </div>
+    <div class="current-user-section">
+        <h2 class="sub-heading">Aktueller User</h2>
+        <div class="current-user-details">
+            <div class="input-group">
+                <label for="currentUserName">Name</label>
+                <input type="text" id="currentUserName" [formControl]="form.controls.name">
+            </div>
+            <div class="input-group">
+                <label for="currentUserIcon">Icon</label>
+                <input type="text" id="currentUserIcon" [formControl]="form.controls.icon">
+            </div>
+            <div class="input-group">
+                <label for="currentUserAdmin">Admin</label>
+                <input type="checkbox" id="currentUserAdmin" [formControl]="form.controls.admin">
+            </div>
+            <div *ngIf="!selectedUserId" class="input-group">
+                <label for="currentUserIcon">Passwort</label>
+                <input type="text" id="currentUserPassword" [formControl]="form.controls.password">
+            </div>
+
+            <div class="button-group">
+                <button (click)="addUser()" [disabled]="!isAddUserActive">Neu</button>
+                <button (click)="updateUser()" [disabled]="!isUpdateUserActive">Update</button>
+                <button (click)="removeUser()" [disabled]="!isDeleteUserActive">Löschen</button>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <div class="user-table-container">
-    <h2 class="sub-heading">Benutzerliste</h2>
-    <table class="user-table">
-      <thead>
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Icon</th>
-        <th>Admin</th>
-        <!-- Weitere Spalten können hinzugefügt werden -->
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let user of users" [class.selected-row]="isSelected(user)" (click)="selectUser(user)">
-        <td>{{ user.id }}</td>
-        <td>{{ user.name }}</td>
-        <td>{{ user.icon }}</td>
-        <td><input type="checkbox" [checked]="user.admin" disabled></td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
+    <div class="user-table-container">
+        <h2 class="sub-heading">Benutzerliste</h2>
+        <table class="user-table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Icon</th>
+                <th>Admin</th>
+                <!-- Weitere Spalten können hinzugefügt werden -->
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let user of users" [class.selected-row]="selectedUserId === user.id" (click)="selectUser(user)">
+                <td>{{ user.id }}</td>
+                <td>{{ user.name }}</td>
+                <td>{{ user.icon }}</td>
+                <td><input type="checkbox" [checked]="user.admin" disabled></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
-  <div>
-    <button (click)="getUsers()">Aktualisieren</button>
-    <button (click)="toVote()">Zurück</button>
-  </div>
+    <div>
+        <button (click)="reload()">Aktualisieren</button>
+        <button (click)="toVote()">Zurück</button>
+    </div>
 </div>

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { UserManagementComponent } from './user-management.component';
 
@@ -13,7 +13,7 @@ import { UserManagementComponent } from './user-management.component';
         ]),
 
         CommonModule,
-        FormsModule
+        ReactiveFormsModule
     ]
 })
 export class UserManagementModule {

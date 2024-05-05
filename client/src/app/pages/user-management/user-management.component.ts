@@ -1,82 +1,134 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { User } from '../../model/user';
+import { Subject, switchMap, takeUntil } from 'rxjs';
+
 import { UserService } from '../../services/user.service';
+import { User } from '../../shared/types/user.types';
 
 @Component({
     selector: 'app-user-management',
     templateUrl: './user-management.component.html',
     styleUrls: ['./user-management.component.css']
 })
-export class UserManagementComponent implements OnInit {
+export class UserManagementComponent implements OnInit, OnDestroy {
 
-    users: User[] = [];
-    selectedUser: User = { id: 0, name: '', icon: '', admin: false };
-    selectedUserId: number | null = null;
+    users: ReadonlyArray<User> = [];
 
+    readonly form = new FormGroup({
+        id: new FormControl<number | null>(null), // is null for new users
+        name: new FormControl<string | null>(null, {
+            validators: [Validators.required],
+            nonNullable: true
+        }),
+        icon: new FormControl<string | null>(null),
+        admin: new FormControl<boolean>(false, {
+            validators: [Validators.required],
+            nonNullable: true
+        }),
+        password: new FormControl<string | null>(null)
+    });
+
+    private readonly triggerReload$ = new Subject<void>();
+    private readonly destroyed$ = new Subject<void>();
 
     constructor(private userService: UserService,
                 private router: Router) {
+        this.triggerReload$.pipe(
+            takeUntil(this.destroyed$),
+            switchMap(() => this.userService.allUsers$())
+        ).subscribe((users) => this.users = users);
+    }
+
+    get selectedUserId(): number | null {
+        return this.form.value.id ?? null;
+    }
+
+    get isAddUserActive(): boolean {
+        return this.form.valid && !this.selectedUserId;
+    }
+
+    get isUpdateUserActive(): boolean {
+        return this.form.valid && !!this.selectedUserId;
+    }
+
+    get isDeleteUserActive(): boolean {
+        return !!this.selectedUserId;
     }
 
     ngOnInit() {
-        this.getUsers();
+        this.triggerReload$.next();
     }
 
-    getUsers(): void {
-        this.userService.getUsers().subscribe(values => this.users = values);
-
+    ngOnDestroy() {
+        this.destroyed$.next();
     }
 
     toVote(): void {
-        this.router.navigateByUrl('/vote');
+        void this.router.navigateByUrl('/vote');
     }
 
-    // Methode zum Auswählen eines Benutzers
-    selectUser(user: User): void {
-        this.selectedUser = user; // Setzen des ausgewählten Benutzers
-        this.selectedUserId = user.id; // Speichern der ausgewählten Benutzer-ID
+    reload() {
+        this.triggerReload$.next();
     }
 
-    isSelected(user: User): boolean {
-        return this.selectedUserId === user.id;
+    selectUser(user: User) {
+        this.form.patchValue(user);
     }
 
-
-    removeUser(): void {
-        if (!this.selectedUser || !this.selectedUser.id) {
-            // Wenn kein Benutzer ausgewählt wurde, brechen Sie die Methode ab
+    async removeUser() {
+        if (!this.form.valid || !this.selectedUserId) {
             return;
         }
 
-        this.userService.deleteUser(this.selectedUser.id).subscribe(() => {
-            this.getUsers();
-        });
-        this.selectedUser = { id: 0, name: '', icon: '', admin: false }; // Zurücksetzen des ausgewählten Benutzers
+        await this.userService.deleteUser(this.selectedUserId);
+
+        this.reset();
     }
 
-    addUser() {
-        if (!this.selectedUser || !this.selectedUser.id) {
-            // Wenn kein Benutzer ausgewählt wurde, brechen Sie die Methode ab
-            return;
-        }
-        this.selectedUser.id = 0;
-
-        this.userService.addUser(this.selectedUser).subscribe(() => {
-            this.getUsers();
-        });
-    }
-
-    updateUser(): void {
-        if (!this.selectedUser || !this.selectedUser.id) {
-            // Wenn kein Benutzer ausgewählt wurde, brechen Sie die Methode ab
+    async addUser() {
+        if (!this.form.valid) {
             return;
         }
 
-        this.userService.updateUser(this.selectedUser.id, this.selectedUser).subscribe(() => {
-            this.getUsers();
+        const { name, icon, password, admin } = this.form.value;
+        if (!name || !password) {
+            return;
+        }
+
+        await this.userService.addUser({
+            name,
+            icon: icon ?? undefined,
+            admin: admin ?? false,
+            password
         });
 
+        this.reset();
     }
 
+    async updateUser() {
+        if (!this.form.valid || !this.selectedUserId) {
+            return;
+        }
+
+        const { name, icon, admin } = this.form.value;
+        if (!name) {
+            return;
+        }
+
+        await this.userService.updateUser({
+            id: this.selectedUserId,
+            name,
+            icon: icon ?? undefined,
+            admin: admin ?? false,
+            // TODO: password stuff
+        });
+
+        this.reset();
+    }
+
+    private reset() {
+        this.form.reset();
+        this.reload();
+    }
 }
