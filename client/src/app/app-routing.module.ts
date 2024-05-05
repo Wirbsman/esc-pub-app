@@ -21,12 +21,12 @@ const routes: Routes = [
         loadChildren: () => import('./pages/user-management/user-management.module').then(m => m.UserManagementModule),
         canActivate: [AuthGuard]
     },
-    { path: '', redirectTo: 'vote', pathMatch: 'full' },
+    { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: '**', redirectTo: 'vote' },
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
+    imports: [RouterModule.forRoot(routes, { useHash: true })],
     exports: [RouterModule]
 })
 export class AppRoutingModule {
