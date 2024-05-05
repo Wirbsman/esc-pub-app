@@ -1,5 +1,6 @@
+import { NgFor } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { BehaviorSubject, combineLatest, Subject, switchMap, takeUntil } from 'rxjs';
 
 import { CountriesService } from '../../services/countries.service';
@@ -7,12 +8,15 @@ import { RatingsService } from '../../services/ratings.service';
 import { UserService } from '../../services/user.service';
 import { Country } from '../../shared/types/country.types';
 import { User } from '../../shared/types/user.types';
+import { CountryDashboardTileComponent } from './components/country-dashboard-tile/country-dashboard-tile.component';
 import { EscDashboardService } from './esc-dashboard.service';
 
 @Component({
     selector: 'app-esc-dashboard',
     templateUrl: './esc-dashboard.component.html',
-    styleUrls: ['./esc-dashboard.component.css']
+    styleUrls: ['./esc-dashboard.component.css'],
+    standalone: true,
+    imports: [NgFor, RouterLink, CountryDashboardTileComponent]
 })
 export class EscDashboardComponent implements OnInit, OnDestroy {
 

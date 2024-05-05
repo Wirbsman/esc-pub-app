@@ -1,5 +1,6 @@
+import { NgFor, NgIf } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subject, switchMap, takeUntil } from 'rxjs';
 
@@ -9,7 +10,9 @@ import { User } from '../../shared/types/user.types';
 @Component({
     selector: 'app-user-management',
     templateUrl: './user-management.component.html',
-    styleUrls: ['./user-management.component.css']
+    styleUrls: ['./user-management.component.css'],
+    standalone: true,
+    imports: [NgIf, NgFor, ReactiveFormsModule]
 })
 export class UserManagementComponent implements OnInit, OnDestroy {
 

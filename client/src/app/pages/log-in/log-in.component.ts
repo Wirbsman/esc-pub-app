@@ -1,7 +1,14 @@
+import { NgIf } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatCard, MatCardContent } from '@angular/material/card';
+import { MatError, MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
+import { MatInput } from '@angular/material/input';
 import { Router } from '@angular/router';
 import { lastValueFrom, Subject } from 'rxjs';
+
 import { AppService } from '../../services/app.service';
 import { AuthService, LoginRequestBody } from '../../services/auth/auth.service';
 import { FormData } from '../../shared/types/form.types';
@@ -9,7 +16,9 @@ import { FormData } from '../../shared/types/form.types';
 @Component({
     selector: 'app-log-in',
     templateUrl: './log-in.component.html',
-    styleUrls: ['./log-in.component.css']
+    styleUrls: ['./log-in.component.css'],
+    standalone: true,
+    imports: [NgIf, MatCard, MatCardContent, MatError, MatFormField, MatLabel, MatInput, ReactiveFormsModule, MatIconButton, MatSuffix, MatIcon, MatButton]
 })
 export class LogInComponent implements OnDestroy {
 

@@ -1,9 +1,10 @@
+import { NgForOf, NgIf } from '@angular/common';
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter, Subject, takeUntil, tap } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { CountryUserRating } from '../../../../components/country-rating-tile/country-rating-tile.component';
+import { CountryRatingTileComponent, CountryUserRating } from '../../../../components/country-rating-tile/country-rating-tile.component';
 import { Country } from '../../../../shared/types/country.types';
 import { isDefined } from '../../../../shared/utils/is-defined.utils';
 import { CountryRoutingParam } from '../../esc-dashboard.module';
@@ -14,6 +15,8 @@ import { EscDashboardService } from '../../esc-dashboard.service';
     selector: 'app-country-votes',
     templateUrl: './country-votes.component.html',
     styleUrls: ['./country-votes.component.css'],
+    standalone: true,
+    imports: [NgIf, NgForOf, CountryRatingTileComponent]
 })
 export class CountryVotesComponent implements OnInit, OnDestroy {
     readonly imagePath = 'assets/images/flags80/';

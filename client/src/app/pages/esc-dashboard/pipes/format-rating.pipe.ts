@@ -2,7 +2,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 import { ratingOptions } from '../../../shared/constants/rating-options';
 
-@Pipe({ name: 'formatRating' })
+@Pipe({
+    name: 'formatRating',
+    standalone: true
+})
 export class FormatRatingPipe implements PipeTransform {
 
     transform(value?: number | null, fallback = '-'): unknown {
