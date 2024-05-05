@@ -1,16 +1,17 @@
-<div class="user-ratings-container">
+<div *ngIf="appService.currentUser$ | async as currentUser" class="user-ratings-container">
     <div class="header">
         <img class="left-icon" src="../../../assets/images/ESC.png" alt="Icon">
-        <h2>{{ currentUser.username }}</h2>
-        <img class="right-icon" src="{{avatarPath + currentUser.avatar}}" alt="Icon">
+        <h2>{{ currentUser.name }}</h2>
+        <img *ngIf="currentUser.icon" class="right-icon" src="{{ avatarPath + currentUser.icon }}.png" alt="Icon">
     </div>
 
     <div class="table-container">
         <table class="user-ratings-table">
             <tbody>
-            <tr *ngFor="let rating of ratings">
-                <td class="index-column">{{ rating.countryIndex }}</td>
-                <td class="icon-column"><img class="country-image" src="{{imagePath + rating.countryFlag}}" alt="Icon">
+            <tr *ngFor="let rating of userRatings">
+                <td class="index-column">{{ rating.countryIndex + 1 }}</td>
+                <td class="icon-column">
+                    <img class="country-image" src="{{imagePath + rating.countryFlag}}.png" alt="Icon">
                 </td>
                 <td class="country-column">
                     <div class="country-info">
@@ -22,8 +23,8 @@
                     </div>
                 </td>
                 <td class="rating-column">
-                    <mat-select [(ngModel)]="rating.ratingValue" placeholder="Note">
-                        <mat-option *ngFor="let selected of selectedRatings" [value]="selected.value">
+                    <mat-select [(ngModel)]="rating.rating" placeholder="Note">
+                        <mat-option *ngFor="let selected of ratingOptions" [value]="selected.value">
                             <span>{{ selected.displayName }}</span>
                         </mat-option>
                     </mat-select>
@@ -34,9 +35,13 @@
     </div>
 
     <div class="footer">
-        <button class="btn-save">Speichern</button>
-        <button class="btn-save" *ngIf="currentUser.isAdmin" (click)="toDashboard()">Dashboard</button>
-        <button class="btn-save" *ngIf="currentUser.isAdmin" (click)="toUserManagement()">Userverwaltung</button>
+        <button class="btn-save" (click)="save()">Speichern</button>
+        <button class="btn-save" *ngIf="appService.isAdmin$ | async " (click)="toDashboard()">
+            Dashboard
+        </button>
+        <button class="btn-save" *ngIf="appService.isAdmin$ | async" (click)="toUserManagement()">
+            Userverwaltung
+        </button>
         <button class="btn-save" (click)="logout()">Ausloggen</button>
     </div>
 </div>

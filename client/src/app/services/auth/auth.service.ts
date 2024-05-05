@@ -29,4 +29,8 @@ export class AuthService {
     simpleSignUp$(body: SimpleSignupRequestBody): Observable<EmptyResponseBody> {
         return this.httpClient.post<EmptyResponseBody>(`${this.endpointBase}/simple-signup`, body, httpOptions);
     }
+
+    logout$() {
+        return this.httpClient.post<EmptyResponseBody>(`${this.endpointBase}/logout`, undefined, httpOptions);
+    }
 }
