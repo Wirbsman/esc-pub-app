@@ -1,39 +1,39 @@
 <h1 class="header">Dashboard</h1>
 <div>
-<table>
-  <tr>
-    <td></td>
-    <td></td>
-    <td class="user" *ngFor="let user of users">
-      {{user.name}}
-    </td>
-    <td class="user">Ø</td>
-  </tr>
-  <tr *ngFor="let country of countries">
-    <td><img class="icon" src="{{imagePath + country.flag}}" alt="Test">
-    </td>
-    <td class="country">
-      {{country.name}}
-    </td>
-    <td *ngFor="let user of users">
-      {{getRatingFor(country.id, user.id)}}
-    </td>
-    <td>
-      {{getCountryAverage(country.id)}}
-    </td>
-  </tr>
-  <tr>
-    <td>Ø</td>
-    <td></td>
-    <td *ngFor="let user of users">
-      {{getUserAverage(user.id)}}
-    </td>
-    <td></td>
-  </tr>
-</table>
+    <table>
+        <tr>
+            <td></td>
+            <td></td>
+            <td class="user" *ngFor="let user of users">
+                {{ user.name }}
+            </td>
+            <td class="user">Ø</td>
+        </tr>
+        <tr *ngFor="let country of countries">
+            <td><img class="icon" src="{{imagePath + country.flag}}.png" alt="Flag">
+            </td>
+            <td class="country">
+                {{ country.name }}
+            </td>
+            <td *ngFor="let user of users">
+                <app-user-rating [countryId]="country.id" [userId]="user.id"></app-user-rating>
+            </td>
+            <td>
+                <app-country-average [countryId]="country.id"></app-country-average>
+            </td>
+        </tr>
+        <tr>
+            <td>Ø</td>
+            <td></td>
+            <td *ngFor="let user of users">
+                <app-user-average [userId]="user.id"></app-user-average>
+            </td>
+            <td></td>
+        </tr>
+    </table>
 </div>
 <div class="footerBar">
-  <button class="button" mat-button color="primary" (click)="toVote()">Abstimmung</button>
-  <button class="button" mat-button color="primary" (click)="refresh()">Refresh</button>
+    <button class="button" mat-button color="primary" (click)="toVote()">Abstimmung</button>
+    <button class="button" mat-button color="primary" (click)="refresh()">Refresh</button>
 </div>
 

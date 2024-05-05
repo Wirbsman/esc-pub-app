@@ -1,115 +1,70 @@
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { map } from 'rxjs/operators';
-import { EscService } from '../../services/esc.service';
-import { ratingOptions } from '../../shared/constants/rating-options';
+import { BehaviorSubject, combineLatest, Subject, switchMap, takeUntil } from 'rxjs';
+
+import { CountriesService } from '../../services/countries.service';
+import { RatingsService } from '../../services/ratings.service';
+import { UserService } from '../../services/user.service';
+import { Country } from '../../shared/types/country.types';
+import { User } from '../../shared/types/user.types';
+import { EscDashboardService } from './esc-dashboard.service';
 
 @Component({
     selector: 'app-esc-dashboard',
     templateUrl: './esc-dashboard.component.html',
     styleUrls: ['./esc-dashboard.component.css']
 })
-export class EscDashboardComponent implements OnInit {
-    /** Based on the screen size, switch from standard to one column per row */
-    cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
-        map(({ matches }) => {
-            if (matches) {
-                return [
-                    { title: 'Card 1', cols: 1, rows: 1 },
-                    { title: 'Card 2', cols: 1, rows: 1 },
-                    { title: 'Card 3', cols: 1, rows: 1 },
-                ];
-            }
+export class EscDashboardComponent implements OnInit, OnDestroy {
 
-            return [
-                { title: 'Card 1', cols: 1, rows: 1 },
-                { title: 'Card 2', cols: 1, rows: 1 },
-                { title: 'Card 3', cols: 2, rows: 1 },
-            ];
-        })
-    );
+    readonly imagePath = 'assets/images/flags80/';
 
-    _users: any[] = [];
-    private _countries: any[] = [];
-    private ratings: any[] = [];
-    imagePath = 'assets/images/flags80/';
+    private readonly countries$ = new BehaviorSubject<ReadonlyArray<Country>>([]);
+    private readonly triggerReload$ = new Subject<void>();
+    private readonly destroyed$ = new Subject<void>();
 
-    readonly selectedRatings = ratingOptions;
-
-
-    constructor(private breakpointObserver: BreakpointObserver,
-                private router: Router,
-                private escService: EscService) {
+    constructor(private readonly router: Router,
+                private readonly escDashboardService: EscDashboardService,
+                private readonly countriesService: CountriesService,
+                private readonly userService: UserService,
+                private readonly ratingsServices: RatingsService) {
+        this.triggerReload$.pipe(
+            takeUntil(this.destroyed$),
+            switchMap(() => combineLatest([
+                this.countries$,
+                this.userService.allUsers$(),
+                this.ratingsServices.allRatings$()
+            ]))
+        ).subscribe(([countries, users, ratings]) =>
+            this.escDashboardService.init({ countries, users, ratings })
+        );
     }
 
-    get users(): any[] {
-
-        return this._users.length > 0 ? this._users.sort((one, two) => (one.name < two.name ? -1 : 1)) : [];
+    get countries(): ReadonlyArray<Country> {
+        return this.countries$.value;
     }
 
-
-    get countries(): any[] {
-
-        return this._countries.length > 0 ? this._countries.sort((n1, n2) => n1.index - n2.index) : [];
-    }
-
-    toVote(): void {
-
-        this.router.navigateByUrl('/vote');
-    }
-
-    refresh(): void {
-
-        this.escService.getAllRatings().subscribe({
-            next: value => {
-                this._users = value.users;
-                this._countries = value.countries;
-                this.ratings = value.ratings;
-
-            }, error: () => {
-                this._users = [];
-                this._countries = [];
-                this.ratings = [];
-            }
-
-        });
-    }
-
-    getRatingFor(countryId: number, userId: number): string {
-
-        let simpleRating: any = this.ratings.find(value => value.userId === userId && value.countryId === countryId);
-
-        return this.formatRating(simpleRating?.rating);
-
+    get users(): ReadonlyArray<User> {
+        return this.escDashboardService.users;
     }
 
     ngOnInit(): void {
+        this.initCountries();
         this.refresh();
     }
 
-    getCountryAverage(countryId: number): string {
-
-        let ratings: any[] = this.ratings.filter(simpleRating => simpleRating.countryId === countryId && simpleRating.rating !== null);
-        let ratingSum = 0;
-        ratings.forEach(simpleRating => ratingSum = ratingSum + simpleRating.rating);
-        return ratings.length > 0 ? (ratingSum / ratings.length).toFixed(2).toString() : '-';
-
+    ngOnDestroy() {
+        this.destroyed$.next();
     }
 
-    getUserAverage(userId: number): string {
-
-        let ratings: any[] = this.ratings.filter(simpleRating => simpleRating.userId === userId && simpleRating.rating !== null);
-        let ratingSum = 0;
-        ratings.forEach(simpleRating => ratingSum = ratingSum + simpleRating.rating);
-        return ratings.length > 0 ? (ratingSum / ratings.length).toFixed(2).toString() : '-';
-
+    toVote(): void {
+        void this.router.navigateByUrl('/vote');
     }
 
-    formatRating(value: number): string {
+    refresh(): void {
+        this.triggerReload$.next();
+    }
 
-        let foundRating = this.selectedRatings.find(value1 => value1.value === value);
-        return foundRating ? foundRating.displayName : '-';
-
+    private initCountries(): void {
+        this.countries$.next([...this.countriesService.countries].sort((cA, cB) => cA.index - cB.index));
     }
 }
