@@ -1,13 +1,13 @@
 .user-ratings-container {
-  background-color: #FBF7F4; /* Hintergrundfarbe */
-  padding: 20px; /* Innenabstand */
+  background-color: #FBF7F7; /* Hintergrundfarbe */
+  padding: 15px; /* Innenabstand */
 }
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
 }
 
 .header img {
@@ -20,57 +20,58 @@
   max-width: 100px; /* Neue maximale Breite */
 }
 
-.user-ratings-table {
-  width: 100%;
-  border-collapse: collapse;
+.tiles-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Zentriert die Kacheln */
+  column-gap: 5px;
+  row-gap: 5px;
 }
 
-.user-ratings-table th,
-.user-ratings-table td {
-  border: 1px solid #000; /* Schwarze Linien zwischen den Zellen */
-  padding: 8px; /* Innenabstand */
+.tile {
+  width: calc(50% - 20px); /* Zwei Kacheln pro Reihe */
+  background-color: #FBF7F4; /* Hintergrundfarbe */
+  border: 1px solid #ccc; /* Rand */
+  border-radius: 5px; /* Abgerundete Ecken */
+  box-shadow: 3px 3px 0 0 #e9e9ea; /* Schatten */
 }
 
-.user-ratings-table th.index-column,
-.user-ratings-table td.index-column {
-  width: 55px; /* Breite für die Icon-Spalte */
+@media screen and (min-width: 768px) {
+  .tile {
+    width: calc(20% - 20px); /* Drei Kacheln pro Reihe ab einer Bildschirmbreite von 768px */
+  }
 }
 
-.user-ratings-table th.icon-column,
-.user-ratings-table td.icon-column {
-  width: 55px; /* Breite für die Icon-Spalte */
+.tile-content {
+  padding: 20px;
 }
 
-.user-ratings-table th.country-column,
-.user-ratings-table td.country-column {
-  width: 50%; /* Breite für die Länder-Informationen-Spalte */
+.tile-header {
+  display: flex;
+  font-weight: bold;
+  align-items: center;
+  margin-top: 10px;
+  margin-left: 10px;
 }
 
-.user-ratings-table th.rating-column,
-.user-ratings-table td.rating-column {
-  width: 45px; /* Breite für die Bewertungsspalte */
-  text-align: center; /* Zentrierung des Inhalts */
-  background-color: #f0f0f0; /* Hintergrundfarbe für die Auswahlbox */
+.tile-contentHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
-.user-ratings-table th {
-  background-color: #FFD600; /* Hintergrundfarbe für Tabellenkopf */
+.tile-footer {
+  display: flex;
+  justify-content: end;
+  margin-bottom: 10px;
+  margin-left: 10px;
 }
 
-.user-ratings-table tr:nth-child(even) {
-  background-color: #EFE9E6; /* Hintergrundfarbe für gerade Zeilen */
-}
-
-.user-ratings-table tr:hover {
-  background-color: #D4CFCB; /* Hintergrundfarbe bei Hover */
-}
-
-/* Machen Sie das Bild des Landes in der zweiten Reihe rund */
-.user-ratings-table img.country-image {
-  border-radius: 50%; /* Runde Ecken */
-  background-color: transparent;
+.country-image {
   width: 50px;
   height: 50px;
+  border-radius: 50%; /* Runde Ecken */
+  margin-right: 10px;
 }
 
 .country-name {
@@ -78,80 +79,37 @@
   font-size: 16px;
 }
 
-.artist-song {
+.artist-name {
   font-size: 14px;
+  font-weight: bold;
+}
+
+.artist-song {
+  font-weight: 300;
+  font-size: 12px;
+}
+
+.rating-select {
+  width: 30%;
 }
 
 .footer {
   margin-top: 20px;
 }
 
-.mat-select {
-  font-family: inherit;
-  font-size: inherit;
-  color: #000; /* Textfarbe */
-  border: 1px solid #000; /* Rahmen */
-  border-radius: 5px; /* Abgerundete Ecken */
-  background-color: #fff; /* Hintergrundfarbe */
-  padding: 8px 10px; /* Innenabstand anpassen */
-}
-
-.mat-select-arrow-wrapper {
-  display: none; /* Pfeil ausblenden */
-}
-
-.mat-option {
-  font-family: inherit;
-  font-size: inherit;
-  color: #000; /* Textfarbe */
-}
-
-.mat-option:hover {
-  background-color: #D4CFCB; /* Hintergrundfarbe bei Hover */
-}
-
 .btn-save,
 .btn-cancel {
-  background-color: #FFD600; /* Hintergrundfarbe für Buttons */
-  color: #000; /* Textfarbe für Buttons */
+  background-color: #FC48FF; /* Hintergrundfarbe für Buttons */
+  color: #FFD600; /* Textfarbe für Buttons */
   padding: 10px 20px; /* Innenabstand anpassen */
   border: none; /* Kein Rand */
   border-radius: 5px; /* Abgerundete Ecken */
+  border-color: black;
   cursor: pointer;
   margin-right: 10px; /* Rechten Abstand anpassen */
 }
 
 .btn-save:hover,
 .btn-cancel:hover {
-  background-color: #FFB500; /* Hintergrundfarbe bei Hover */
-}
-
-/* Responsives Design */
-@media screen and (max-width: 768px) {
-  .header {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .header img {
-    margin-bottom: 10px;
-  }
-
-  .table-container {
-    overflow-x: auto;
-  }
-
-  .user-ratings-table {
-    min-width: 400px; /* Mindestbreite für die Tabelle */
-  }
-
-  .footer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .footer button {
-    margin-bottom: 10px;
-  }
+  background-color: #FC9000; /* Hintergrundfarbe bei Hover */
 }

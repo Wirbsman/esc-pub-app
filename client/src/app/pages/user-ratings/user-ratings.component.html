@@ -1,45 +1,42 @@
 <div *ngIf="appService.currentUser$ | async as currentUser" class="user-ratings-container">
-    <div class="header">
-        <img class="left-icon" src="../../../assets/images/ESC.png" alt="Icon">
-        <h2>{{ currentUser.name }}</h2>
-        <img *ngIf="currentUser.icon" class="right-icon" src="{{ avatarPath + currentUser.icon }}.png" alt="Icon">
-    </div>
+  <div class="header">
+    <img class="left-icon" src="../../../assets/images/ESC.png" alt="Icon">
+    <h2>{{ currentUser.name }}</h2>
+    <img *ngIf="currentUser.icon" class="right-icon" src="{{ avatarPath + currentUser.icon }}.png" alt="Icon">
+  </div>
 
-    <div class="table-container">
-        <table class="user-ratings-table">
-            <tbody>
-            <tr *ngFor="let rating of userRatings">
-                <td class="index-column">{{ rating.countryIndex + 1 }}</td>
-                <td class="icon-column">
-                    <img class="country-image" src="{{imagePath + rating.countryFlag}}.png" alt="Icon">
-                </td>
-                <td class="country-column">
-                    <div class="country-info">
-                        <div class="country-name">{{ rating.countryName }}</div>
-                        <div class="artist-song">
-                            <div>{{ rating.countryInterpret }}</div>
-                            <div>{{ rating.countrySong }}</div>
-                        </div>
-                    </div>
-                </td>
-                <td class="rating-column">
-                    <mat-select [(ngModel)]="rating.rating" placeholder="Note">
-                        <mat-option *ngFor="let selected of ratingOptions" [value]="selected.value">
-                            <span>{{ selected.displayName }}</span>
-                        </mat-option>
-                    </mat-select>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+  <div class="tiles-container">
+    <div class="tile" *ngFor="let rating of userRatings">
+      <div class="tile-header">
+        <div>{{ rating.countryIndex + 1 }}</div>
+      </div>
+      <div class="tile-content">
+        <div class="tile-contentHeader">
+          <img class="country-image" src="{{imagePath + rating.countryFlag}}.png" alt="Flag">
+          <div class="country-name">{{ rating.countryName }}</div>
+        </div>
+        <div class="artist-name">
+          <div>{{ rating.countryInterpret }}</div>
+        </div>
+        <div class="artist-song">
+          <div>{{ rating.countrySong }}</div>
+        </div>
+      </div>
+        <div class="tile-footer">
+        <mat-select [(ngModel)]="rating.rating" placeholder="#" class="rating-select">
+          <mat-option *ngFor="let selected of ratingOptions" [value]="selected.value">
+            <span>{{ selected.displayName }}</span>
+          </mat-option>
+        </mat-select>
+      </div>
     </div>
+  </div>
 
-    <div class="footer">
-        <button class="btn-save" (click)="save()">Speichern</button>
-        <button class="btn-save" (click)="toDashboard()">Dashboard</button>
-        <button class="btn-save" *ngIf="appService.isAdmin$ | async" (click)="toUserManagement()">
-            Userverwaltung
-        </button>
-        <button class="btn-save" (click)="logout()">Ausloggen</button>
-    </div>
+  <div class="footer">
+    <button class="btn-save" (click)="save()">Speichern</button>
+    <button class="btn-save" (click)="toDashboard()">Dashboard</button>
+    <button class="btn-save" *ngIf="appService.isAdmin$ | async" (click)="toUserManagement()">
+      Userverwaltung
+    </button>
+  </div>
 </div>
