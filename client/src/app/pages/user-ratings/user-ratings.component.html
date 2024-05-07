@@ -33,9 +33,9 @@
   </div>
 
   <div class="footer">
-    <button class="btn-save" (click)="save()">Speichern</button>
-    <button class="btn-save" (click)="toDashboard()">Dashboard</button>
-    <button class="btn-save" *ngIf="appService.isAdmin$ | async" (click)="toUserManagement()">
+    <button class="button" (click)="save()">Speichern</button>
+    <button class="button" (click)="toDashboard()">Dashboard</button>
+    <button class="button" *ngIf="appService.isAdmin$ | async" (click)="toUserManagement()">
       Userverwaltung
     </button>
   </div>
