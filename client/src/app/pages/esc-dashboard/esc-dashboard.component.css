@@ -1,52 +1,58 @@
 .header {
-  background-color: #FFD600; /* Hintergrundfarbe für die Überschrift */
-  font-family: inherit; /* Verwende die Standard-Schriftart */
-  padding: 20px; /* Innenabstand anpassen */
-  margin: 0; /* Außenabstand entfernen */
-  text-align: center; /* Zentriere den Text */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 55px;
+    padding: 15px;
+    background-color: #FFD600; /* Hintergrundfarbe */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    box-shadow: 3px 3px 0 0 #e9e9ea; /* Schatten */
 }
 
-.button {
-  background-color: #FFD600; /* Hintergrundfarbe für die Buttons */
-  color: #000; /* Textfarbe für die Buttons */
-  padding: 10px 20px; /* Innenabstand anpassen */
-  border: none; /* Kein Rahmen */
-  border-radius: 5px; /* Abgerundete Ecken */
-  margin-left: 20px; /* Linken Abstand anpassen */
-  cursor: pointer; /* Zeiger beim Überfahren des Buttons */
+.countries-container {
+    background-color: #FBF7F7; /* Hintergrundfarbe */
+    padding: 95px 15px 75px; /* Innenabstand */
 }
 
-.icon {
-  border-radius: 50%; /* Runde Ecken für das Bild */
-  background-color: transparent; /* Transparenter Hintergrund */
-  width: 50px; /* Breite des Bildes */
-  height: 50px; /* Höhe des Bildes */
-  margin-left: 16px; /* Linken Abstand anpassen */
-  margin-right: 16px; /* Rechten Abstand anpassen */
-  align-self: center; /* Zentriere das Bild vertikal */
+.tiles-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Zentriert die Kacheln */
+    column-gap: 5px;
+    row-gap: 5px;
 }
 
-.table, th, td {
-  background: #EFE9E6; /* Hintergrundfarbe für die Tabelle, Kopfzeile und Zellen */
-  border: 1px solid #000; /* Schwarzer Rahmen für die Tabelle und Zellen */
-  text-align: center; /* Zentriere den Text */
-  padding: 8px; /* Innenabstand anpassen */
-}
-
-.user {
-  width: 4em; /* Breite der Benutzerzellen */
-}
-
-.country {
-  width: 8em; /* Breite der Länderzellen */
+.tile {
+    width: 100%;
 }
 
 .footerBar {
-  padding: 20px; /* Innenabstand anpassen */
-  display: flex; /* Flexbox verwenden */
-  justify-content: flex-start; /* Inhalt links ausrichten */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #FBF7F7;
+    padding: 15px 0; /* Innenabstand anpassen */
+    display: flex; /* Flexbox verwenden */
+    justify-content: center; /* Inhalt links ausrichten */
+    border-top: 1px solid #ccc;
+    box-shadow: 0 0 3px 3px #e9e9ea; /* Schatten */
+}
+
+.button {
+    background-color: #FFD600; /* Hintergrundfarbe für die Buttons */
+    color: #000; /* Textfarbe für die Buttons */
+    padding: 10px 20px; /* Innenabstand anpassen */
+    margin: 0 10px;
+    border: none; /* Kein Rahmen */
+    border-radius: 5px; /* Abgerundete Ecken */
+    cursor: pointer; /* Zeiger beim Überfahren des Buttons */
 }
 
 .footerBar .button:first-child {
-  margin-left: 0; /* Linken Abstand des ersten Buttons entfernen */
+    margin-left: 0; /* Linken Abstand des ersten Buttons entfernen */
 }

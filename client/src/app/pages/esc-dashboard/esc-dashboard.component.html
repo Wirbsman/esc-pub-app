@@ -1,39 +1,19 @@
-<h1 class="header">Dashboard</h1>
-<div>
-    <table>
-        <tr>
-            <td></td>
-            <td></td>
-            <td class="user" *ngFor="let user of users">
-                {{ user.name }}
-            </td>
-            <td class="user">Ø</td>
-        </tr>
-        <tr *ngFor="let country of countries">
-            <td><img class="icon" src="{{imagePath + country.flag}}.png" alt="Flag">
-            </td>
-            <td class="country">
-                {{ country.name }}
-            </td>
-            <td *ngFor="let user of users">
-                <app-user-rating [countryId]="country.id" [userId]="user.id"></app-user-rating>
-            </td>
-            <td>
-                <app-country-average [countryId]="country.id"></app-country-average>
-            </td>
-        </tr>
-        <tr>
-            <td>Ø</td>
-            <td></td>
-            <td *ngFor="let user of users">
-                <app-user-average [userId]="user.id"></app-user-average>
-            </td>
-            <td></td>
-        </tr>
-    </table>
+<div class="header">
+    <h1>Dashboard</h1>
 </div>
+
+<div class="countries-container">
+    <div class="tiles-container">
+        <app-country-dashboard-tile
+                *ngFor="let country of countries"
+                [country]="country"
+                class="tile"
+        ></app-country-dashboard-tile>
+    </div>
+</div>
+
 <div class="footerBar">
-    <button class="button" mat-button color="primary" (click)="toVote()">Abstimmung</button>
-    <button class="button" mat-button color="primary" (click)="refresh()">Refresh</button>
+    <button class="button" (click)="toVote()">Voting</button>
+    <button class="button" (click)="refresh()">Refresh</button>
 </div>
 
