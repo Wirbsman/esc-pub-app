@@ -7,9 +7,15 @@
     padding: 15px;
     background-color: #FFD600; /* Hintergrundfarbe */
     display: flex;
+    justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid #ccc;
     box-shadow: 3px 3px 0 0 #e9e9ea; /* Schatten */
+}
+
+.header img.left-icon,
+.header img.right-icon {
+    max-width: 140px; /* Neue maximale Breite */
 }
 
 .country-flag {

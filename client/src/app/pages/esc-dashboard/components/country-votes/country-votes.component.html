@@ -1,7 +1,8 @@
 <ng-container *ngIf="country">
     <header class="header">
-        <img class="country-flag" src="{{imagePath + country.flag}}.png" alt="Flag">
+        <img class="left-icon" src="assets/images/esc_ods.svg" alt="Icon">
         <div class="country-name">{{ country.name }}</div>
+        <img class="country-flag" src="{{imagePath + country.flag}}.png" alt="Flag">
     </header>
 
     <div class="country-votes-container">

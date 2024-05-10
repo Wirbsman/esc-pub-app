@@ -13,6 +13,11 @@
     box-shadow: 3px 3px 0 0 #e9e9ea; /* Schatten */
 }
 
+.header img.left-icon,
+.header img.right-icon {
+    max-width: 140px; /* Neue maximale Breite */
+}
+
 .countries-container {
     background-color: #FBF7F7; /* Hintergrundfarbe */
     padding: 95px 15px 75px; /* Innenabstand */

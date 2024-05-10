@@ -25,7 +25,7 @@
 /* Ändern Sie die Größe der Icons im Header */
 .header img.left-icon,
 .header img.right-icon {
-    max-width: 100px; /* Neue maximale Breite */
+    max-width: 140px; /* Neue maximale Breite */
 }
 
 .tiles-container {
