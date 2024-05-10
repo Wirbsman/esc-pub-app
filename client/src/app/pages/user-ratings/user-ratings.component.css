@@ -28,6 +28,10 @@
     max-width: 140px; /* Neue maximale Breite */
 }
 
+.header img.right-icon {
+    max-height: 80px;
+}
+
 .tiles-container {
     display: flex;
     flex-wrap: wrap;
