@@ -7,6 +7,7 @@
         <app-country-dashboard-tile
                 *ngFor="let country of countries"
                 [country]="country"
+                [routerLink]="country.flag"
                 class="tile"
         ></app-country-dashboard-tile>
     </div>

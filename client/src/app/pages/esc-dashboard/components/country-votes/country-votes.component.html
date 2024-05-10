@@ -1,0 +1,20 @@
+<ng-container *ngIf="country">
+    <header class="header">
+        <img class="country-flag" src="{{imagePath + country.flag}}.png" alt="Flag">
+        <div class="country-name">{{ country.name }}</div>
+    </header>
+
+    <div class="country-votes-container">
+        <div class="tiles-container">
+            <app-country-rating-tile
+                    *ngFor="let userRating of userRatings"
+                    [countryRating]="userRating"
+                    class="tile"
+            ></app-country-rating-tile>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <button class="button" (click)="toDashboard()">Dashboard</button>
+    </footer>
+</ng-container>

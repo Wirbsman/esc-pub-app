@@ -1,0 +1,23 @@
+.tile-container {
+    width: calc(100% - 20px);
+    max-width: 350px;
+    background-color: #FBF7F4; /* Hintergrundfarbe */
+    border: 1px solid #ccc; /* Rand */
+    border-radius: 12px; /* Abgerundete Ecken */
+    box-shadow: 3px 3px 0 0 #e9e9ea; /* Schatten */
+    padding: 20px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-name {
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: .15rem;
+}
+
+.user-rating {
+    font-weight: 500;
+    font-size: 20px;
+}

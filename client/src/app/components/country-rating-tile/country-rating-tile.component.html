@@ -1,0 +1,4 @@
+<div *ngIf="countryRating" class="tile-container">
+    <div class="user-name">{{ countryRating.name }}</div>
+    <div class="user-rating">{{ countryRating.rating | formatRating }}</div>
+</div>
