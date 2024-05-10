@@ -1,42 +1,25 @@
-<div *ngIf="appService.currentUser$ | async as currentUser" class="user-ratings-container">
-  <div class="header">
-    <img class="left-icon" src="../../../assets/images/ESC.png" alt="Icon">
-    <h2>{{ currentUser.name }}</h2>
-    <img *ngIf="currentUser.icon" class="right-icon" src="{{ avatarPath + currentUser.icon }}.png" alt="Icon">
-  </div>
-
-  <div class="tiles-container">
-    <div class="tile" *ngFor="let rating of userRatings">
-      <div class="tile-header">
-        <div>{{ rating.countryIndex + 1 }}</div>
-      </div>
-      <div class="tile-content">
-        <div class="tile-contentHeader">
-          <img class="country-image" src="{{imagePath + rating.countryFlag}}.png" alt="Flag">
-          <div class="country-name">{{ rating.countryName }}</div>
-        </div>
-        <div class="artist-name">
-          <div>{{ rating.countryInterpret }}</div>
-        </div>
-        <div class="artist-song">
-          <div>{{ rating.countrySong }}</div>
-        </div>
-      </div>
-        <div class="tile-footer">
-        <mat-select [(ngModel)]="rating.rating" placeholder="#" class="rating-select">
-          <mat-option *ngFor="let selected of ratingOptions" [value]="selected.value">
-            <span>{{ selected.displayName }}</span>
-          </mat-option>
-        </mat-select>
-      </div>
+<ng-container *ngIf="appService.currentUser$ | async as currentUser">
+    <div class="header">
+        <img class="left-icon" src="../../../assets/images/ESC.png" alt="Icon">
+        <h2>{{ currentUser.name }}</h2>
+        <img *ngIf="currentUser.icon" class="right-icon" src="{{ avatarPath + currentUser.icon }}.png" alt="Icon">
     </div>
-  </div>
 
-  <div class="footer">
-    <button class="button" (click)="save()">Speichern</button>
-    <button class="button" (click)="toDashboard()">Dashboard</button>
-    <button class="button" *ngIf="appService.isAdmin$ | async" (click)="toUserManagement()">
-      Userverwaltung
-    </button>
-  </div>
-</div>
+    <div class="user-ratings-container">
+        <div class="tiles-container">
+            <app-user-rating-tile
+                    *ngFor="let userRating of userRatings"
+                    [userRating]="userRating"
+                    (ratingChanged)="saveRating($event)"
+                    class="tile"
+            ></app-user-rating-tile>
+        </div>
+    </div>
+
+    <div class="footer">
+        <button class="button" (click)="toDashboard()">Dashboard</button>
+        <button class="button" *ngIf="appService.isAdmin$ | async" (click)="toUserManagement()">
+            Userverwaltung
+        </button>
+    </div>
+</ng-container>

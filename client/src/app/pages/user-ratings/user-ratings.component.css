@@ -1,121 +1,69 @@
 .user-ratings-container {
-  background-color: #FBF7F7; /* Hintergrundfarbe */
-  padding: 15px; /* Innenabstand */
+    background-color: #FBF7F7; /* Hintergrundfarbe */
+    padding: 95px 15px 75px; /* Innenabstand */
 }
 
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 5px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 55px;
+    padding: 15px;
+    background-color: #FBF7F7; /* Hintergrundfarbe */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    box-shadow: 3px 3px 0 0 #e9e9ea; /* Schatten */
 }
 
 .header img {
-  max-width: 50px; /* Maximale Breite der Bilder */
+    max-width: 50px; /* Maximale Breite der Bilder */
 }
 
 /* Ändern Sie die Größe der Icons im Header */
 .header img.left-icon,
 .header img.right-icon {
-  max-width: 100px; /* Neue maximale Breite */
+    max-width: 100px; /* Neue maximale Breite */
 }
 
 .tiles-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center; /* Zentriert die Kacheln */
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  column-gap: 5px;
-  row-gap: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Zentriert die Kacheln */
+    column-gap: 5px;
+    row-gap: 5px;
 }
 
 .tile {
-  background-color: #FBF7F4; /* Hintergrundfarbe */
-  border: 1px solid #ccc; /* Rand */
-  border-radius: 5px; /* Abgerundete Ecken */
-  box-shadow: 3px 3px 0 0 #e9e9ea; /* Schatten */
-}
-
-.tile-header {
-  display: flex;
-  font-weight: bold;
-  align-items: center;
-  margin-top: 10px;
-  margin-left: 10px;
-}
-
-.tile-content {
-  padding: 20px;
-}
-
-.tile-contentHeader {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.country-image {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%; /* Runde Ecken */
-  margin-right: 10px;
-}
-
-.country-name {
-  font-weight: bold;
-  font-size: 16px;
-}
-
-.artist-name {
-  font-size: 14px;
-  font-weight: bold;
-}
-
-.artist-song {
-  font-weight: 300;
-  font-size: 12px;
-}
-
-.tile-footer {
-  display: flex;
-  justify-content: end;
-  margin-bottom: 10px;
-  margin-left: 10px;
-}
-.rating-select {
-  width: 30%;
+    width: 100%;
 }
 
 .footer {
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #FBF7F7;
+    padding: 15px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    border-top: 1px solid #ccc;
+    box-shadow: 0 0 3px 3px #e9e9ea; /* Schatten */
 }
 
 .button {
-  background-color: #FFD600; /* Hintergrundfarbe für Buttons */
-  padding: 10px 20px; /* Innenabstand anpassen */
-  border: none; /* Kein Rand */
-  border-radius: 5px; /* Abgerundete Ecken */
-  border-color: black;
-  cursor: pointer;
-  margin-right: 10px; /* Rechten Abstand anpassen */
+    background-color: #FFD600; /* Hintergrundfarbe für Buttons */
+    padding: 10px 20px; /* Innenabstand anpassen */
+    border: none; /* Kein Rand */
+    border-radius: 5px; /* Abgerundete Ecken */
+    border-color: black;
+    cursor: pointer;
+    margin: 0 10px;
 }
 
 .button:hover {
-  background-color: #FC9000; /* Hintergrundfarbe bei Hover */
-}
-
-/* Responsives Design */
-@media screen and (max-width: 768px) {
-
-  .footer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .footer button {
-    margin-bottom: 10px;
-  }
+    background-color: #FC9000; /* Hintergrundfarbe bei Hover */
 }

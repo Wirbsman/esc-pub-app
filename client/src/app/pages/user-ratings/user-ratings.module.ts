@@ -1,10 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { MatSelectModule } from '@angular/material/select';
 import { RouterModule } from '@angular/router';
-import { UserRatingsComponent } from './user-ratings.component';
 
+import { UserRatingTileComponent } from './user-rating-tile/user-rating-tile.component';
+import { UserRatingsComponent } from './user-ratings.component';
 
 @NgModule({
     declarations: [UserRatingsComponent],
@@ -13,8 +12,8 @@ import { UserRatingsComponent } from './user-ratings.component';
             { path: '', component: UserRatingsComponent }
         ]),
         CommonModule,
-        FormsModule,
-        MatSelectModule
+
+        UserRatingTileComponent
     ]
 })
 export class UserRatingsModule {
