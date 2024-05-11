@@ -4,9 +4,8 @@
             name="rating-{{userRating.flag}}"
             class="rating"
     >
-        <option *ngFor="let opt of ratingOptions"
-                [value]="opt.value"
-                [label]="opt.displayName"
-        ></option>
+        <option *ngFor="let opt of ratingOptions" [value]="opt.value">
+            {{ opt.displayName }}
+        </option>
     </select>
 </app-country-artist-tile>
