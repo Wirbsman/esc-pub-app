@@ -17,7 +17,6 @@ import { FormData } from '../../shared/types/form.types';
     selector: 'app-log-in',
     templateUrl: './log-in.component.html',
     styleUrls: ['./log-in.component.css'],
-    standalone: true,
     imports: [NgIf, MatCard, MatCardContent, MatError, MatFormField, MatLabel, MatInput, ReactiveFormsModule, MatIconButton, MatSuffix, MatIcon, MatButton]
 })
 export class LogInComponent implements OnDestroy {

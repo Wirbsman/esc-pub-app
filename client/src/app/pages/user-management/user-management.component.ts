@@ -11,7 +11,6 @@ import { User } from '../../shared/types/user.types';
     selector: 'app-user-management',
     templateUrl: './user-management.component.html',
     styleUrls: ['./user-management.component.css'],
-    standalone: true,
     imports: [NgIf, NgFor, ReactiveFormsModule]
 })
 export class UserManagementComponent implements OnInit, OnDestroy {

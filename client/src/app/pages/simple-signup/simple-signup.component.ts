@@ -15,7 +15,6 @@ import { AuthService } from '../../services/auth/auth.service';
     selector: 'app-simple-signup',
     templateUrl: './simple-signup.component.html',
     styleUrls: ['../log-in/log-in.component.css'],
-    standalone: true,
     imports: [NgIf, MatCard, MatCardContent, MatError, MatFormField, MatLabel, MatInput, ReactiveFormsModule, MatButton]
 })
 export class SimpleSignupComponent {

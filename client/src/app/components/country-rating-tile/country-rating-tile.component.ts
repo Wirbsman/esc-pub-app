@@ -13,7 +13,6 @@ export type CountryUserRating = {
     templateUrl: './country-rating-tile.component.html',
     styleUrls: ['./country-rating-tile.component.css'],
     imports: [NgIf, FormatRatingPipe],
-    standalone: true
 })
 export class CountryRatingTileComponent {
     @Input() countryRating?: CountryUserRating;

@@ -14,7 +14,6 @@ import { EscDashboardService } from '../../esc-dashboard.service';
     selector: 'app-country-votes',
     templateUrl: './country-votes.component.html',
     styleUrls: ['./country-votes.component.css'],
-    standalone: true,
     imports: [NgIf, NgForOf, CountryRatingTileComponent]
 })
 export class CountryVotesComponent implements OnInit, OnDestroy {

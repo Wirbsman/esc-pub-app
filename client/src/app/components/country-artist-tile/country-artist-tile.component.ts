@@ -7,7 +7,6 @@ import { CountryAndArtist } from '../../shared/types/country-and-artist.types';
     selector: 'app-country-artist-tile',
     templateUrl: './country-artist-tile.component.html',
     styleUrls: ['./country-artist-tile.component.css'],
-    standalone: true,
     imports: [NgIf],
     changeDetection: ChangeDetectionStrategy.OnPush
 })

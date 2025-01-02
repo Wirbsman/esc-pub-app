@@ -8,8 +8,7 @@ import { AppService } from './services/app.service';
     template: `
         <router-outlet></router-outlet>
     `,
-    standalone: true,
-    imports: [RouterOutlet],
+    imports: [RouterOutlet]
 })
 export class AppComponent {
     constructor(private readonly appService: AppService) {

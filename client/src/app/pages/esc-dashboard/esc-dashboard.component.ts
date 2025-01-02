@@ -15,11 +15,9 @@ import { EscDashboardService } from './esc-dashboard.service';
     selector: 'app-esc-dashboard',
     templateUrl: './esc-dashboard.component.html',
     styleUrls: ['./esc-dashboard.component.css'],
-    standalone: true,
     imports: [NgFor, RouterLink, CountryDashboardTileComponent]
 })
 export class EscDashboardComponent implements OnInit, OnDestroy {
-
     readonly imagePath = 'assets/images/flags80/';
 
     private readonly countries$ = new BehaviorSubject<ReadonlyArray<Country>>([]);

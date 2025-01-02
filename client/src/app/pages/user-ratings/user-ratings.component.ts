@@ -1,8 +1,6 @@
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatOption } from '@angular/material/core';
-import { MatSelect } from '@angular/material/select';
 import { Router } from '@angular/router';
 import { combineLatest, Subject, switchMap, takeUntil } from 'rxjs';
 
@@ -18,8 +16,7 @@ import { UserRatingTileComponent } from './user-rating-tile/user-rating-tile.com
     selector: 'app-user-ratings',
     templateUrl: './user-ratings.component.html',
     styleUrls: ['./user-ratings.component.css'],
-    standalone: true,
-    imports: [NgIf, NgFor, AsyncPipe, MatSelect, FormsModule, MatOption, UserRatingTileComponent]
+    imports: [NgIf, NgFor, AsyncPipe, FormsModule, UserRatingTileComponent],
 })
 export class UserRatingsComponent implements OnInit, OnDestroy {
 

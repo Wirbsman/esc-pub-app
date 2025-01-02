@@ -20,7 +20,6 @@ import { EscDashboardService } from '../../esc-dashboard.service';
             font-size: 16px;
         }
     `],
-    standalone: true,
     imports: [NgIf, CountryArtistTileComponent]
 })
 export class CountryDashboardTileComponent {

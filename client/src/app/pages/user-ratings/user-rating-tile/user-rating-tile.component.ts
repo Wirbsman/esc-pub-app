@@ -20,7 +20,6 @@ import { UserRating } from '../../../shared/types/rating.types';
             font-size: 24px;
         }
     `],
-    standalone: true,
     imports: [NgIf, NgForOf, MatSelectModule, MatInputModule, ReactiveFormsModule, CountryArtistTileComponent],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
