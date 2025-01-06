@@ -7,7 +7,7 @@ import { ratingOptions } from '../../../shared/constants/rating-options';
     standalone: true,
 })
 export class FormatRatingPipe implements PipeTransform {
-    transform(value?: number | null, fallback = '-'): unknown {
-        return ratingOptions.find((value1) => value1.value === value)?.displayName ?? '-';
+    transform(value?: number | null, fallback = '&ndash;'): unknown {
+        return ratingOptions.find((value1) => value1.value === value)?.displayName ?? fallback;
     }
 }
