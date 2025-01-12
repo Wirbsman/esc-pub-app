@@ -5,15 +5,11 @@ import { AppService } from './services/app.service';
 
 @Component({
     selector: 'app-root',
-    template: `
-        <router-outlet></router-outlet>
-    `,
-    imports: [RouterOutlet]
+    template: ` <router-outlet></router-outlet> `,
+    imports: [RouterOutlet],
 })
 export class AppComponent {
     constructor(private readonly appService: AppService) {
         this.appService.init();
     }
 }
-
-

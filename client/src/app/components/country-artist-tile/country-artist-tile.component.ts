@@ -8,7 +8,7 @@ import { CountryAndArtist } from '../../shared/types/country-and-artist.types';
     templateUrl: './country-artist-tile.component.html',
     styleUrls: ['./country-artist-tile.component.css'],
     imports: [NgIf],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CountryArtistTileComponent {
     readonly imagePath = 'assets/images/flags80/';

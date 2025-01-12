@@ -9,7 +9,8 @@ export type Rating = {
 
 export type UpdateUserRating = Pick<Rating, 'countryId' | 'rating'> & { id?: number };
 
-export type UserRating = Partial<Pick<Rating, 'id' | 'rating'>> & CountryAndArtist & {
-    countryId: number;
-    countryIndex: number;
-}
+export type UserRating = Partial<Pick<Rating, 'id' | 'rating'>> &
+    CountryAndArtist & {
+        countryId: number;
+        countryIndex: number;
+    };

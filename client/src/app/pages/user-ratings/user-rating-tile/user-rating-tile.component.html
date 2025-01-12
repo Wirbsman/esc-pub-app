@@ -1,11 +1,7 @@
 <app-country-artist-tile *ngIf="userRating" [countryAndArtist]="countryAndArtist">
-    <select matNativeControl
-            [formControl]="ratingFormControl"
-            name="rating-{{userRating.flag}}"
-            class="rating"
-    >
-        <option *ngFor="let opt of ratingOptions" [value]="opt.value">
-            {{ opt.displayName }}
-        </option>
-    </select>
+  <select matNativeControl [formControl]="ratingFormControl" name="rating-{{ userRating.flag }}" class="rating">
+    <option *ngFor="let opt of ratingOptions" [value]="opt.value">
+      {{ opt.displayName }}
+    </option>
+  </select>
 </app-country-artist-tile>

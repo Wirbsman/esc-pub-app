@@ -1,63 +1,63 @@
 .header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 55px;
-    padding: 15px;
-    background-color: #FFD600; /* Hintergrundfarbe */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #ccc;
-    box-shadow: 3px 3px 0 0 #e9e9ea; /* Schatten */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 55px;
+  padding: 15px;
+  background-color: #ffd600; /* Hintergrundfarbe */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  box-shadow: 3px 3px 0 0 #e9e9ea; /* Schatten */
 }
 
 .header img.left-icon,
 .header img.right-icon {
-    max-width: 140px; /* Neue maximale Breite */
+  max-width: 140px; /* Neue maximale Breite */
 }
 
 .countries-container {
-    background-color: #FBF7F7; /* Hintergrundfarbe */
-    padding: 95px 15px 75px; /* Innenabstand */
+  background-color: #fbf7f7; /* Hintergrundfarbe */
+  padding: 95px 15px 75px; /* Innenabstand */
 }
 
 .tiles-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center; /* Zentriert die Kacheln */
-    column-gap: 5px;
-    row-gap: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Zentriert die Kacheln */
+  column-gap: 5px;
+  row-gap: 5px;
 }
 
 .tile {
-    width: 100%;
+  width: 100%;
 }
 
 .footerBar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: #FBF7F7;
-    padding: 15px 0; /* Innenabstand anpassen */
-    display: flex; /* Flexbox verwenden */
-    justify-content: center; /* Inhalt links ausrichten */
-    border-top: 1px solid #ccc;
-    box-shadow: 0 0 3px 3px #e9e9ea; /* Schatten */
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #fbf7f7;
+  padding: 15px 0; /* Innenabstand anpassen */
+  display: flex; /* Flexbox verwenden */
+  justify-content: center; /* Inhalt links ausrichten */
+  border-top: 1px solid #ccc;
+  box-shadow: 0 0 3px 3px #e9e9ea; /* Schatten */
 }
 
 .button {
-    background-color: #FFD600; /* Hintergrundfarbe für die Buttons */
-    color: #000; /* Textfarbe für die Buttons */
-    padding: 10px 20px; /* Innenabstand anpassen */
-    margin: 0 10px;
-    border: none; /* Kein Rahmen */
-    border-radius: 5px; /* Abgerundete Ecken */
-    cursor: pointer; /* Zeiger beim Überfahren des Buttons */
+  background-color: #ffd600; /* Hintergrundfarbe für die Buttons */
+  color: #000; /* Textfarbe für die Buttons */
+  padding: 10px 20px; /* Innenabstand anpassen */
+  margin: 0 10px;
+  border: none; /* Kein Rahmen */
+  border-radius: 5px; /* Abgerundete Ecken */
+  cursor: pointer; /* Zeiger beim Überfahren des Buttons */
 }
 
 .footerBar .button:first-child {
-    margin-left: 0; /* Linken Abstand des ersten Buttons entfernen */
+  margin-left: 0; /* Linken Abstand des ersten Buttons entfernen */
 }

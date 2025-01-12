@@ -1,73 +1,73 @@
 .user-ratings-container {
-    background-color: #FBF7F7; /* Hintergrundfarbe */
-    padding: 95px 15px 75px; /* Innenabstand */
+  background-color: #fbf7f7; /* Hintergrundfarbe */
+  padding: 95px 15px 75px; /* Innenabstand */
 }
 
 .header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 55px;
-    padding: 15px;
-    background-color: #FBF7F7; /* Hintergrundfarbe */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #ccc;
-    box-shadow: 3px 3px 0 0 #e9e9ea; /* Schatten */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 55px;
+  padding: 15px;
+  background-color: #fbf7f7; /* Hintergrundfarbe */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  box-shadow: 3px 3px 0 0 #e9e9ea; /* Schatten */
 }
 
 .header img {
-    max-width: 50px; /* Maximale Breite der Bilder */
+  max-width: 50px; /* Maximale Breite der Bilder */
 }
 
 /* Ändern Sie die Größe der Icons im Header */
 .header img.left-icon,
 .header img.right-icon {
-    max-width: 140px; /* Neue maximale Breite */
+  max-width: 140px; /* Neue maximale Breite */
 }
 
 .header img.right-icon {
-    max-height: 80px;
+  max-height: 80px;
 }
 
 .tiles-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center; /* Zentriert die Kacheln */
-    column-gap: 5px;
-    row-gap: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Zentriert die Kacheln */
+  column-gap: 5px;
+  row-gap: 5px;
 }
 
 .tile {
-    width: 100%;
+  width: 100%;
 }
 
 .footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: #FBF7F7;
-    padding: 15px 0;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    border-top: 1px solid #ccc;
-    box-shadow: 0 0 3px 3px #e9e9ea; /* Schatten */
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #fbf7f7;
+  padding: 15px 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  border-top: 1px solid #ccc;
+  box-shadow: 0 0 3px 3px #e9e9ea; /* Schatten */
 }
 
 .button {
-    background-color: #FFD600; /* Hintergrundfarbe für Buttons */
-    padding: 10px 20px; /* Innenabstand anpassen */
-    border: none; /* Kein Rand */
-    border-radius: 5px; /* Abgerundete Ecken */
-    border-color: black;
-    cursor: pointer;
-    margin: 0 10px;
+  background-color: #ffd600; /* Hintergrundfarbe für Buttons */
+  padding: 10px 20px; /* Innenabstand anpassen */
+  border: none; /* Kein Rand */
+  border-radius: 5px; /* Abgerundete Ecken */
+  border-color: black;
+  cursor: pointer;
+  margin: 0 10px;
 }
 
 .button:hover {
-    background-color: #FC9000; /* Hintergrundfarbe bei Hover */
+  background-color: #fc9000; /* Hintergrundfarbe bei Hover */
 }

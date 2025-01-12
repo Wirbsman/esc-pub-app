@@ -19,7 +19,6 @@ import { UserRatingTileComponent } from './user-rating-tile/user-rating-tile.com
     imports: [NgIf, NgFor, AsyncPipe, FormsModule, UserRatingTileComponent],
 })
 export class UserRatingsComponent implements OnInit, OnDestroy {
-
     readonly avatarPath = 'assets/avatar/';
 
     private _userRatings: ReadonlyArray<UserRating> = [];
@@ -27,30 +26,38 @@ export class UserRatingsComponent implements OnInit, OnDestroy {
     private readonly triggerReload$ = new Subject<void>();
     private readonly destroyed$ = new Subject<void>();
 
-    constructor(readonly appService: AppService,
-                private readonly authService: AuthService,
-                private readonly ratingsService: RatingsService,
-                private readonly countriesService: CountriesService,
-                private readonly router: Router) {
-        this.triggerReload$.pipe(
-            takeUntil(this.destroyed$),
-            switchMap(() => combineLatest([
-                this.countriesService.countries$,
-                this.ratingsService.userRatings$()
-            ]))
-        ).subscribe(([countries, ratings]) => {
-            this._userRatings = countries.map(country => ({
-                countryId: country.id,
-                name: country.name,
-                flag: country.flag,
-                artistName: country.interpret,
-                artistSong: country.songname,
-                countryIndex: country.index,
-                ...(ratings.find(rating => rating.countryId === country.id))
-            })).filter(isDefined).sort((a, b) => a.countryIndex - b.countryIndex);
-        });
+    constructor(
+        readonly appService: AppService,
+        private readonly authService: AuthService,
+        private readonly ratingsService: RatingsService,
+        private readonly countriesService: CountriesService,
+        private readonly router: Router,
+    ) {
+        this.triggerReload$
+            .pipe(
+                takeUntil(this.destroyed$),
+                switchMap(() =>
+                    combineLatest([
+                        this.countriesService.countries$,
+                        this.ratingsService.userRatings$(),
+                    ]),
+                ),
+            )
+            .subscribe(([countries, ratings]) => {
+                this._userRatings = countries
+                    .map((country) => ({
+                        countryId: country.id,
+                        name: country.name,
+                        flag: country.flag,
+                        artistName: country.interpret,
+                        artistSong: country.songname,
+                        countryIndex: country.index,
+                        ...ratings.find((rating) => rating.countryId === country.id),
+                    }))
+                    .filter(isDefined)
+                    .sort((a, b) => a.countryIndex - b.countryIndex);
+            });
     }
-
 
     get userRatings(): ReadonlyArray<UserRating> {
         return this._userRatings;
@@ -76,8 +83,8 @@ export class UserRatingsComponent implements OnInit, OnDestroy {
             {
                 id: rating.id,
                 countryId: rating.countryId,
-                rating: rating.rating
-            }
+                rating: rating.rating,
+            },
         ]);
     }
 

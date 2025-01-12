@@ -1,5 +1,13 @@
 import { NgForOf, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    EventEmitter,
+    Input,
+    OnDestroy,
+    OnInit,
+    Output,
+} from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -13,15 +21,24 @@ import { UserRating } from '../../../shared/types/rating.types';
 @Component({
     selector: 'app-user-rating-tile',
     templateUrl: 'user-rating-tile.component.html',
-    styles: [`
-        .rating {
-            text-align: right;
-            font-weight: 700;
-            font-size: 24px;
-        }
-    `],
-    imports: [NgIf, NgForOf, MatSelectModule, MatInputModule, ReactiveFormsModule, CountryArtistTileComponent],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    styles: [
+        `
+            .rating {
+                text-align: right;
+                font-weight: 700;
+                font-size: 24px;
+            }
+        `,
+    ],
+    imports: [
+        NgIf,
+        NgForOf,
+        MatSelectModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        CountryArtistTileComponent,
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserRatingTileComponent implements OnInit, OnDestroy {
     readonly ratingOptions = ratingOptions;
@@ -52,17 +69,16 @@ export class UserRatingTileComponent implements OnInit, OnDestroy {
     @Output() ratingChanged = new EventEmitter<UserRating>();
 
     ngOnInit() {
-        this.ratingFormControl.valueChanges.pipe(
-            takeUntil(this.destroyed$),
-            distinctUntilChanged()
-        ).subscribe(value => {
-            if (this._userRating) {
-                this.ratingChanged.emit({
-                    ...this._userRating,
-                    rating: value ?? this._userRating.rating
-                });
-            }
-        });
+        this.ratingFormControl.valueChanges
+            .pipe(takeUntil(this.destroyed$), distinctUntilChanged())
+            .subscribe((value) => {
+                if (this._userRating) {
+                    this.ratingChanged.emit({
+                        ...this._userRating,
+                        rating: value ?? this._userRating.rating,
+                    });
+                }
+            });
     }
 
     ngOnDestroy() {

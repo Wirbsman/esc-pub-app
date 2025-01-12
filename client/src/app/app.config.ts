@@ -13,6 +13,6 @@ export const APP_CONFIG: ApplicationConfig = {
         provideRouter(APP_ROUTES, withHashLocation()),
         { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
         provideAnimations(),
-        provideHttpClient(withInterceptorsFromDi())
-    ]
+        provideHttpClient(withInterceptorsFromDi()),
+    ],
 };

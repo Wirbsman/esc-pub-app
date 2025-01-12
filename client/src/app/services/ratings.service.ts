@@ -14,32 +14,27 @@ const API_BASE = 'api/v1/ratings';
 
 @Injectable({ providedIn: 'root' })
 export class RatingsService {
-
     private readonly endpointBase = [API_HOST, API_BASE].join('/');
 
-    constructor(private readonly httpClient: HttpClient) {
-    }
+    constructor(private readonly httpClient: HttpClient) {}
 
     allRatings$(): Observable<ReadonlyArray<Rating>> {
-        return this.httpClient.get<AllRatingsResponse>(this.endpointBase, httpOptions).pipe(
-            map(res => res.data ?? [])
-        );
+        return this.httpClient
+            .get<AllRatingsResponse>(this.endpointBase, httpOptions)
+            .pipe(map((res) => res.data ?? []));
     }
 
     userRatings$(): Observable<ReadonlyArray<Rating>> {
-        return this.httpClient.get<UserRatingsResponse>(`${this.endpointBase}/user`, httpOptions).pipe(
-            map(res => res.data ?? [])
-        );
+        return this.httpClient
+            .get<UserRatingsResponse>(`${this.endpointBase}/user`, httpOptions)
+            .pipe(map((res) => res.data ?? []));
     }
 
     async updateRatings(ratings: ReadonlyArray<UpdateUserRating>): Promise<ReadonlyArray<Rating>> {
         return lastValueFrom(
-            this.httpClient.put<UpdateRatingsResponse>(
-                `${this.endpointBase}/user`,
-                ratings,
-                httpOptions
-            ).pipe(
-                map(res => res.data ?? [])
-            ));
+            this.httpClient
+                .put<UpdateRatingsResponse>(`${this.endpointBase}/user`, ratings, httpOptions)
+                .pipe(map((res) => res.data ?? [])),
+        );
     }
 }

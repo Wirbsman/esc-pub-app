@@ -17,19 +17,31 @@ import { FormData } from '../../shared/types/form.types';
     selector: 'app-log-in',
     templateUrl: './log-in.component.html',
     styleUrls: ['./log-in.component.css'],
-    imports: [NgIf, MatCard, MatCardContent, MatError, MatFormField, MatLabel, MatInput, ReactiveFormsModule, MatIconButton, MatSuffix, MatIcon, MatButton]
+    imports: [
+        NgIf,
+        MatCard,
+        MatCardContent,
+        MatError,
+        MatFormField,
+        MatLabel,
+        MatInput,
+        ReactiveFormsModule,
+        MatIconButton,
+        MatSuffix,
+        MatIcon,
+        MatButton,
+    ],
 })
 export class LogInComponent implements OnDestroy {
-
     readonly loginForm = new FormGroup<FormData<LoginRequestBody>>({
         username: new FormControl<string>('', {
             validators: [Validators.required, Validators.minLength(3)],
-            nonNullable: true
+            nonNullable: true,
         }),
         password: new FormControl<string>('', {
             validators: [Validators.required],
-            nonNullable: true
-        })
+            nonNullable: true,
+        }),
     });
 
     public invalidLogin = false;
@@ -37,30 +49,42 @@ export class LogInComponent implements OnDestroy {
 
     private readonly destroyed$ = new Subject<void>();
 
-    constructor(private readonly appService: AppService, private readonly router: Router, private readonly authService: AuthService) {
+    constructor(
+        private readonly appService: AppService,
+        private readonly router: Router,
+        private readonly authService: AuthService,
+    ) {
         if (this.appService.isLoggedIn) {
             this.navigateToVote();
         }
     }
 
     login() {
-        if (!this.loginForm.valid || !this.loginForm.value.username || !this.loginForm.value.password) {
+        if (
+            !this.loginForm.valid ||
+            !this.loginForm.value.username ||
+            !this.loginForm.value.password
+        ) {
             return;
         }
 
         try {
-            lastValueFrom(this.authService.login$({
-                username: this.loginForm.value.username,
-                password: this.loginForm.value.password
-            })).then(() => {
-                this.invalidLogin = false;
-                this.appService.isLoggedIn = true;
-                this.navigateToVote();
-            }).catch((e) => {
-                console.error(e);
-                this.appService.isLoggedIn = false;
-                this.invalidLogin = true;
-            });
+            lastValueFrom(
+                this.authService.login$({
+                    username: this.loginForm.value.username,
+                    password: this.loginForm.value.password,
+                }),
+            )
+                .then(() => {
+                    this.invalidLogin = false;
+                    this.appService.isLoggedIn = true;
+                    this.navigateToVote();
+                })
+                .catch((e) => {
+                    console.error(e);
+                    this.appService.isLoggedIn = false;
+                    this.invalidLogin = true;
+                });
         } catch (e) {
             console.error(e);
             this.appService.isLoggedIn = false;

@@ -11,14 +11,16 @@ const API_BASE = 'api/auth';
 
 @Injectable({ providedIn: 'root' })
 export class UserInfoService {
-
-    constructor(private readonly httpClient: HttpClient) {
-    }
+    constructor(private readonly httpClient: HttpClient) {}
 
     userInfo$(): Observable<User | null> {
-        return this.httpClient.get<SuccessResponseBody<User>>([API_HOST, API_BASE, 'user-info'].join('/'), httpOptions).pipe(
-            map(res => res.data ?? null),
-            catchError(() => of(null))
-        );
+        return this.httpClient
+            .get<
+                SuccessResponseBody<User>
+            >([API_HOST, API_BASE, 'user-info'].join('/'), httpOptions)
+            .pipe(
+                map((res) => res.data ?? null),
+                catchError(() => of(null)),
+            );
     }
 }

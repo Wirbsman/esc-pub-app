@@ -4,11 +4,10 @@ import { ratingOptions } from '../../../shared/constants/rating-options';
 
 @Pipe({
     name: 'formatRating',
-    standalone: true
+    standalone: true,
 })
 export class FormatRatingPipe implements PipeTransform {
-
     transform(value?: number | null, fallback = '-'): unknown {
-        return ratingOptions.find(value1 => value1.value === value)?.displayName ?? '-';
+        return ratingOptions.find((value1) => value1.value === value)?.displayName ?? '-';
     }
 }

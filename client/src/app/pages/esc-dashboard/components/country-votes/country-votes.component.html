@@ -1,21 +1,21 @@
 <ng-container *ngIf="country">
-    <header class="header">
-        <img class="left-icon" src="assets/images/esc_ods.svg" alt="Icon">
-        <div class="country-name">{{ country.name }}</div>
-        <img class="country-flag" src="{{imagePath + country.flag}}.png" alt="Flag">
-    </header>
+  <header class="header">
+    <img class="left-icon" src="assets/images/esc_ods.svg" alt="Icon" />
+    <div class="country-name">{{ country.name }}</div>
+    <img class="country-flag" src="{{ imagePath + country.flag }}.png" alt="Flag" />
+  </header>
 
-    <div class="country-votes-container">
-        <div class="tiles-container">
-            <app-country-rating-tile
-                    *ngFor="let userRating of userRatings"
-                    [countryRating]="userRating"
-                    class="tile"
-            ></app-country-rating-tile>
-        </div>
+  <div class="country-votes-container">
+    <div class="tiles-container">
+      <app-country-rating-tile
+        *ngFor="let userRating of userRatings"
+        [countryRating]="userRating"
+        class="tile"
+      ></app-country-rating-tile>
     </div>
+  </div>
 
-    <footer class="footer">
-        <button class="button" (click)="toDashboard()">Dashboard</button>
-    </footer>
+  <footer class="footer">
+    <button class="button" (click)="toDashboard()">Dashboard</button>
+  </footer>
 </ng-container>

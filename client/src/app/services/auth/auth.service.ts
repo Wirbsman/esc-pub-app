@@ -8,7 +8,7 @@ import { EmptyResponseBody } from '../../shared/types/common-response.types';
 export type LoginRequestBody = {
     username: string;
     password: string;
-}
+};
 
 export type SimpleSignupRequestBody = Pick<LoginRequestBody, 'username'>;
 
@@ -16,21 +16,31 @@ const API_BASE = 'api/auth';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-
     private readonly endpointBase = [API_HOST, API_BASE].join('/');
 
-    constructor(private readonly httpClient: HttpClient) {
-    }
+    constructor(private readonly httpClient: HttpClient) {}
 
     login$(body: LoginRequestBody): Observable<EmptyResponseBody> {
-        return this.httpClient.post<EmptyResponseBody>(`${this.endpointBase}/login`, body, httpOptions);
+        return this.httpClient.post<EmptyResponseBody>(
+            `${this.endpointBase}/login`,
+            body,
+            httpOptions,
+        );
     }
 
     simpleSignUp$(body: SimpleSignupRequestBody): Observable<EmptyResponseBody> {
-        return this.httpClient.post<EmptyResponseBody>(`${this.endpointBase}/simple-signup`, body, httpOptions);
+        return this.httpClient.post<EmptyResponseBody>(
+            `${this.endpointBase}/simple-signup`,
+            body,
+            httpOptions,
+        );
     }
 
     logout$() {
-        return this.httpClient.post<EmptyResponseBody>(`${this.endpointBase}/logout`, undefined, httpOptions);
+        return this.httpClient.post<EmptyResponseBody>(
+            `${this.endpointBase}/logout`,
+            undefined,
+            httpOptions,
+        );
     }
 }

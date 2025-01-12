@@ -22,12 +22,14 @@
   flex-direction: column;
 }
 
-.input-group, .button-group {
+.input-group,
+.button-group {
   margin-right: 20px;
   margin-bottom: 10px;
 }
 
-.input-group label, .button-group button {
+.input-group label,
+.button-group button {
   margin-right: 5px;
 }
 
@@ -40,7 +42,7 @@
 }
 
 .user-table {
-  background-color: #FBF7F4; /* Hintergrundfarbe der Tabelle */
+  background-color: #fbf7f4; /* Hintergrundfarbe der Tabelle */
   color: #000; /* Textfarbe */
   border-collapse: collapse; /* Zusammenführen der Tabelle */
   width: 100%; /* Breite der Tabelle auf 100% des Containers festlegen */
@@ -57,7 +59,7 @@
 }
 
 .user-table tr:nth-child(even) {
-  background-color: #EFE9E6; /* Hintergrundfarbe für gerade Zeilen */
+  background-color: #efe9e6; /* Hintergrundfarbe für gerade Zeilen */
 }
 
 .user-table th,
@@ -67,15 +69,15 @@
 }
 
 .user-table th {
-  background-color: #FFD600; /* Hintergrundfarbe für Tabellenkopf */
+  background-color: #ffd600; /* Hintergrundfarbe für Tabellenkopf */
 }
 
 .user-table tr:hover {
-  background-color: #D4CFCB; /* Hintergrundfarbe bei Hover */
+  background-color: #d4cfcb; /* Hintergrundfarbe bei Hover */
 }
 
 .user-table button {
-  background-color: #FFD600; /* Hintergrundfarbe für Buttons */
+  background-color: #ffd600; /* Hintergrundfarbe für Buttons */
   color: #000; /* Textfarbe für Buttons */
   padding: 8px 16px; /* Innenabstand anpassen */
   border: none; /* Kein Rand */
@@ -85,7 +87,7 @@
 }
 
 .user-table button:hover {
-  background-color: #FFB500; /* Hintergrundfarbe bei Hover */
+  background-color: #ffb500; /* Hintergrundfarbe bei Hover */
 }
 
 .selected-row {

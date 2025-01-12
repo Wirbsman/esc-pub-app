@@ -11,35 +11,38 @@ import { User } from '../../shared/types/user.types';
     selector: 'app-user-management',
     templateUrl: './user-management.component.html',
     styleUrls: ['./user-management.component.css'],
-    imports: [NgIf, NgFor, ReactiveFormsModule]
+    imports: [NgIf, NgFor, ReactiveFormsModule],
 })
 export class UserManagementComponent implements OnInit, OnDestroy {
-
     users: ReadonlyArray<User> = [];
 
     readonly form = new FormGroup({
         id: new FormControl<number | null>(null), // is null for new users
         name: new FormControl<string | null>(null, {
             validators: [Validators.required],
-            nonNullable: true
+            nonNullable: true,
         }),
         icon: new FormControl<string | null>(null),
         admin: new FormControl<boolean>(false, {
             validators: [Validators.required],
-            nonNullable: true
+            nonNullable: true,
         }),
-        password: new FormControl<string | null>(null)
+        password: new FormControl<string | null>(null),
     });
 
     private readonly triggerReload$ = new Subject<void>();
     private readonly destroyed$ = new Subject<void>();
 
-    constructor(private userService: UserService,
-                private router: Router) {
-        this.triggerReload$.pipe(
-            takeUntil(this.destroyed$),
-            switchMap(() => this.userService.allUsers$())
-        ).subscribe((users) => this.users = users);
+    constructor(
+        private userService: UserService,
+        private router: Router,
+    ) {
+        this.triggerReload$
+            .pipe(
+                takeUntil(this.destroyed$),
+                switchMap(() => this.userService.allUsers$()),
+            )
+            .subscribe((users) => (this.users = users));
     }
 
     get selectedUserId(): number | null {
@@ -102,7 +105,7 @@ export class UserManagementComponent implements OnInit, OnDestroy {
             name,
             icon: icon ?? undefined,
             admin: admin ?? false,
-            password
+            password,
         });
 
         this.reset();

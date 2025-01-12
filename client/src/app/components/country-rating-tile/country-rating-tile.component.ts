@@ -5,8 +5,8 @@ import { FormatRatingPipe } from '../../pages/esc-dashboard/pipes/format-rating.
 
 export type CountryUserRating = {
     name: string;
-    rating: number
-}
+    rating: number;
+};
 
 @Component({
     selector: 'app-country-rating-tile',

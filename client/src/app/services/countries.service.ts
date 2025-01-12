@@ -13,12 +13,10 @@ const API_BASE = 'api/v1/countries';
 
 @Injectable({ providedIn: 'root' })
 export class CountriesService {
-
     private _countries$ = new BehaviorSubject<ReadonlyArray<Country>>([]);
     private readonly endpointBase = [API_HOST, API_BASE].join('/');
 
-    constructor(private readonly httpClient: HttpClient) {
-    }
+    constructor(private readonly httpClient: HttpClient) {}
 
     get countries$(): Observable<ReadonlyArray<Country>> {
         return this._countries$.asObservable();
@@ -30,14 +28,14 @@ export class CountriesService {
 
     loadCountries() {
         lastValueFrom(this.fetchCountries$())
-            .then((countries => this._countries$.next(countries)))
+            .then((countries) => this._countries$.next(countries))
             .catch(() => this._countries$.next([]));
     }
 
     private fetchCountries$(): Observable<ReadonlyArray<Country>> {
         return this.httpClient.get<GetCountriesResponse>(this.endpointBase, httpOptions).pipe(
-            map(res => res.data ?? []),
-            catchError(() => of([]))
+            map((res) => res.data ?? []),
+            catchError(() => of([])),
         );
     }
 }

@@ -6,4 +6,4 @@ export type Country = {
     songname: string;
     interpret: string;
     index: number;
-}
+};

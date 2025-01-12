@@ -3,4 +3,4 @@ export type CountryAndArtist = {
     flag: string;
     artistName: string;
     artistSong: string;
-}
+};

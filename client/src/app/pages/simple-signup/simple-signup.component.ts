@@ -15,18 +15,30 @@ import { AuthService } from '../../services/auth/auth.service';
     selector: 'app-simple-signup',
     templateUrl: './simple-signup.component.html',
     styleUrls: ['../log-in/log-in.component.css'],
-    imports: [NgIf, MatCard, MatCardContent, MatError, MatFormField, MatLabel, MatInput, ReactiveFormsModule, MatButton]
+    imports: [
+        NgIf,
+        MatCard,
+        MatCardContent,
+        MatError,
+        MatFormField,
+        MatLabel,
+        MatInput,
+        ReactiveFormsModule,
+        MatButton,
+    ],
 })
 export class SimpleSignupComponent {
-
     readonly usernameFC = new FormControl<string>('', {
-        validators: [Validators.required, Validators.minLength(3)]
+        validators: [Validators.required, Validators.minLength(3)],
     });
 
     public invalidLogin = false;
 
-    constructor(private readonly appService: AppService, private readonly authService: AuthService, private readonly router: Router) {
-    }
+    constructor(
+        private readonly appService: AppService,
+        private readonly authService: AuthService,
+        private readonly router: Router,
+    ) {}
 
     signUp() {
         if (!this.usernameFC.valid || !this.usernameFC.value) {
@@ -34,17 +46,21 @@ export class SimpleSignupComponent {
         }
 
         try {
-            lastValueFrom(this.authService.simpleSignUp$({
-                username: this.usernameFC.value,
-            })).then(() => {
-                this.invalidLogin = false;
-                this.appService.isLoggedIn = true;
-                void this.router.navigateByUrl('/vote');
-            }).catch((e) => {
-                console.error(e);
-                this.appService.isLoggedIn = false;
-                this.invalidLogin = true;
-            });
+            lastValueFrom(
+                this.authService.simpleSignUp$({
+                    username: this.usernameFC.value,
+                }),
+            )
+                .then(() => {
+                    this.invalidLogin = false;
+                    this.appService.isLoggedIn = true;
+                    void this.router.navigateByUrl('/vote');
+                })
+                .catch((e) => {
+                    console.error(e);
+                    this.appService.isLoggedIn = false;
+                    this.invalidLogin = true;
+                });
         } catch (e) {
             console.error(e);
             this.appService.isLoggedIn = false;

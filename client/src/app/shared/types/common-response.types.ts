@@ -5,12 +5,12 @@ type CommonResponseBody = {
 export type EmptyResponseBody = CommonResponseBody;
 
 export type SuccessResponseBody<T> = CommonResponseBody & {
-    data?: T
-}
+    data?: T;
+};
 
 export type ErrorResponseBody = CommonResponseBody & {
     error: {
         type: string;
         description?: string;
-    }
+    };
 };

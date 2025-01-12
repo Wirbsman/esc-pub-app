@@ -1,10 +1,10 @@
 <div *ngIf="countryAndArtist" class="tile-container">
-    <img class="country-flag" src="{{imagePath + countryAndArtist.flag}}.png" alt="Flag">
-    <div class="tile-content">
-        <div class="country-name">{{ countryAndArtist.name }}</div>
-        <div class="artist-name">{{ countryAndArtist.artistName }}</div>
-        <div class="artist-song">{{ countryAndArtist.artistSong }}</div>
-    </div>
+  <img class="country-flag" src="{{ imagePath + countryAndArtist.flag }}.png" alt="Flag" />
+  <div class="tile-content">
+    <div class="country-name">{{ countryAndArtist.name }}</div>
+    <div class="artist-name">{{ countryAndArtist.artistName }}</div>
+    <div class="artist-song">{{ countryAndArtist.artistSong }}</div>
+  </div>
 
-    <ng-content></ng-content>
+  <ng-content></ng-content>
 </div>

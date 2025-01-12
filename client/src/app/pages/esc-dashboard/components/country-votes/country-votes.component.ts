@@ -5,7 +5,10 @@ import { filter, Subject, takeUntil, tap } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { CountryRoutingParam } from '../../../../app.routing';
-import { CountryRatingTileComponent, CountryUserRating } from '../../../../components/country-rating-tile/country-rating-tile.component';
+import {
+    CountryRatingTileComponent,
+    CountryUserRating,
+} from '../../../../components/country-rating-tile/country-rating-tile.component';
 import { Country } from '../../../../shared/types/country.types';
 import { isDefined } from '../../../../shared/utils/is-defined.utils';
 import { EscDashboardService } from '../../esc-dashboard.service';
@@ -14,7 +17,7 @@ import { EscDashboardService } from '../../esc-dashboard.service';
     selector: 'app-country-votes',
     templateUrl: './country-votes.component.html',
     styleUrls: ['./country-votes.component.css'],
-    imports: [NgIf, NgForOf, CountryRatingTileComponent]
+    imports: [NgIf, NgForOf, CountryRatingTileComponent],
 })
 export class CountryVotesComponent implements OnInit, OnDestroy {
     readonly imagePath = 'assets/images/flags80/';
@@ -37,12 +40,14 @@ export class CountryVotesComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.route.paramMap.pipe(
-            takeUntil(this.destroyed$),
-            map(paramMap => paramMap.get(CountryRoutingParam.Flag)),
-            tap(flag => !flag && this.toDashboard()),
-            filter(isDefined),
-        ).subscribe(flag => this.init(flag));
+        this.route.paramMap
+            .pipe(
+                takeUntil(this.destroyed$),
+                map((paramMap) => paramMap.get(CountryRoutingParam.Flag)),
+                tap((flag) => !flag && this.toDashboard()),
+                filter(isDefined),
+            )
+            .subscribe((flag) => this.init(flag));
     }
 
     ngOnDestroy() {
@@ -54,13 +59,16 @@ export class CountryVotesComponent implements OnInit, OnDestroy {
     }
 
     private init(flag: string) {
-        this._country = this.dashboardService.countries.find(c => c.flag === flag);
+        this._country = this.dashboardService.countries.find((c) => c.flag === flag);
         if (!!this._country?.id) {
-            this._userRatings = this.dashboardService.countryRatingsMap.get(this._country.id)
-                ?.map(countryRating => ({
-                    name: countryRating.name,
-                    rating: countryRating.rating
-                })).sort((a, b) => a.name.localeCompare(b.name)) ?? [];
+            this._userRatings =
+                this.dashboardService.countryRatingsMap
+                    .get(this._country.id)
+                    ?.map((countryRating) => ({
+                        name: countryRating.name,
+                        rating: countryRating.rating,
+                    }))
+                    .sort((a, b) => a.name.localeCompare(b.name)) ?? [];
         } else {
             this._userRatings = [];
         }

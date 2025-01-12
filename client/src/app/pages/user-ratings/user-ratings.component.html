@@ -1,25 +1,23 @@
 <ng-container *ngIf="appService.currentUser$ | async as currentUser">
-    <div class="header">
-        <img class="left-icon" src="assets/images/esc_ods.svg" alt="Icon">
-        <h2>{{ currentUser.name }}</h2>
-        <img *ngIf="currentUser.icon" class="right-icon" src="{{ avatarPath + currentUser.icon }}.png" alt="Icon">
-    </div>
+  <div class="header">
+    <img class="left-icon" src="assets/images/esc_ods.svg" alt="Icon" />
+    <h2>{{ currentUser.name }}</h2>
+    <img *ngIf="currentUser.icon" class="right-icon" src="{{ avatarPath + currentUser.icon }}.png" alt="Icon" />
+  </div>
 
-    <div class="user-ratings-container">
-        <div class="tiles-container">
-            <app-user-rating-tile
-                    *ngFor="let userRating of userRatings"
-                    [userRating]="userRating"
-                    (ratingChanged)="saveRating($event)"
-                    class="tile"
-            ></app-user-rating-tile>
-        </div>
+  <div class="user-ratings-container">
+    <div class="tiles-container">
+      <app-user-rating-tile
+        *ngFor="let userRating of userRatings"
+        [userRating]="userRating"
+        (ratingChanged)="saveRating($event)"
+        class="tile"
+      ></app-user-rating-tile>
     </div>
+  </div>
 
-    <div class="footer">
-        <button class="button" (click)="toDashboard()">Dashboard</button>
-        <button class="button" *ngIf="appService.isAdmin$ | async" (click)="toUserManagement()">
-            Userverwaltung
-        </button>
-    </div>
+  <div class="footer">
+    <button class="button" (click)="toDashboard()">Dashboard</button>
+    <button class="button" *ngIf="appService.isAdmin$ | async" (click)="toUserManagement()">Userverwaltung</button>
+  </div>
 </ng-container>

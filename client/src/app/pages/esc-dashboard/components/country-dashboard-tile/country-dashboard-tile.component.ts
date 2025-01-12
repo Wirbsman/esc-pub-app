@@ -9,21 +9,22 @@ import { EscDashboardService } from '../../esc-dashboard.service';
 @Component({
     selector: 'app-country-dashboard-tile',
     templateUrl: './country-dashboard-tile.component.html',
-    styles: [`
-        .country-stats {
-            min-width: 50px;
-            text-align: right;
-        }
+    styles: [
+        `
+            .country-stats {
+                min-width: 50px;
+                text-align: right;
+            }
 
-        .country-avg {
-            font-weight: 500;
-            font-size: 16px;
-        }
-    `],
-    imports: [NgIf, CountryArtistTileComponent]
+            .country-avg {
+                font-weight: 500;
+                font-size: 16px;
+            }
+        `,
+    ],
+    imports: [NgIf, CountryArtistTileComponent],
 })
 export class CountryDashboardTileComponent {
-
     private readonly dashboardService = inject(EscDashboardService);
 
     private _country?: Country;
@@ -45,6 +46,8 @@ export class CountryDashboardTileComponent {
     }
 
     get countryAverage(): string | undefined {
-        return !this.country ? undefined : this.dashboardService.countryAverageMap.get(this.country.id);
+        return !this.country
+            ? undefined
+            : this.dashboardService.countryAverageMap.get(this.country.id);
     }
 }

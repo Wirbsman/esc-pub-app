@@ -1,16 +1,11 @@
 <mat-card xmlns="http://www.w3.org/1999/html">
-    <mat-card-content>
-        <h2>Anmeldung</h2>
-        <mat-error *ngIf="invalidLogin">
-            Benutzer und Passwort sind unbekannt
-        </mat-error>
-        <mat-form-field>
-            <mat-label>Gib deinen Benutzernamen ein</mat-label>
-            <input matInput placeholder="Benutzername" name="username" [formControl]="usernameFC">
-        </mat-form-field>
-        <button mat-raised-button color="primary" (click)="signUp()" [disabled]="!usernameFC.valid">
-            Login
-        </button>
-    </mat-card-content>
+  <mat-card-content>
+    <h2>Anmeldung</h2>
+    <mat-error *ngIf="invalidLogin"> Benutzer und Passwort sind unbekannt </mat-error>
+    <mat-form-field>
+      <mat-label>Gib deinen Benutzernamen ein</mat-label>
+      <input matInput placeholder="Benutzername" name="username" [formControl]="usernameFC" />
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="signUp()" [disabled]="!usernameFC.valid">Login</button>
+  </mat-card-content>
 </mat-card>
-

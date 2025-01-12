@@ -15,7 +15,7 @@ import { EscDashboardService } from './esc-dashboard.service';
     selector: 'app-esc-dashboard',
     templateUrl: './esc-dashboard.component.html',
     styleUrls: ['./esc-dashboard.component.css'],
-    imports: [NgFor, RouterLink, CountryDashboardTileComponent]
+    imports: [NgFor, RouterLink, CountryDashboardTileComponent],
 })
 export class EscDashboardComponent implements OnInit, OnDestroy {
     readonly imagePath = 'assets/images/flags80/';
@@ -24,21 +24,27 @@ export class EscDashboardComponent implements OnInit, OnDestroy {
     private readonly triggerReload$ = new Subject<void>();
     private readonly destroyed$ = new Subject<void>();
 
-    constructor(private readonly router: Router,
-                private readonly escDashboardService: EscDashboardService,
-                private readonly countriesService: CountriesService,
-                private readonly userService: UserService,
-                private readonly ratingsServices: RatingsService) {
-        this.triggerReload$.pipe(
-            takeUntil(this.destroyed$),
-            switchMap(() => combineLatest([
-                this.countries$,
-                this.userService.allUsers$(),
-                this.ratingsServices.allRatings$()
-            ]))
-        ).subscribe(([countries, users, ratings]) =>
-            this.escDashboardService.init({ countries, users, ratings })
-        );
+    constructor(
+        private readonly router: Router,
+        private readonly escDashboardService: EscDashboardService,
+        private readonly countriesService: CountriesService,
+        private readonly userService: UserService,
+        private readonly ratingsServices: RatingsService,
+    ) {
+        this.triggerReload$
+            .pipe(
+                takeUntil(this.destroyed$),
+                switchMap(() =>
+                    combineLatest([
+                        this.countries$,
+                        this.userService.allUsers$(),
+                        this.ratingsServices.allRatings$(),
+                    ]),
+                ),
+            )
+            .subscribe(([countries, users, ratings]) =>
+                this.escDashboardService.init({ countries, users, ratings }),
+            );
     }
 
     get countries(): ReadonlyArray<Country> {
@@ -67,6 +73,8 @@ export class EscDashboardComponent implements OnInit, OnDestroy {
     }
 
     private initCountries(): void {
-        this.countries$.next([...this.countriesService.countries].sort((cA, cB) => cA.index - cB.index));
+        this.countries$.next(
+            [...this.countriesService.countries].sort((cA, cB) => cA.index - cB.index),
+        );
     }
 }
