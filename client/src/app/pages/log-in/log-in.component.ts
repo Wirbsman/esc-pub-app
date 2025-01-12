@@ -75,19 +75,19 @@ export class LogInComponent implements OnDestroy {
                     password: this.loginForm.value.password,
                 }),
             )
-                .then(() => {
-                    this.invalidLogin = false;
-                    this.appService.isLoggedIn = true;
+                .then((user) => {
+                    this.invalidLogin = !user;
+                    this.appService.currentUser = user;
                     this.navigateToVote();
                 })
                 .catch((e) => {
                     console.error(e);
-                    this.appService.isLoggedIn = false;
+                    this.appService.currentUser = null;
                     this.invalidLogin = true;
                 });
         } catch (e) {
             console.error(e);
-            this.appService.isLoggedIn = false;
+            this.appService.currentUser = null;
             this.invalidLogin = true;
         }
     }

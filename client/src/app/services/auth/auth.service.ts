@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 import { API_HOST, httpOptions } from '../../shared/constants/api';
-import { EmptyResponseBody } from '../../shared/types/common-response.types';
+import { EmptyResponseBody, SuccessResponseBody } from '../../shared/types/common-response.types';
+import { User } from '../../shared/types/user.types';
 
 export type LoginRequestBody = {
     username: string;
@@ -20,20 +21,18 @@ export class AuthService {
 
     constructor(private readonly httpClient: HttpClient) {}
 
-    login$(body: LoginRequestBody): Observable<EmptyResponseBody> {
-        return this.httpClient.post<EmptyResponseBody>(
-            `${this.endpointBase}/login`,
-            body,
-            httpOptions,
-        );
+    login$(body: LoginRequestBody): Observable<User | null> {
+        return this.httpClient
+            .post<SuccessResponseBody<User>>(`${this.endpointBase}/login`, body, httpOptions)
+            .pipe(map((res) => res.data ?? null));
     }
 
-    simpleSignUp$(body: SimpleSignupRequestBody): Observable<EmptyResponseBody> {
-        return this.httpClient.post<EmptyResponseBody>(
-            `${this.endpointBase}/simple-signup`,
-            body,
-            httpOptions,
-        );
+    simpleSignUp$(body: SimpleSignupRequestBody): Observable<User | null> {
+        return this.httpClient
+            .post<
+                SuccessResponseBody<User>
+            >(`${this.endpointBase}/simple-signup`, body, httpOptions)
+            .pipe(map((res) => res.data ?? null));
     }
 
     logout$() {

@@ -51,19 +51,19 @@ export class SimpleSignupComponent {
                     username: this.usernameFC.value,
                 }),
             )
-                .then(() => {
-                    this.invalidLogin = false;
-                    this.appService.isLoggedIn = true;
+                .then((user) => {
+                    this.invalidLogin = !user;
+                    this.appService.currentUser = user;
                     void this.router.navigateByUrl('/vote');
                 })
                 .catch((e) => {
                     console.error(e);
-                    this.appService.isLoggedIn = false;
+                    this.appService.currentUser = null;
                     this.invalidLogin = true;
                 });
         } catch (e) {
             console.error(e);
-            this.appService.isLoggedIn = false;
+            this.appService.currentUser = null;
             this.invalidLogin = true;
         }
     }

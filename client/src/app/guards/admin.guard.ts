@@ -1,13 +1,13 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { lastValueFrom } from 'rxjs';
-import { UserInfoService } from '../services/auth/user-info.service';
+
+import { AppService } from '../services/app.service';
 
 export const adminGuard: CanActivateFn = async () => {
-    const userInfoService = inject(UserInfoService);
+    const appService = inject(AppService);
     const router = inject(Router);
 
-    const user = await lastValueFrom(userInfoService.userInfo$());
+    const user = appService.currentUser;
     if (!user) {
         void router.navigateByUrl('/login');
         return false;
