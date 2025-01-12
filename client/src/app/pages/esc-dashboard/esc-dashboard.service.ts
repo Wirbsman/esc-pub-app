@@ -13,9 +13,9 @@ type InitInput = {
 
 @Injectable({ providedIn: 'root' })
 export class EscDashboardService {
-    countryAverageMap = new Map<number, string>();
-    countryRatingsMap = new Map<number, (User & Rating)[]>();
-    userAverageMap = new Map<number, string>();
+    countryAverageMap = new Map<string, string>();
+    countryRatingsMap = new Map<string, (User & Rating)[]>();
+    userAverageMap = new Map<string, string>();
 
     countries: ReadonlyArray<Country> = [];
     users: ReadonlyArray<User> = [];

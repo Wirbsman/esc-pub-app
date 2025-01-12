@@ -17,7 +17,7 @@ export class UserManagementComponent implements OnInit, OnDestroy {
     users: ReadonlyArray<User> = [];
 
     readonly form = new FormGroup({
-        id: new FormControl<number | null>(null), // is null for new users
+        id: new FormControl<string | null>(null), // is null for new users
         name: new FormControl<string | null>(null, {
             validators: [Validators.required],
             nonNullable: true,
@@ -45,7 +45,7 @@ export class UserManagementComponent implements OnInit, OnDestroy {
             .subscribe((users) => (this.users = users));
     }
 
-    get selectedUserId(): number | null {
+    get selectedUserId(): string | null {
         return this.form.value.id ?? null;
     }
 

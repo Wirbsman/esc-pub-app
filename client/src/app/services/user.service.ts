@@ -48,7 +48,7 @@ export class UserService {
         );
     }
 
-    async deleteUser(userId: number): Promise<boolean> {
+    async deleteUser(userId: string): Promise<boolean> {
         return lastValueFrom(
             this.httpClient
                 .delete<DeleteUserResponse>(`${this.endpointBase}/${userId}`, httpOptions)

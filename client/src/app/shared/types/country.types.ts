@@ -1,5 +1,5 @@
 export type Country = {
-    id: number;
+    id: string;
     name: string;
     flag: string;
     year: number;
