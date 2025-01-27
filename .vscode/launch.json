@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-EscServerApplication<esc_server>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "de.esc.server.EscServerApplication",
+            "projectName": "esc_server",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

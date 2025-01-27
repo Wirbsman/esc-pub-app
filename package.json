@@ -2,7 +2,7 @@
   "name": "client",
   "version": "0.0.0",
   "scripts": {
-    "prepare": "cd .. && husky install client/.husky",
+    "prepare": "husky install",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
