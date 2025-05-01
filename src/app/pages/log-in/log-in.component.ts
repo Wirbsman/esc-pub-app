@@ -9,6 +9,7 @@ import { MatInput } from '@angular/material/input';
 import { Router } from '@angular/router';
 import { lastValueFrom, Subject } from 'rxjs';
 
+import { HeaderComponent } from '../../components/header/header.component';
 import { AppService } from '../../services/app.service';
 import { AuthService, LoginRequestBody } from '../../services/auth/auth.service';
 import { FormData } from '../../shared/types/form.types';
@@ -18,6 +19,7 @@ import { FormData } from '../../shared/types/form.types';
     templateUrl: './log-in.component.html',
     styleUrls: ['./log-in.component.css'],
     imports: [
+        // frameworks
         NgIf,
         MatCard,
         MatCardContent,
@@ -30,6 +32,8 @@ import { FormData } from '../../shared/types/form.types';
         MatSuffix,
         MatIcon,
         MatButton,
+        // app
+        HeaderComponent,
     ],
 })
 export default class LogInComponent implements OnDestroy {

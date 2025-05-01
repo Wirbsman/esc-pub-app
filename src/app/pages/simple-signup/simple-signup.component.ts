@@ -8,6 +8,7 @@ import { MatInput } from '@angular/material/input';
 import { Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
 
+import { HeaderComponent } from '../../components/header/header.component';
 import { AppService } from '../../services/app.service';
 import { AuthService } from '../../services/auth/auth.service';
 
@@ -16,6 +17,7 @@ import { AuthService } from '../../services/auth/auth.service';
     templateUrl: './simple-signup.component.html',
     styleUrls: ['../log-in/log-in.component.css'],
     imports: [
+        // frameworks
         NgIf,
         MatCard,
         MatCardContent,
@@ -25,6 +27,8 @@ import { AuthService } from '../../services/auth/auth.service';
         MatInput,
         ReactiveFormsModule,
         MatButton,
+        // app
+        HeaderComponent,
     ],
 })
 export default class SimpleSignupComponent {
