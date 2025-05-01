@@ -1,0 +1,17 @@
+<app-header [title]="service.title$ | async" appearance="primary"></app-header>
+
+<div class="content country-list">
+  @for (country of service.countries(); track country.id) {
+    <app-country-artist-tile [countryAndArtist]="country" class="tile">
+      <button (click)="toEditor(country.id)">Edit</button>
+    </app-country-artist-tile>
+  } @empty {
+    <!-- TODO: empty state -->
+  }
+</div>
+
+<app-footer>
+  <button (click)="toVoting()">Voting</button>
+  <button (click)="toUserManagement()">Users</button>
+  <button (click)="toEditor()" style="margin-left: 5rem">Add</button>
+</app-footer>

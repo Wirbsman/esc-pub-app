@@ -1,0 +1,10 @@
+:root {
+  /* colors */
+  --color-primary: #ffd600;
+  --color-background: #fbf7f7;
+  --color-tile-background: #fbf7f7;
+  --color-header-background-primary: #ffd600;
+  --color-header-background-secondary: #fbf7f7;
+  --color-border: #ccc;
+  --color-shadow: #e9e9ea;
+}

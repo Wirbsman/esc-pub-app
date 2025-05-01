@@ -1,0 +1,23 @@
+.country-editor {
+  background-color: var(--color-background);
+}
+
+.input {
+  width: calc(100vw - 30px);
+  margin-bottom: 1rem;
+}
+
+.flag {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid #333;
+  margin-right: 10px;
+  margin-bottom: -8px;
+}
+
+.country-name {
+  display: inline-block;
+  padding-bottom: 8px;
+}

@@ -4,3 +4,5 @@ export type CountryAndArtist = {
     artistName: string;
     artistSong: string;
 };
+
+export type CountryAndArtistWithId = CountryAndArtist & { id: string };

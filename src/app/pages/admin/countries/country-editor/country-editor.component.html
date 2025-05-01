@@ -1,0 +1,41 @@
+<app-header appearance="primary"></app-header>
+
+<div class="content country-editor">
+  <form>
+    <mat-form-field class="input">
+      <mat-label>Country</mat-label>
+      <mat-select [formControl]="form.controls.countryIsoCode">
+        @for (option of OPTIONS; track option.isoCode) {
+          <mat-option [value]="option.isoCode">
+            <img [src]="option.isoCode | countryFlagSrc" [alt]="option.name + ' flag'" class="flag" />
+            <span class="country-name">{{ option.name }}</span>
+          </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="input">
+      <mat-label>Artist</mat-label>
+      <input id="artist" type="text" matInput [formControl]="form.controls.interpret" />
+    </mat-form-field>
+
+    <mat-form-field class="input">
+      <mat-label>Song</mat-label>
+      <input id="songname" type="text" matInput [formControl]="form.controls.songname" />
+    </mat-form-field>
+
+    <mat-form-field class="input">
+      <mat-label>Order</mat-label>
+      <input id="index" type="number" matInput [formControl]="form.controls.index" />
+    </mat-form-field>
+  </form>
+</div>
+
+<app-footer>
+  @if (countryId) {
+    <button (click)="delete()" style="margin-right: 5rem">Delete</button>
+  }
+
+  <button (click)="cancel()">Cancel</button>
+  <button (click)="save()">Save</button>
+</app-footer>

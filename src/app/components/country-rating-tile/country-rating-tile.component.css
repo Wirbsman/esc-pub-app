@@ -1,6 +1,6 @@
 .tile-container {
   width: calc(100% - 20px);
-  max-width: 350px;
+  max-width: 400px;
   background-color: #fbf7f4; /* Hintergrundfarbe */
   border: 1px solid #ccc; /* Rand */
   border-radius: 12px; /* Abgerundete Ecken */

@@ -1,7 +1,8 @@
 import { inject, Injectable } from '@angular/core';
-import { BehaviorSubject, lastValueFrom, Observable } from 'rxjs';
+import { BehaviorSubject, lastValueFrom, Observable, tap } from 'rxjs';
 
-import { Country } from '../shared/types/country.types';
+import { AddCountryBody, Country, UpdateCountryBodyWithId } from '../shared/types/country.types';
+import { getCountryName } from '../shared/utils/countries.utils';
 import { CountriesApiService } from './api/countries-api.service';
 
 @Injectable({ providedIn: 'root' })
@@ -18,8 +19,36 @@ export class CountriesService {
     }
 
     loadCountries(currentYear: number) {
-        lastValueFrom(this.apiService.fetchCountries$(currentYear))
-            .then((countries) => this._countries$.next(countries))
-            .catch(() => this._countries$.next([]));
+        lastValueFrom(this.fetchCountries$(currentYear)).catch(() => this._countries$.next([]));
+    }
+
+    fetchCountries$(currentYear: number): Observable<ReadonlyArray<Country>> {
+        return this.apiService
+            .fetchCountries$(currentYear)
+            .pipe(tap((countries) => this._countries$.next(countries)));
+    }
+
+    getCountryById$(countryId: string): Observable<Country | null> {
+        return this.apiService.getCountryById$(countryId);
+    }
+
+    async addCountry(newCountry: AddCountryBody): Promise<Country | null> {
+        return await this.apiService.addCountry({
+            ...newCountry,
+            flag: newCountry.countryIsoCode.toLowerCase(),
+            name: getCountryName(newCountry.countryIsoCode),
+        });
+    }
+
+    async updateCountry(country: UpdateCountryBodyWithId): Promise<Country | null> {
+        return await this.apiService.updateCountry({
+            ...country,
+            flag: country.countryIsoCode.toLowerCase(),
+            name: getCountryName(country.countryIsoCode),
+        });
+    }
+
+    async deleteCountry(countryId: string): Promise<boolean> {
+        return await this.apiService.deleteCountry(countryId);
     }
 }

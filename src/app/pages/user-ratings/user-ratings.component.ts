@@ -67,7 +67,7 @@ export default class UserRatingsComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         if (!this.countriesService.countries.length) {
-            this.countriesService.loadCountries();
+            this.countriesService.loadCountries(this.appService.currentYear);
         }
         this.triggerReload$.next();
     }

@@ -8,10 +8,12 @@ export const AppRouting = {
 export const AppRoutingParams = {
     CurrentYear: 'currentYear',
     CountryIsoCode: 'countryIsoCode',
+    CountryId: 'countryId',
 } as const;
 
 export const AdminRouting = {
     BasePath: 'admin',
     CountriesSubPath: 'countries',
     UsersSubPath: 'users',
+    NewSubPath: 'new',
 } as const;
