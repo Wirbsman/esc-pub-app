@@ -3,6 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { BehaviorSubject, combineLatest, Subject, switchMap, takeUntil } from 'rxjs';
 
+import { FooterComponent } from '../../components/footer/footer.component';
 import { CountriesService } from '../../services/countries.service';
 import { RatingsService } from '../../services/ratings.service';
 import { UserService } from '../../services/user.service';
@@ -15,7 +16,7 @@ import { EscDashboardService } from './esc-dashboard.service';
     selector: 'app-esc-dashboard',
     templateUrl: './esc-dashboard.component.html',
     styleUrls: ['./esc-dashboard.component.css'],
-    imports: [NgFor, RouterLink, CountryDashboardTileComponent],
+    imports: [NgFor, RouterLink, CountryDashboardTileComponent, FooterComponent],
 })
 export default class EscDashboardComponent implements OnInit, OnDestroy {
     private readonly countries$ = new BehaviorSubject<ReadonlyArray<Country>>([]);

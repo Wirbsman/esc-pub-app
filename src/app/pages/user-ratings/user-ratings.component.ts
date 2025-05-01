@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { combineLatest, Subject, switchMap, takeUntil } from 'rxjs';
 
+import { FooterComponent } from '../../components/footer/footer.component';
 import { AdminRouting, AppRouting } from '../../routing.constants';
 import { AppService } from '../../services/app.service';
 import { AuthService } from '../../services/auth/auth.service';
@@ -17,7 +18,7 @@ import { UserRatingTileComponent } from './user-rating-tile/user-rating-tile.com
     selector: 'app-user-ratings',
     templateUrl: './user-ratings.component.html',
     styleUrls: ['./user-ratings.component.css'],
-    imports: [NgIf, NgFor, AsyncPipe, FormsModule, UserRatingTileComponent],
+    imports: [NgIf, NgFor, AsyncPipe, FormsModule, UserRatingTileComponent, FooterComponent],
 })
 export default class UserRatingsComponent implements OnInit, OnDestroy {
     readonly avatarPath = 'assets/avatar/';

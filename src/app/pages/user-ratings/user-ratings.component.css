@@ -43,31 +43,3 @@
 .tile {
   width: 100%;
 }
-
-.footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: #fbf7f7;
-  padding: 15px 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  border-top: 1px solid #ccc;
-  box-shadow: 0 0 3px 3px #e9e9ea; /* Schatten */
-}
-
-.button {
-  background-color: #ffd600; /* Hintergrundfarbe für Buttons */
-  padding: 10px 20px; /* Innenabstand anpassen */
-  border: none; /* Kein Rand */
-  border-radius: 5px; /* Abgerundete Ecken */
-  border-color: black;
-  cursor: pointer;
-  margin: 0 10px;
-}
-
-.button:hover {
-  background-color: #fc9000; /* Hintergrundfarbe bei Hover */
-}

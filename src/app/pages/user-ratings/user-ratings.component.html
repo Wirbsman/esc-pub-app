@@ -16,8 +16,8 @@
     </div>
   </div>
 
-  <div class="footer">
-    <button class="button" (click)="toDashboard()">Dashboard</button>
-    <button class="button" *ngIf="appService.isAdmin$ | async" (click)="toAdminPanel()">Admin</button>
-  </div>
+  <app-footer>
+    <button (click)="toDashboard()">Dashboard</button>
+    <button *ngIf="appService.isAdmin$ | async" (click)="toAdminPanel()">Admin</button>
+  </app-footer>
 </ng-container>
