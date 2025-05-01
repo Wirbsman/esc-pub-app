@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { combineLatest, Subject, switchMap, takeUntil } from 'rxjs';
 
+import { AdminRouting, AppRouting } from '../../routing.constants';
 import { AppService } from '../../services/app.service';
 import { AuthService } from '../../services/auth/auth.service';
 import { CountriesService } from '../../services/countries.service';
@@ -89,10 +90,10 @@ export default class UserRatingsComponent implements OnInit, OnDestroy {
     }
 
     toDashboard() {
-        void this.router.navigateByUrl('/dashboard');
+        void this.router.navigateByUrl(`/${AppRouting.Dashboard}`);
     }
 
-    toUserManagement() {
-        void this.router.navigateByUrl('/user-management');
+    toAdminPanel() {
+        void this.router.navigateByUrl(`/${AdminRouting.BasePath}`);
     }
 }

@@ -8,10 +8,10 @@ import {
     CountryRatingTileComponent,
     CountryUserRating,
 } from '../../../../components/country-rating-tile/country-rating-tile.component';
+import { AppRoutingParams } from '../../../../routing.constants';
 import { Country } from '../../../../shared/types/country.types';
 import { isDefined } from '../../../../shared/utils/is-defined.utils';
 import { EscDashboardService } from '../../esc-dashboard.service';
-import { CountryRoutingParam } from '../../routing';
 
 @Component({
     selector: 'app-country-votes',
@@ -43,7 +43,7 @@ export default class CountryVotesComponent implements OnInit, OnDestroy {
         this.route.paramMap
             .pipe(
                 takeUntil(this.destroyed$),
-                map((paramMap) => paramMap.get(CountryRoutingParam.CountryIsoCode)),
+                map((paramMap) => paramMap.get(AppRoutingParams.CountryIsoCode)),
                 tap((flag) => !flag && this.toDashboard()),
                 filter(isDefined),
             )
