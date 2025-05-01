@@ -6,7 +6,7 @@ import { BehaviorSubject, combineLatest, Subject, switchMap, takeUntil } from 'r
 import { FooterComponent } from '../../components/footer/footer.component';
 import { CountriesService } from '../../services/countries.service';
 import { RatingsService } from '../../services/ratings.service';
-import { UserService } from '../../services/user.service';
+import { UsersService } from '../../services/users.service';
 import { Country } from '../../shared/types/country.types';
 import { User } from '../../shared/types/user.types';
 import { CountryDashboardTileComponent } from './components/country-dashboard-tile/country-dashboard-tile.component';
@@ -27,7 +27,7 @@ export default class EscDashboardComponent implements OnInit, OnDestroy {
         private readonly router: Router,
         private readonly escDashboardService: EscDashboardService,
         private readonly countriesService: CountriesService,
-        private readonly userService: UserService,
+        private readonly userService: UsersService,
         private readonly ratingsServices: RatingsService,
     ) {
         this.triggerReload$
@@ -36,8 +36,8 @@ export default class EscDashboardComponent implements OnInit, OnDestroy {
                 switchMap(() =>
                     combineLatest([
                         this.countries$,
-                        this.userService.allUsers$(),
-                        this.ratingsServices.allRatings$(),
+                        this.userService.allUsers$,
+                        this.ratingsServices.allRatings$,
                     ]),
                 ),
             )

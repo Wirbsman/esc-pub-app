@@ -41,7 +41,7 @@ export default class UserRatingsComponent implements OnInit, OnDestroy {
                 switchMap(() =>
                     combineLatest([
                         this.countriesService.countries$,
-                        this.ratingsService.userRatings$(),
+                        this.ratingsService.userRatings$,
                     ]),
                 ),
             )

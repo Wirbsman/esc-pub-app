@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { lastValueFrom, Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
-import { API_HOST, httpOptions } from '../shared/constants/api';
-import { EmptyResponseBody, SuccessResponseBody } from '../shared/types/common-response.types';
-import { AddUserBody, UpdateUserBodyWithId, User } from '../shared/types/user.types';
+import { API_HOST, httpOptions } from '../../shared/constants/api';
+import { EmptyResponseBody, SuccessResponseBody } from '../../shared/types/common-response.types';
+import { AddUserBody, UpdateUserBodyWithId, User } from '../../shared/types/user.types';
 
 type AllUsersResponse = SuccessResponseBody<ReadonlyArray<User>>;
 type AddUserResponse = SuccessResponseBody<User>;
@@ -15,10 +15,9 @@ type DeleteUserResponse = EmptyResponseBody;
 const API_BASE = 'api/v1/users';
 
 @Injectable({ providedIn: 'root' })
-export class UserService {
+export class UsersApiService {
     private readonly endpointBase = [API_HOST, API_BASE].join('/');
-
-    constructor(private readonly httpClient: HttpClient) {}
+    private readonly httpClient = inject(HttpClient);
 
     allUsers$(): Observable<ReadonlyArray<User>> {
         return this.httpClient.get<AllUsersResponse>(this.endpointBase, httpOptions).pipe(

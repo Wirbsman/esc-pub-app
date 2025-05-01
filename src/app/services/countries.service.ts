@@ -1,22 +1,13 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, lastValueFrom, Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { inject, Injectable } from '@angular/core';
+import { BehaviorSubject, lastValueFrom, Observable } from 'rxjs';
 
-import { API_HOST, httpOptions } from '../shared/constants/api';
-import { SuccessResponseBody } from '../shared/types/common-response.types';
 import { Country } from '../shared/types/country.types';
-
-type GetCountriesResponse = SuccessResponseBody<Country[]>;
-
-const API_BASE = 'api/v1/countries';
+import { CountriesApiService } from './api/countries-api.service';
 
 @Injectable({ providedIn: 'root' })
 export class CountriesService {
-    private _countries$ = new BehaviorSubject<ReadonlyArray<Country>>([]);
-    private readonly endpointBase = [API_HOST, API_BASE].join('/');
-
-    constructor(private readonly httpClient: HttpClient) {}
+    private readonly _countries$ = new BehaviorSubject<ReadonlyArray<Country>>([]);
+    private readonly apiService = inject(CountriesApiService);
 
     get countries$(): Observable<ReadonlyArray<Country>> {
         return this._countries$.asObservable();
@@ -26,16 +17,9 @@ export class CountriesService {
         return this._countries$.value;
     }
 
-    loadCountries() {
-        lastValueFrom(this.fetchCountries$())
+    loadCountries(currentYear: number) {
+        lastValueFrom(this.apiService.fetchCountries$(currentYear))
             .then((countries) => this._countries$.next(countries))
             .catch(() => this._countries$.next([]));
-    }
-
-    private fetchCountries$(): Observable<ReadonlyArray<Country>> {
-        return this.httpClient.get<GetCountriesResponse>(this.endpointBase, httpOptions).pipe(
-            map((res) => res.data ?? []),
-            catchError(() => of([])),
-        );
     }
 }

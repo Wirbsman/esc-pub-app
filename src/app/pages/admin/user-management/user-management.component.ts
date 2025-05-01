@@ -4,7 +4,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router } from '@angular/router';
 import { Subject, switchMap, takeUntil } from 'rxjs';
 
-import { UserService } from '../../../services/user.service';
+import { UsersService } from '../../../services/users.service';
 import { User } from '../../../shared/types/user.types';
 
 @Component({
@@ -34,13 +34,13 @@ export default class UserManagementComponent implements OnInit, OnDestroy {
     private readonly destroyed$ = new Subject<void>();
 
     constructor(
-        private userService: UserService,
+        private userService: UsersService,
         private router: Router,
     ) {
         this.triggerReload$
             .pipe(
                 takeUntil(this.destroyed$),
-                switchMap(() => this.userService.allUsers$()),
+                switchMap(() => this.userService.allUsers$),
             )
             .subscribe((users) => (this.users = users));
     }
