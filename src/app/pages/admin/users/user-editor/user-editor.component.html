@@ -1,0 +1,47 @@
+<app-header appearance="primary"></app-header>
+
+<div class="content user-editor">
+  <form>
+    <mat-form-field class="input">
+      <mat-label>Name</mat-label>
+      <input id="name" type="text" matInput [formControl]="form.controls.name" />
+    </mat-form-field>
+
+    <mat-form-field class="input">
+      <mat-label>Icon</mat-label>
+      <mat-select [formControl]="form.controls.icon">
+        <mat-option>&ndash;</mat-option>
+        @for (option of OPTIONS; track option.value) {
+          <mat-option [value]="option.value">
+            <img [src]="option.value | userAvatarSrc" [alt]="option.label + ' avatar'" class="avatar" />
+            <span class="avatar-name">{{ option.label }}</span>
+          </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    @if (!isAdmin()) {
+      <mat-form-field class="input">
+        <mat-label>Password</mat-label>
+        <input id="password" type="password" matInput [formControl]="form.controls.password" />
+      </mat-form-field>
+    }
+
+    <mat-slide-toggle [formControl]="form.controls.admin" class="input">Admin</mat-slide-toggle>
+  </form>
+
+  @if (form.controls.icon.value; as avatar) {
+    <div class="preview-container">
+      <img [src]="avatar | userAvatarSrc" [alt]="avatar + ' avatar'" class="avatar-preview" />
+    </div>
+  }
+</div>
+
+<app-footer>
+  @if (userId) {
+    <button (click)="delete()" style="margin-right: 5rem">Delete</button>
+  }
+
+  <button (click)="cancel()">Cancel</button>
+  <button (click)="save()">Save</button>
+</app-footer>

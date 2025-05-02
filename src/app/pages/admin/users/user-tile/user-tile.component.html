@@ -1,0 +1,10 @@
+@if (user(); as user) {
+  <div class="tile-container">
+    <div class="tile-content">
+      <div class="user-name">{{ user.name }}</div>
+      <div class="user-status">{{ status() }}</div>
+    </div>
+
+    <ng-content />
+  </div>
+}

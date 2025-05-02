@@ -1,0 +1,17 @@
+<app-header appearance="primary"></app-header>
+
+<div class="content user-list">
+  @for (user of service.users(); track user.id) {
+    <app-user-tile [user]="user" class="tile">
+      <button (click)="toEditor(user.id)">Edit</button>
+    </app-user-tile>
+  } @empty {
+    <!-- TODO: empty state -->
+  }
+</div>
+
+<app-footer>
+  <button (click)="toVoting()">Voting</button>
+  <button (click)="toCountryManagement()">Countries</button>
+  <button (click)="toEditor()" style="margin-left: 5rem">Add</button>
+</app-footer>

@@ -8,6 +8,7 @@ import { EmptyResponseBody, SuccessResponseBody } from '../../shared/types/commo
 import { AddUserBody, UpdateUserBodyWithId, User } from '../../shared/types/user.types';
 
 type AllUsersResponse = SuccessResponseBody<ReadonlyArray<User>>;
+type GetUserResponse = SuccessResponseBody<User>;
 type AddUserResponse = SuccessResponseBody<User>;
 type UpdateUserResponse = SuccessResponseBody<User>;
 type DeleteUserResponse = EmptyResponseBody;
@@ -19,10 +20,20 @@ export class UsersApiService {
     private readonly endpointBase = [API_HOST, API_BASE].join('/');
     private readonly httpClient = inject(HttpClient);
 
-    allUsers$(): Observable<ReadonlyArray<User>> {
-        return this.httpClient.get<AllUsersResponse>(this.endpointBase, httpOptions).pipe(
-            map((res) => res.data ?? []),
-            catchError(this.handleError('allUsers', [])),
+    allUsers$(year: number): Observable<ReadonlyArray<User>> {
+        return this.httpClient
+            .get<AllUsersResponse>(this.endpointBase, { ...httpOptions, params: { year } })
+            .pipe(
+                map((res) => res.data ?? []),
+                catchError(this.handleError('allUsers', [])),
+            );
+    }
+
+    getUserById$(userId: string): Observable<User | null> {
+        const endpoint = [this.endpointBase, userId].join('/');
+        return this.httpClient.get<GetUserResponse>(endpoint, httpOptions).pipe(
+            map((res) => res.data ?? null),
+            catchError(this.handleError('getUserById', null)),
         );
     }
 

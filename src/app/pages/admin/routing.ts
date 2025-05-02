@@ -4,7 +4,7 @@ import { AdminRouting } from '../../routing.constants';
 const ROUTES: Routes = [
     {
         path: `${AdminRouting.UsersSubPath}`,
-        loadComponent: () => import('./user-management/user-management.component'),
+        loadChildren: () => import('./users/routing'),
     },
     {
         path: `${AdminRouting.CountriesSubPath}`,

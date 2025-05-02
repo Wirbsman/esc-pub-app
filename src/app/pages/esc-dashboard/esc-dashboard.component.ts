@@ -36,7 +36,7 @@ export default class EscDashboardComponent implements OnInit, OnDestroy {
                 switchMap(() =>
                     combineLatest([
                         this.countries$,
-                        this.userService.allUsers$,
+                        this.userService.allUsers$(this.appService.currentYear),
                         this.ratingsServices.allRatings$,
                     ]),
                 ),

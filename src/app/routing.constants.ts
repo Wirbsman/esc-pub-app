@@ -9,6 +9,7 @@ export const AppRoutingParams = {
     CurrentYear: 'currentYear',
     CountryIsoCode: 'countryIsoCode',
     CountryId: 'countryId',
+    UserId: 'userId',
 } as const;
 
 export const AdminRouting = {

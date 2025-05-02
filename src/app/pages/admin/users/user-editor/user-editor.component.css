@@ -1,0 +1,31 @@
+.user-editor {
+  background-color: var(--color-background);
+}
+
+.input {
+  width: calc(100vw - 30px);
+  margin-bottom: 1rem;
+}
+
+.avatar {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+  margin-bottom: -8px;
+}
+
+.preview-container {
+  width: calc(100vw - 30px);
+  text-align: center;
+}
+
+.avatar-preview {
+  display: inline-block;
+  width: 300px;
+}
+
+.avatar-name {
+  display: inline-block;
+  padding-bottom: 8px;
+}
