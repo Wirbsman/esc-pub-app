@@ -10,6 +10,7 @@ import { AppService } from '../../services/app.service';
 import { AuthService } from '../../services/auth/auth.service';
 import { CountriesService } from '../../services/countries.service';
 import { RatingsService } from '../../services/ratings.service';
+import { UserAvatarSrcPipe } from '../../shared/pipes/user-avatar-src.pipe';
 import { UserRating } from '../../shared/types/rating.types';
 import { isDefined } from '../../shared/utils/is-defined.utils';
 import { UserRatingTileComponent } from './user-rating-tile/user-rating-tile.component';
@@ -18,11 +19,17 @@ import { UserRatingTileComponent } from './user-rating-tile/user-rating-tile.com
     selector: 'app-user-ratings',
     templateUrl: './user-ratings.component.html',
     styleUrls: ['./user-ratings.component.css'],
-    imports: [NgIf, NgFor, AsyncPipe, FormsModule, UserRatingTileComponent, FooterComponent],
+    imports: [
+        NgIf,
+        NgFor,
+        AsyncPipe,
+        FormsModule,
+        UserRatingTileComponent,
+        FooterComponent,
+        UserAvatarSrcPipe,
+    ],
 })
 export default class UserRatingsComponent implements OnInit, OnDestroy {
-    readonly avatarPath = 'assets/avatar/';
-
     private _userRatings: ReadonlyArray<UserRating> = [];
 
     private readonly triggerReload$ = new Subject<void>();

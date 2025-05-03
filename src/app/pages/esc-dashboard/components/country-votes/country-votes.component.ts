@@ -9,6 +9,7 @@ import {
     CountryUserRating,
 } from '../../../../components/country-rating-tile/country-rating-tile.component';
 import { AppRoutingParams } from '../../../../routing.constants';
+import { CountryFlagSrcPipe } from '../../../../shared/pipes/country-flag-src.pipe';
 import { Country } from '../../../../shared/types/country.types';
 import { isDefined } from '../../../../shared/utils/is-defined.utils';
 import { EscDashboardService } from '../../esc-dashboard.service';
@@ -17,11 +18,9 @@ import { EscDashboardService } from '../../esc-dashboard.service';
     selector: 'app-country-votes',
     templateUrl: './country-votes.component.html',
     styleUrls: ['./country-votes.component.css'],
-    imports: [NgIf, NgForOf, CountryRatingTileComponent],
+    imports: [NgIf, NgForOf, CountryRatingTileComponent, CountryFlagSrcPipe],
 })
 export default class CountryVotesComponent implements OnInit, OnDestroy {
-    readonly imagePath = 'assets/images/flags80/';
-
     private _country?: Country;
     private _userRatings: CountryUserRating[] = [];
 

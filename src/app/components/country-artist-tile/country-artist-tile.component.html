@@ -1,5 +1,5 @@
 <div *ngIf="countryAndArtist" class="tile-container">
-  <img class="country-flag" src="{{ imagePath + countryAndArtist.flag }}.png" alt="Flag" />
+  <img class="country-flag" [src]="countryAndArtist.flag | countryFlagSrc" [alt]="countryAndArtist.name + ' flag'" />
   <div class="tile-content">
     <div class="country-name">{{ countryAndArtist.name }}</div>
     <div class="artist-name">{{ countryAndArtist.artistName }}</div>
