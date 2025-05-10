@@ -35,19 +35,6 @@ header img.right-icon {
   row-gap: 5px;
 }
 
-.footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: #fbf7f7;
-  padding: 15px 0; /* Innenabstand anpassen */
-  display: flex; /* Flexbox verwenden */
-  justify-content: center; /* Inhalt links ausrichten */
-  border-top: 1px solid #ccc;
-  box-shadow: 0 0 3px 3px #e9e9ea; /* Schatten */
-}
-
 .button {
   background-color: #ffd600; /* Hintergrundfarbe für die Buttons */
   color: #000; /* Textfarbe für die Buttons */

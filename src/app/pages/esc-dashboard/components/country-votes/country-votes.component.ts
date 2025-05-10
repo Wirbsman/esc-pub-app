@@ -8,6 +8,7 @@ import {
     CountryRatingTileComponent,
     CountryUserRating,
 } from '../../../../components/country-rating-tile/country-rating-tile.component';
+import { FooterComponent } from '../../../../components/footer/footer.component';
 import { HeaderComponent } from '../../../../components/header/header.component';
 import { AppRoutingParams } from '../../../../routing.constants';
 import { CountryFlagSrcPipe } from '../../../../shared/pipes/country-flag-src.pipe';
@@ -19,7 +20,14 @@ import { EscDashboardService } from '../../esc-dashboard.service';
     selector: 'app-country-votes',
     templateUrl: './country-votes.component.html',
     styleUrls: ['./country-votes.component.css'],
-    imports: [NgIf, NgForOf, HeaderComponent, CountryRatingTileComponent, CountryFlagSrcPipe],
+    imports: [
+        NgIf,
+        NgForOf,
+        HeaderComponent,
+        FooterComponent,
+        CountryRatingTileComponent,
+        CountryFlagSrcPipe,
+    ],
 })
 export default class CountryVotesComponent implements OnInit, OnDestroy {
     private _country?: Country;
