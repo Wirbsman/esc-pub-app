@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { combineLatest, Subject, switchMap, takeUntil } from 'rxjs';
 
 import { FooterComponent } from '../../components/footer/footer.component';
+import { HeaderComponent } from '../../components/header/header.component';
 import { AdminRouting, AppRouting } from '../../routing.constants';
 import { AppService } from '../../services/app.service';
 import { AuthService } from '../../services/auth/auth.service';
@@ -24,9 +25,10 @@ import { UserRatingTileComponent } from './user-rating-tile/user-rating-tile.com
         NgFor,
         AsyncPipe,
         FormsModule,
-        UserRatingTileComponent,
+        HeaderComponent,
         FooterComponent,
         UserAvatarSrcPipe,
+        UserRatingTileComponent,
     ],
 })
 export default class UserRatingsComponent implements OnInit, OnDestroy {

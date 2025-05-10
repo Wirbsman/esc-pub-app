@@ -1,21 +1,5 @@
-.header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 55px;
-  padding: 15px;
-  background-color: #ffd600; /* Hintergrundfarbe */
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #ccc;
-  box-shadow: 3px 3px 0 0 #e9e9ea; /* Schatten */
-}
-
-.header img.left-icon,
-.header img.right-icon {
-  max-width: 140px; /* Neue maximale Breite */
+header img.right-icon {
+  max-width: 140px;
 }
 
 .country-flag {

@@ -14,6 +14,7 @@ type HeaderAppearance = 'primary' | 'normal';
             @if (title(); as title) {
                 <h1>{{ title }}</h1>
             }
+            <ng-content />
         </header>
     `,
     styles: `

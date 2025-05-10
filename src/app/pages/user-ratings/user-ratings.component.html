@@ -1,6 +1,5 @@
 <ng-container *ngIf="appService.currentUser$ | async as currentUser">
-  <div class="header ratings-header">
-    <img class="left-icon" src="assets/images/esc_ods_2025.svg" alt="Icon" />
+  <app-header>
     <h2>{{ currentUser.name }}</h2>
     <img
       *ngIf="currentUser.icon"
@@ -8,9 +7,9 @@
       [src]="currentUser.icon | userAvatarSrc"
       [alt]="currentUser.name + ' avatar'"
     />
-  </div>
+  </app-header>
 
-  <div class="content user-ratings-container">
+  <div class="content">
     <div class="tiles-container">
       <app-user-rating-tile
         *ngFor="let userRating of userRatings"

@@ -1,17 +1,5 @@
-.user-ratings-container {
-  background-color: var(--color-background);
-}
-
-.ratings-header {
-  background-color: var(--color-background);
-}
-
-.ratings-header img.left-icon,
-.ratings-header img.right-icon {
+:host ::ng-deep header img.right-icon {
   max-width: 140px;
-}
-
-.ratings-header img.right-icon {
   max-height: 80px;
 }
 
