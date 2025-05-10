@@ -10,7 +10,7 @@ type HeaderAppearance = 'primary' | 'normal';
             [class.primary]="appearance() === 'primary'"
             [class.secondary]="appearance() === 'normal'"
         >
-            <img class="left-icon" src="assets/images/esc_ods.svg" alt="Icon" />
+            <img class="left-icon" src="assets/images/esc_ods_2025.svg" alt="Icon" />
             @if (title(); as title) {
                 <h1>{{ title }}</h1>
             }
