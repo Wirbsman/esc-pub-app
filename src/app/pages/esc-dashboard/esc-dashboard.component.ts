@@ -25,6 +25,8 @@ import { CountryDashboardTileComponent } from './components/country-dashboard-ti
 import { EscDashboardService } from './esc-dashboard.service';
 import { countriesWithAverageSortFn } from './utils/sorting.utils';
 
+const REFRESH_INTERVAL_IN_SECONDS = 60;
+
 @Component({
     selector: 'app-esc-dashboard',
     templateUrl: './esc-dashboard.component.html',
@@ -45,17 +47,27 @@ export default class EscDashboardComponent implements OnInit, OnDestroy {
     private readonly _countriesSortedForList$ = new BehaviorSubject<ReadonlyArray<Country>>([]);
     private readonly triggerReload$ = new Subject<void>();
     private readonly destroyed$ = new Subject<void>();
+    private readonly refreshTriggered = new BehaviorSubject<boolean>(false);
 
     constructor(
+        private readonly appService: AppService,
         private readonly router: Router,
         private readonly escDashboardService: EscDashboardService,
         private readonly countriesService: CountriesService,
         private readonly userService: UsersService,
         private readonly ratingsServices: RatingsService,
     ) {
+        this.countriesService.countries$
+            .pipe(
+                takeUntilDestroyed(),
+                filter(() => !this.countries$.value.length),
+            )
+            .subscribe((countries) => this.countries$.next(countries));
+
         this.triggerReload$
             .pipe(
                 takeUntil(this.destroyed$),
+                filter(() => !this.refreshTriggered.value),
                 switchMap(() =>
                     combineLatest([
                         this.countries$,
@@ -71,7 +83,13 @@ export default class EscDashboardComponent implements OnInit, OnDestroy {
                         countriesWithAverageSortFn,
                     ),
                 );
+                this.refreshTriggered.next(false);
             });
+
+        interval(REFRESH_INTERVAL_IN_SECONDS * 1000)
+            .pipe(takeUntilDestroyed())
+            .subscribe(() => this.refresh());
+    }
 
     get countriesSortedForList$(): Observable<ReadonlyArray<Country>> {
         return this._countriesSortedForList$.asObservable();
@@ -82,7 +100,9 @@ export default class EscDashboardComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.initCountries();
+        if (!this.countriesService.countries.length) {
+            this.countriesService.loadCountries(this.appService.currentYear);
+        }
         this.refresh();
     }
 
@@ -96,11 +116,6 @@ export default class EscDashboardComponent implements OnInit, OnDestroy {
 
     refresh(): void {
         this.triggerReload$.next();
-    }
-
-    private initCountries(): void {
-        this.countries$.next(
-            [...this.countriesService.countries].sort((cA, cB) => cA.index - cB.index),
-        );
+        this.refreshTriggered.next(true);
     }
 }
