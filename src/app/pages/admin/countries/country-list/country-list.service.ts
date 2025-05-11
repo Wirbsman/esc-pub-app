@@ -37,12 +37,13 @@ export class CountryListService {
                 this._countries.set(
                     [...countries]
                         .sort(sortByIndexAsc)
-                        .map(({ id, countryIsoCode, interpret, songname }) => ({
+                        .map(({ id, countryIsoCode, interpret, songname, index }) => ({
                             id,
                             name: getCountryName(countryIsoCode),
                             artistName: interpret,
                             artistSong: songname,
                             flag: countryIsoCode.toLowerCase(),
+                            order: index + 1,
                         })),
                 ),
             );

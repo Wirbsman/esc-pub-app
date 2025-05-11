@@ -53,8 +53,8 @@ export class UserRatingTileComponent implements OnInit, OnDestroy {
         if (!this.userRating) {
             return undefined;
         }
-        const { flag, name, artistName, artistSong } = this.userRating;
-        return { flag, name, artistName, artistSong };
+        const { flag, name, artistName, artistSong, countryIndex } = this.userRating;
+        return { flag, name, artistName, artistSong, order: countryIndex + 1 };
     }
 
     get userRating(): UserRating | undefined {

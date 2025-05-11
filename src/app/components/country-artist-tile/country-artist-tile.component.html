@@ -1,7 +1,12 @@
 <div *ngIf="countryAndArtist" class="tile-container">
   <img class="country-flag" [src]="countryAndArtist.flag | countryFlagSrc" [alt]="countryAndArtist.name + ' flag'" />
   <div class="tile-content">
-    <div class="country-name">{{ countryAndArtist.name }}</div>
+    <div class="country-name">
+      @if (countryAndArtist.order) {
+        {{ countryAndArtist.order }}.
+      }
+      {{ countryAndArtist.name }}
+    </div>
     <div class="artist-name">{{ countryAndArtist.artistName }}</div>
     <div class="artist-song">{{ countryAndArtist.artistSong }}</div>
   </div>
