@@ -3,6 +3,7 @@ import { Country } from '../../shared/types/country.types';
 import { Rating } from '../../shared/types/rating.types';
 import { User } from '../../shared/types/user.types';
 import { isDefined } from '../../shared/utils/is-defined.utils';
+import { CountryWithAverage } from './esc-dashboard.types';
 import { ratingsAverage } from './utils/ratings.utils';
 
 type InitInput = {
@@ -13,11 +14,12 @@ type InitInput = {
 
 @Injectable({ providedIn: 'root' })
 export class EscDashboardService {
-    countryAverageMap = new Map<string, string>();
-    countryRatingsMap = new Map<string, (User & Rating)[]>();
-    userAverageMap = new Map<string, string>();
+    readonly countryAverageMap = new Map<string, string>();
+    readonly countryRatingsMap = new Map<string, (User & Rating)[]>();
+    readonly userAverageMap = new Map<string, string>();
 
     countries: ReadonlyArray<Country> = [];
+    countriesWithAverage: ReadonlyArray<CountryWithAverage> = [];
     users: ReadonlyArray<User> = [];
     ratings: ReadonlyArray<Rating> = [];
 
@@ -28,6 +30,7 @@ export class EscDashboardService {
         this.countries = [...countries];
         this.users = [...users];
         this.ratings = [...ratings];
+        this.buildCountriesWithAverage({ countries });
     }
 
     private buildCountryAverageMap({
@@ -40,6 +43,13 @@ export class EscDashboardService {
             );
             this.countryAverageMap.set(country.id, ratingsAverage(countryRatings));
         });
+    }
+
+    private buildCountriesWithAverage({ countries }: Pick<InitInput, 'countries'>): void {
+        this.countriesWithAverage = countries.map((country) => ({
+            ...country,
+            average: this.countryAverageMap.get(country.id),
+        }));
     }
 
     private buildCountryRatingsMap({ countries, users, ratings }: InitInput) {

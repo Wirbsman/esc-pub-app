@@ -5,7 +5,7 @@
 <div class="content">
   <div class="tiles-container">
     <app-country-dashboard-tile
-      *ngFor="let country of countries"
+      *ngFor="let country of countriesSortedForList$ | async"
       [country]="country"
       [routerLink]="country.flag"
       class="tile"

@@ -1,10 +1,21 @@
-import { NgFor } from '@angular/common';
+import { AsyncPipe, NgFor } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router, RouterLink } from '@angular/router';
-import { BehaviorSubject, combineLatest, Subject, switchMap, takeUntil } from 'rxjs';
+import {
+    BehaviorSubject,
+    combineLatest,
+    filter,
+    interval,
+    Observable,
+    Subject,
+    switchMap,
+    takeUntil,
+} from 'rxjs';
 
 import { FooterComponent } from '../../components/footer/footer.component';
 import { HeaderComponent } from '../../components/header/header.component';
+import { AppService } from '../../services/app.service';
 import { CountriesService } from '../../services/countries.service';
 import { RatingsService } from '../../services/ratings.service';
 import { UsersService } from '../../services/users.service';
@@ -12,15 +23,26 @@ import { Country } from '../../shared/types/country.types';
 import { User } from '../../shared/types/user.types';
 import { CountryDashboardTileComponent } from './components/country-dashboard-tile/country-dashboard-tile.component';
 import { EscDashboardService } from './esc-dashboard.service';
+import { countriesWithAverageSortFn } from './utils/sorting.utils';
 
 @Component({
     selector: 'app-esc-dashboard',
     templateUrl: './esc-dashboard.component.html',
     styleUrls: ['./esc-dashboard.component.css'],
-    imports: [NgFor, RouterLink, HeaderComponent, FooterComponent, CountryDashboardTileComponent],
+    imports: [
+        // framework
+        NgFor,
+        AsyncPipe,
+        RouterLink,
+        // app
+        HeaderComponent,
+        FooterComponent,
+        CountryDashboardTileComponent,
+    ],
 })
 export default class EscDashboardComponent implements OnInit, OnDestroy {
     private readonly countries$ = new BehaviorSubject<ReadonlyArray<Country>>([]);
+    private readonly _countriesSortedForList$ = new BehaviorSubject<ReadonlyArray<Country>>([]);
     private readonly triggerReload$ = new Subject<void>();
     private readonly destroyed$ = new Subject<void>();
 
@@ -42,13 +64,17 @@ export default class EscDashboardComponent implements OnInit, OnDestroy {
                     ]),
                 ),
             )
-            .subscribe(([countries, users, ratings]) =>
-                this.escDashboardService.init({ countries, users, ratings }),
-            );
-    }
+            .subscribe(([countries, users, ratings]) => {
+                this.escDashboardService.init({ countries, users, ratings });
+                this._countriesSortedForList$.next(
+                    [...this.escDashboardService.countriesWithAverage].sort(
+                        countriesWithAverageSortFn,
+                    ),
+                );
+            });
 
-    get countries(): ReadonlyArray<Country> {
-        return this.countries$.value;
+    get countriesSortedForList$(): Observable<ReadonlyArray<Country>> {
+        return this._countriesSortedForList$.asObservable();
     }
 
     get users(): ReadonlyArray<User> {
