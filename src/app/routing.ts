@@ -27,6 +27,6 @@ export const APP_ROUTES: Routes = [
         loadChildren: () => import('./pages/admin/routing'),
         canActivate: [adminGuard],
     },
-    { path: '', redirectTo: 'login', pathMatch: 'full' },
-    { path: '**', redirectTo: 'vote' },
+    { path: '', redirectTo: `${AppRouting.SimpleSignUp}`, pathMatch: 'full' },
+    { path: '**', redirectTo: `${AppRouting.Voting}` },
 ];
